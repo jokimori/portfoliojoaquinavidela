@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joaquina Videla | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            padding-top: 0;
+        }
+
+        /* Remove all borders */
+        .layout-container {
+            border: none;
+        }
+
+        .top-nav {
+            border-bottom: none;
+        }
+
+        .about-grid {
+            border-bottom: none;
+        }
+
+        .arte-categories {
+            border-bottom: none;
+        }
+
+        .arte-category-row {
+            border-bottom: none;
+        }
+
+        .arte-category-label {
+            border-right: none;
+        }
+
+        .contact-section {
+            border-bottom: none;
+        }
+
+        .contact-row {
+            border-bottom: none;
+        }
+
+        /* Page transition */
+        body {
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        body.fade-out {
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+        }
+
+        /* Ethereal entrance animations */
+        @keyframes etherealFloat {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes etherealFadeIn {
+            from {
+                opacity: 0;
+                filter: blur(3px);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        .top-nav a {
+            opacity: 0;
+            animation: etherealFadeIn 0.8s ease-out forwards;
+        }
+        .top-nav a:nth-child(1) { animation-delay: 0.1s; }
+        .top-nav a:nth-child(2) { animation-delay: 0.25s; }
+        .top-nav a:nth-child(3) { animation-delay: 0.4s; }
+
+        .main-header {
+            opacity: 0;
+            animation: etherealFloat 1s ease-out 0.2s forwards;
+        }
+
+        .about-col-photo {
+            opacity: 0;
+            animation: etherealFloat 1s ease-out 0.3s forwards;
+        }
+
+        .about-col-text h2 {
+            opacity: 0;
+            animation: etherealFloat 0.9s ease-out 0.5s forwards;
+        }
+
+        .about-col-text .text-content {
+            opacity: 0;
+            animation: etherealFloat 0.9s ease-out 0.7s forwards;
+        }
+
+        .arte-category-row {
+            opacity: 0;
+            animation: etherealFloat 0.8s ease-out forwards;
+        }
+        .arte-category-row:nth-child(1) { animation-delay: 0.9s; }
+        .arte-category-row:nth-child(2) { animation-delay: 1.1s; }
+        .arte-category-row:nth-child(3) { animation-delay: 1.3s; }
+
+        .contact-section {
+            opacity: 0;
+            animation: etherealFloat 0.8s ease-out 1.5s forwards;
+        }
+
+        .site-footer {
+            opacity: 0;
+            animation: etherealFadeIn 0.8s ease-out 1.7s forwards;
+        }
+
+        /* Nav override */
+        .top-nav {
+            background-color: #fff;
+        }
+        .top-nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        /* Header - matches index.html structure */
+        .main-header {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-bottom: none;
+        }
+        .main-header h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 4.5rem;
+            letter-spacing: 1px;
+            text-transform: none;
+            margin: 0;
+            line-height: 1;
+            transition: letter-spacing 0.4s ease;
+        }
+        .main-header h1:hover {
+            letter-spacing: 6px;
+        }
+        .author-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin: 10px 0 0 0;
+        }
+
+        /* Typing cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #000;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* About section - uses exact same grid as index.html */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1.2fr;
+            border-bottom: none;
+            min-height: 200px;
+        }
+
+        .about-col-photo {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-col-photo .photo-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+        }
+
+        .about-col-photo .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-col-photo .photo-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-col-text {
+            padding: 30px;
+            grid-column: 2 / 4;
+        }
+
+        .about-col-text h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 2.1875rem;
+            text-transform: none;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .about-col-text .text-content p {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1875rem;
+            font-weight: 300;
+            line-height: 1.5;
+            text-align: justify;
+            margin-bottom: 20px;
+            max-width: 380px;
+        }
+
+        /* Mode switch - identical to index.html */
+
+        /* Category buttons */
+        .arte-categories {
+            border-bottom: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 20px 30px;
+        }
+
+        .arte-category-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            height: 180px;
+            border-bottom: none;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .arte-category-row:last-child {
+            border-bottom: none;
+        }
+
+        .arte-category-row:hover {
+            background: #f8f8f8;
+            box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .arte-category-label {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            border-right: none;
+        }
+
+        .arte-category-label span {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            font-weight: 400;
+            transition: letter-spacing 0.3s ease;
+        }
+
+        .arte-category-row:hover .arte-category-label span {
+            letter-spacing: 2px;
+        }
+
+        .arte-category-preview {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            overflow: hidden;
+            gap: 0;
+        }
+
+        .arte-category-preview img {
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .arte-category-preview .preview-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Contact override */
+        .contact-section {
+            animation: etherealFloat 0.8s ease-out 1.5s forwards;
+        }
+
+        .section-header-right h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: none;
+            font-size: 1.5rem;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+        }
+
+        .c-label {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 500;
+        }
+
+        .c-data {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        /* Footer override */
+        .site-footer p {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        /* LIBRARY PREVIEW */
+        .library-preview {
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .lib-img {
+            width: 32px;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.18);
+            transition: width 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .lib-img img {
+            height: 100%;
+            width: 130px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+
+        .arte-category-row:hover .lib-img {
+            width: 100px;
+        }
+
+        .arte-category-row:hover .lib-img img {
+            transform: scale(1.04);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .about-col-text {
+                padding: 20px 25px;
+                border-bottom: none !important;
+                border-right: none !important;
+            }
+
+            .about-col-photo {
+                padding: 20px 25px;
+                border-bottom: none !important;
+                border-right: none !important;
+            }
+
+            .main-header {
+                border-bottom: none !important;
+            }
+
+            .arte-category-row {
+                grid-template-columns: 140px 1fr;
+                height: 120px;
+            }
+
+            .arte-category-label {
+                padding: 15px 20px;
+            }
+
+            .arte-category-label span {
+                font-size: 1.4rem;
+            }
+
+            .main-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#">Portfolio</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="layout-container">
+
+        <header class="main-header">
+            <h1>Portfolio</h1>
+            <p class="author-name"><span id="typing-name">joaquina videla</span><span class="typing-cursor"></span></p>
+        </header>
+
+        <section class="about-grid">
+            <div class="about-col-photo">
+                <div class="photo-wrapper">
+                    <img src="autorretrato.png" alt="Joaquina Videla">
+                </div>
+                <div class="mode-switch-container">
+                    <a href="index.html" class="switch-btn design" style="text-decoration:none;color:inherit;" onclick="smoothTransition(event, 'index.html')">MODO DISEÑO</a>
+                    <div class="switch-btn art active-art">MODO ARTE</div>
+                </div>
+                <div class="mode-switch-container lang-switch-container">
+                    <div class="switch-btn lang-btn active" data-lang="es">ESPAÑOL</div>
+                    <div class="switch-btn lang-btn" data-lang="en">ENGLISH</div>
+                </div>
+            </div>
+            <div class="about-col-text arte-about-text">
+                <h2>Sobre mí</h2>
+                <div class="text-content">
+                    <p>
+                        Hablar del perfil artístico de uno es mucho más
+                        difícil que hablar de su formación en diseño. Tengo
+                        muy en claro qué es el diseño y puedo definirlo con
+                        palabras. En cambio, qué es el arte, no.
+                        Por eso, prefiero limitarme a decir que me gusta
+                        dibujar, pintar y escribir, y dejar que lo que hago
+                        hable por sí solo.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="arte-categories" id="proyectos">
+            <a href="caras.html" class="arte-category-row" onclick="smoothTransition(event, 'caras.html')">
+                <div class="arte-category-label">
+                    <span>Caras</span>
+                </div>
+                <div class="arte-category-preview" style="padding:0;">
+                    <div class="library-preview">
+                        <div class="lib-img"><img src="retrato1.jpg" alt="Retrato 1"></div>
+                        <div class="lib-img"><img src="retrato2.jpg" alt="Retrato 2"></div>
+                        <div class="lib-img"><img src="retrato3.jpg" alt="Retrato 3"></div>
+                        <div class="lib-img"><img src="retrato4.jpg" alt="Retrato 4"></div>
+                        <div class="lib-img"><img src="retrato5.jpg" alt="Retrato 5"></div>
+                        <div class="lib-img"><img src="retrato6.jpg" alt="Retrato 6"></div>
+                        <div class="lib-img"><img src="retrato7.jpg" alt="Retrato 7"></div>
+                        <div class="lib-img"><img src="retrato8.jpg" alt="Retrato 8"></div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="historias.html" class="arte-category-row" onclick="smoothTransition(event, 'historias.html')">
+                <div class="arte-category-label">
+                    <span>Historias</span>
+                </div>
+                <div class="arte-category-preview" style="padding:0;">
+                    <div class="library-preview">
+                        <div class="lib-img"><img src="comicparaportfolio1.png" alt="Epifanía"></div>
+                        <div class="lib-img"><img src="portadasenal.png" alt="Dame una señal"></div>
+                    </div>
+                </div>
+            </a>
+
+        </section>
+
+        <section class="contact-section" id="contacto">
+            <div class="contact-row">
+                <span class="c-label">Mail:</span> <span class="c-data"><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">Whatsapp:</span> <span class="c-data"><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">Instagram:</span> <span class="c-data"><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">Behance:</span> <span class="c-data"><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></span>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <p>este portfolio se actualiza en tiempo real a medida que trabajo en más proyectos y aprendo cosas nuevas :)</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // SMOOTH PAGE TRANSITION
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() {
+                window.location.href = url;
+            }, 400);
+        }
+
+        // TYPING ANIMATION: joaquina videla <-> jokimori
+        (function setupTypingAnimation() {
+            var el = document.getElementById('typing-name');
+            var names = ['joaquina videla', 'jokimori'];
+            var currentIndex = 0;
+            var charIndex = names[0].length;
+            var isDeleting = false;
+            var pauseTime = 3000;
+
+            function type() {
+                var currentName = names[currentIndex];
+
+                if (!isDeleting) {
+                    // Typing forward
+                    charIndex++;
+                    el.textContent = currentName.substring(0, charIndex);
+
+                    if (charIndex === currentName.length) {
+                        // Finished typing, pause then start deleting
+                        setTimeout(function() {
+                            isDeleting = true;
+                            type();
+                        }, pauseTime);
+                        return;
+                    }
+                    setTimeout(type, 80 + Math.random() * 60);
+                } else {
+                    // Deleting
+                    charIndex--;
+                    el.textContent = currentName.substring(0, charIndex);
+
+                    if (charIndex === 0) {
+                        // Finished deleting, switch name
+                        isDeleting = false;
+                        currentIndex = (currentIndex + 1) % names.length;
+                        setTimeout(type, 400);
+                        return;
+                    }
+                    setTimeout(type, 40 + Math.random() * 30);
+                }
+            }
+
+            // Start after initial pause
+            setTimeout(function() {
+                isDeleting = true;
+                type();
+            }, pauseTime);
+        })();
+
+        // LANGUAGE TOGGLE
+        (function setupLangToggle() {
+            var translations = {
+                es: {
+                    navProyectos: 'Proyectos',
+                    navPortfolio: 'Portfolio',
+                    navContacto: 'Contacto',
+                    aboutTitle: 'Sobre mí',
+                    aboutText: 'Hablar del perfil artístico de uno es mucho más difícil que hablar de su formación en diseño. Tengo muy en claro qué es el diseño y puedo definirlo con palabras. En cambio, qué es el arte, no. Por eso, prefiero limitarme a decir que me gusta dibujar, pintar y escribir, y dejar que lo que hago hable por sí solo.',
+                    caras: 'Caras',
+                    historias: 'Historias',
+                    labelMail: 'Mail:',
+                    labelWhatsapp: 'Whatsapp:',
+                    labelInstagram: 'Instagram:',
+                    labelBehance: 'Behance:',
+                    footer: 'este portfolio se actualiza en tiempo real a medida que trabajo en más proyectos y aprendo cosas nuevas :)',
+                    modoDiseno: 'MODO DISEÑO',
+                    modoArte: 'MODO ARTE'
+                },
+                en: {
+                    navProyectos: 'Projects',
+                    navPortfolio: 'Portfolio',
+                    navContacto: 'Contact',
+                    aboutTitle: 'About me',
+                    aboutText: 'Talking about one\'s artistic profile is much harder than talking about one\'s training in design. I am very clear about what design is and I can define it with words. On the other hand, what art is, I cannot. That is why I prefer to simply say that I like to draw, paint, and write, and let what I do speak for itself.',
+                    caras: 'Faces',
+                    historias: 'Stories',
+                    labelMail: 'Email:',
+                    labelWhatsapp: 'Whatsapp:',
+                    labelInstagram: 'Instagram:',
+                    labelBehance: 'Behance:',
+                    footer: 'this portfolio is updated in real time as I work on more projects and learn new things :)',
+                    modoDiseno: 'DESIGN MODE',
+                    modoArte: 'ART MODE'
+                }
+            };
+
+            var currentLang = localStorage.getItem('portfolioLang') || 'es';
+            var langBtns = document.querySelectorAll('.lang-btn');
+
+            function applyTranslations(lang) {
+                var t = translations[lang];
+
+                var navLinks = document.querySelectorAll('.top-nav a');
+                navLinks[0].textContent = t.navProyectos;
+                navLinks[1].textContent = t.navPortfolio;
+                navLinks[2].textContent = t.navContacto;
+
+                document.querySelector('.about-col-text h2').textContent = t.aboutTitle;
+                document.querySelector('.about-col-text .text-content p').textContent = t.aboutText;
+
+                var catLabels = document.querySelectorAll('.arte-category-label span');
+                catLabels[0].textContent = t.caras;
+                catLabels[1].textContent = t.historias;
+
+                var contactLabels = document.querySelectorAll('.c-label');
+                contactLabels[0].textContent = t.labelMail;
+                contactLabels[1].textContent = t.labelWhatsapp;
+                contactLabels[2].textContent = t.labelInstagram;
+                contactLabels[3].textContent = t.labelBehance;
+
+                document.querySelector('.site-footer p').textContent = t.footer;
+
+                document.querySelector('.switch-btn.design').textContent = t.modoDiseno;
+                document.querySelector('.switch-btn.art').textContent = t.modoArte;
+            }
+
+            if (currentLang === 'en') {
+                langBtns.forEach(function(b) { b.classList.remove('active'); });
+                document.querySelector('.lang-btn[data-lang="en"]').classList.add('active');
+                applyTranslations('en');
+            }
+
+            langBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var lang = btn.dataset.lang;
+                    if (lang === currentLang) return;
+                    currentLang = lang;
+                    localStorage.setItem('portfolioLang', lang);
+                    langBtns.forEach(function(b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    applyTranslations(lang);
+                });
+            });
+        })();
+    </script>
+
+</body>
+</html>

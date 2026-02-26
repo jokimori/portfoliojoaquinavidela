@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMELOOT | Joaquina Videla</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 0;
+            background-color: #C1F4FF;
+        }
+
+        .layout-container {
+            background-color: #C1F4FF;
+        }
+
+        .sticky-header {
+            background-color: #C1F4FF;
+        }
+
+        .project-hero {
+            background-color: #C1F4FF;
+        }
+
+        .col-text {
+            background-color: #C1F4FF;
+            padding: 30px 40px;
+        }
+
+        .col-text p {
+            max-width: 520px;
+        }
+
+        .col-media {
+            background-color: #C1F4FF;
+        }
+
+        .footer-action {
+            background-color: #C1F4FF;
+        }
+
+        .game-wrapper {
+            background-color: #C1F4FF;
+        }
+
+        .game-section-header {
+            background-color: #C1F4FF;
+        }
+    </style>
+</head>
+<body class="timeloot-page">
+
+    <nav class="sticky-header">
+        <a href="index.html" class="nav-link">Volver</a>
+        <span class="nav-title">TIMELOOT</span>
+        <a href="#" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+
+        <header class="project-hero padding-box">
+            <h1>TIMELOOT</h1>
+        </header>
+
+        <section class="grid-2-cols border-bottom">
+            <div class="col-text padding-box border-right">
+                <h3>SOBRE EL JUEGO</h3>
+                <p >
+                    TIMELOOT es un videojuego en el que el jugador encarna a
+                    una arqueóloga que descubre una máquina del tiempo y
+                    viaja al pasado para robar todas las reliquias que hoy
+                    consideramos históricas, antes de que sean descubiertas.
+                    El objetivo es claro: llenarse de dinero.
+                </p>
+                <p >
+                    Sin embargo, el camino no va a ser tan fácil. En cada época
+                    se va a encontrar con distintos adversarios y obstáculos que
+                    van a poner en riesgo su misión.
+                </p>
+            </div>
+            <div class="col-media padding-box flex-center">
+                <video autoplay loop muted playsinline style="width: 70%; height: auto; display: block;">
+                    <source src="trailerjuego.mp4" type="video/mp4">
+                </video>
+            </div>
+        </section>
+
+        <section class="grid-2-cols border-bottom">
+            <div class="col-text padding-box border-right">
+                <h3>DESARROLLO</h3>
+                <p >
+                    El juego fue ideado y desarrollado por mis compañeras Nina
+                    Storchi, Martina Rodríguez Justo y yo. Entre las tres nos
+                    encargamos de cada parte del juego: creación de
+                    mecánicas, diseño de niveles, personajes, música y
+                    programación. Fue pensado originalmente para una máquina
+                    arcade, pero igualmente puede jugarse en computadora.
+                </p>
+            </div>
+            <div class="col-media padding-box flex-center">
+                <div class="timeloot-character">
+                    <img src="dios4.gif" alt="Dios 4" class="char-dios">
+                    <img src="dios3.gif" alt="Dios 3" class="char-dios">
+                    <img src="dios2.gif" alt="Dios 2" class="char-dios">
+                    <img src="dios1.gif" alt="Dios" class="char-dios">
+                    <img src="mujer.gif" alt="Personaje arqueóloga" class="char-mujer">
+                </div>
+            </div>
+        </section>
+
+        <section class="border-bottom">
+            <div class="game-section-header col-text padding-box">
+                <h3>EL JUEGO</h3>
+                <p>Si estás en compu podés probar nuestro juego. En celu lamentablemente no se puede jugar :(</p>
+            </div>
+
+            <div class="game-wrapper" id="gameArea">
+                <img src="IMG_2020.jpeg" alt="TIMELOOT portada" class="game-poster" id="gamePoster">
+                <div class="play-overlay" id="playOverlay" onclick="startGame()">
+                    <span class="btn-jugar-big">JUGAR</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-action padding-box flex-center">
+            <a href="index.html" class="btn-volver">VOLVER</a>
+        </div>
+
+    </div>
+
+    <script>
+        function startGame() {
+            const gameArea = document.getElementById('gameArea');
+            const poster = document.getElementById('gamePoster');
+            const overlay = document.getElementById('playOverlay');
+
+            // Remove poster and overlay
+            poster.remove();
+            overlay.remove();
+
+            // Create and insert iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = 'timeloot/index.html';
+            iframe.className = 'game-iframe';
+            iframe.allowFullscreen = true;
+            iframe.setAttribute('allow', 'autoplay; fullscreen');
+            gameArea.appendChild(iframe);
+        }
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            var nav = document.querySelectorAll('.sticky-header .nav-link');
+            nav[0].textContent = 'Back';
+            nav[1].textContent = 'Contact';
+            var h3s = document.querySelectorAll('h3');
+            h3s[0].textContent = 'ABOUT THE GAME';
+            var colTexts = document.querySelectorAll('.col-text');
+            var ps1 = colTexts[0].querySelectorAll('p');
+            ps1[0].textContent = 'TIMELOOT is a video game in which the player takes on the role of an archaeologist who discovers a time machine and travels to the past to steal all the relics we consider historical today, before they are discovered. The goal is clear: to get rich.';
+            ps1[1].textContent = 'However, the path won\'t be that easy. In each era, she will encounter different adversaries and obstacles that will put her mission at risk.';
+            h3s[1].textContent = 'DEVELOPMENT';
+            var ps2 = colTexts[1].querySelectorAll('p');
+            ps2[0].textContent = 'The game was conceived and developed by my classmates Nina Storchi, Martina Rodríguez Justo, and myself. The three of us took care of every part of the game: mechanics creation, level design, characters, music, and programming. It was originally designed for an arcade machine, but it can also be played on a computer.';
+            h3s[2].textContent = 'THE GAME';
+            document.querySelector('.game-section-header p').textContent = 'If you\'re on a computer you can try our game. Unfortunately it can\'t be played on mobile :(';
+            document.querySelector('.btn-jugar-big').textContent = 'PLAY';
+            document.querySelector('.btn-volver').textContent = 'BACK';
+        })();
+    </script>
+
+</body>
+</html>

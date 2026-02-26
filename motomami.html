@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUÉ ES MOTOMAMI | Joaquina Videla</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 0;
+        }
+
+        .col-text {
+            padding: 30px 40px;
+        }
+
+        .col-text p {
+            max-width: 520px;
+        }
+
+        .prototype-section {
+            padding: 30px 40px;
+        }
+
+        .prototype-section p {
+            max-width: 520px;
+        }
+
+        .prototype-wrapper {
+            padding: 20px 40px 40px 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .prototype-wrapper iframe {
+            max-width: 800px;
+            width: 100%;
+            height: 450px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .col-text,
+            .prototype-section {
+                padding: 20px 25px;
+            }
+
+            .prototype-wrapper {
+                padding: 15px 25px 25px 25px;
+            }
+
+            .prototype-wrapper iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-header">
+        <a href="index.html" class="nav-link">Volver</a>
+        <span class="nav-title">QEM</span>
+        <a href="#" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+
+        <header class="project-hero">
+            <h1>QUÉ ES MOTOMAMI</h1>
+        </header>
+
+        <section class="grid-2-cols border-bottom">
+            <div class="col-text padding-box border-right">
+                <h3>SOBRE EL PROYECTO</h3>
+                <p>
+                    Siguiendo en línea con el proyecto <i>MALA AMANTE</i>, decidí
+                    analizar en detalle el disco MOTOMAMI de Rosalía.
+                    Este es un trabajo al que le puse muchísimo cariño y
+                    dedicación, sacando todas las fotos yo misma y escribiendo
+                    cada uno de los textos y haciendo todas las animaciones frame x frame. Lo adjunto abajo, porque me
+                    gustaría que el trabajo hable por sí mismo.
+                </p>
+            </div>
+            <div class="col-media padding-box flex-center">
+               <iframe style="border-radius:12px; margin-top: 20px;" src="https://open.spotify.com/embed/album/6jbtHi5R0jMXoliU2OS0lo?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="caption-text">escuchá el disco :)</p>
+            </div>
+        </section>
+
+        <section class="border-bottom">
+            <div class="prototype-section">
+                <h3>QUÉ ES MOTOMAMI</h3>
+                <p>
+                    Nota: si estás en celu es probable que no puedas verlo correctamente.
+                    Ver <a href="https://drive.google.com/drive/folders/1Sl_9oAI93yvHNxpHbySR8tEPcvWRvX9i?usp=sharing" target="_blank">videos</a> en su lugar.
+                </p>
+
+                <p>
+                    Nota 2: algunos elementos tardan un poquito en cargar, por favor paciencia.
+                </p>
+            </div>
+
+            <div class="prototype-wrapper">
+                <iframe src="https://embed.figma.com/proto/H0Nk23UbKY3tw8R7cCh4kc/Videla-Joaquina-TP-Parcial?page-id=0%3A1&node-id=2-2&viewport=261%2C367%2C0.04&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=2%3A2&embed-host=share" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <div class="footer-action padding-box flex-center">
+            <a href="index.html" class="btn-volver">VOLVER</a>
+        </div>
+
+    </div>
+
+    <script>
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            var nav = document.querySelectorAll('.sticky-header .nav-link');
+            nav[0].textContent = 'Back';
+            nav[1].textContent = 'Contact';
+            document.querySelector('.col-text h3').textContent = 'ABOUT THE PROJECT';
+            document.querySelector('.col-text p').innerHTML = 'Following in line with the <i>MALA AMANTE</i> project, I decided to analyze in detail Rosalía\'s album MOTOMAMI. This is a project I put a lot of love and dedication into, taking all the photos myself and writing every single text and making all the animations frame by frame. I attach it below, because I would like the work to speak for itself.';
+            document.querySelector('.caption-text').textContent = 'listen to the album :)';
+            document.querySelector('.prototype-section h3').textContent = 'WHAT IS MOTOMAMI';
+            var protoPs = document.querySelectorAll('.prototype-section p');
+            protoPs[0].innerHTML = 'Note: if you\'re on mobile you probably won\'t be able to view it correctly. See <a href="https://drive.google.com/drive/folders/1Sl_9oAI93yvHNxpHbySR8tEPcvWRvX9i?usp=sharing" target="_blank">videos</a> instead.';
+            protoPs[1].textContent = 'Note 2: some elements take a little while to load, please be patient.';
+            document.querySelector('.btn-volver').textContent = 'BACK';
+        })();
+    </script>
+
+</body>
+</html>

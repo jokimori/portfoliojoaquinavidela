@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ar.Vivo</title>
+    <style>
+        body { 
+            margin: 0; overflow: hidden;
+            background-color: #ffffff;
+            font-family: "Thermal VF", serif;
+        }
+        #canvas-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; background-color: #ffffff;
+        }
+        .ui-layer {
+            position: absolute; z-index: 2200; pointer-events: none;
+            width: 100%; height: 100%; top: 0; left: 0;
+        }
+        .back-link-floating {
+            position: absolute; top: 10px; right: 30px;
+            display: inline-block; pointer-events: auto;
+            transition: transform 0.2s;
+            z-index: 2000;
+            border: none;
+            background: transparent;
+        }
+        .back-link-floating img {
+            display: block;
+            width: 120px;
+            height: auto;
+            border: none;
+            background: transparent;
+        }
+        .back-link-floating:hover { transform: scale(1.05); }
+        header {
+            position: absolute; top: 0; width: 100%;
+            display: flex; justify-content: center; pointer-events: none;
+            padding-top: 10px;
+        }
+        .topbar-image {
+            width: 100%; max-width: 500px; height: auto; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        /* --- MODAL --- */
+        #modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95); z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        #modal.active { opacity: 1; pointer-events: auto; }
+        #modal img { 
+            max-width: 85%; max-height: 85%; border: 1px solid #ccc; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
+        }
+        .hint {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #000; color: #fff; padding: 10px 25px;
+            border-radius: 30px; font-size: 0.9rem; pointer-events: none;
+            z-index: 10; font-weight: bold; opacity: 0.8;
+        }
+
+        #sticker-overlay {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 2600;
+        }
+        #sticker-overlay.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        #sticker-overlay img {
+            max-width: min(65vw, 620px);
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 18px 35px rgba(0,0,0,0.35));
+        }
+
+        #frame-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 1920px;
+            height: 1080px;
+            transform: translate(-50%, -50%);
+            background-image: url('assets/images/rot.ar.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 1500;
+        }
+    </style>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="ui-layer">
+        <header>
+                 </header>
+        <a href="index.html" class="back-link-floating">
+            <img src="assets/images/back1.png" alt="Volver">
+        </a>
+        <div class="hint">Click en el CENTRO para reorganizar  •  Click en FOTOS para ver + sticker</div>
+    </div>
+
+    <div id="frame-overlay"></div>
+
+    <div id="modal">
+
+    </div>
+
+    <div id="sticker-overlay">
+        <img id="sticker-overlay-img" src="" alt="Sticker" />
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+        import { TTFLoader } from 'three/addons/loaders/TTFLoader.js';
+        import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+        // --- 1. CONFIGURACIÓN ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 50); // Cámara inicial
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 0.8));
+        container.appendChild(renderer.domElement);
+        
+        // --- LUCES ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.45); 
+        scene.add(ambientLight);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.25);
+        mainLight.position.set(20, 30, 20);
+        scene.add(mainLight);
+
+        // --- CONTROLES ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; 
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = true;    
+        controls.autoRotateSpeed = 0.8;
+        controls.minDistance = 10;
+        controls.maxDistance = 100;
+
+        // --- 2. TEXTO CENTRAL "THERMAL" ---
+        let centerTextParams = { mesh: null }; // Para guardar referencia y animarlo si queremos
+
+        const fontLoader = new FontLoader();
+        const ttfLoader = new TTFLoader();
+
+        ttfLoader.load('assets/fonts/Thermal.ttf', function (ttf) {
+            const font = fontLoader.parse(ttf);
+
+            const textGeo = new TextGeometry('Archivo Vivo', {
+                font: font,
+                size: 4,          // Tamaño grande
+                height: 1,        // Grosor 3D
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.1,
+                bevelSize: 0.05,
+                bevelSegments: 5
+            });
+
+            // Centrar geometría
+            textGeo.computeBoundingBox();
+            textGeo.center();
+
+            // Aplicar inclinación para simular "Italic" (Matriz de cizallamiento)
+            const matrix = new THREE.Matrix4();
+            // Shear X relativo a Y
+            matrix.makeShear(0.3, 0, 0, 0, 0, 0); 
+            textGeo.applyMatrix4(matrix);
+
+            const thermalMat = new THREE.MeshPhysicalMaterial({ 
+                color: 0x000000,
+                metalness: 0.05,
+                roughness: 0.35,
+                clearcoat: 0.2,
+                clearcoatRoughness: 0.5
+            });
+
+            const textMesh = new THREE.Mesh(textGeo, thermalMat);
+            textMesh.name = "centerText"; // Nombre para identificarlo en el click
+            
+            centerTextParams.mesh = textMesh;
+            scene.add(textMesh);
+        }, undefined, (err) => {
+            console.error('No se pudo cargar la fuente Thermal.ttf', err);
+        });
+
+
+        // --- 3. IMÁGENES ORBITANDO ---
+        const imageGroup = new THREE.Group();
+        scene.add(imageGroup);
+
+        const textureLoader = new THREE.TextureLoader();
+        const textureCache = new Map();
+        const stickerFiles = Array.from({ length: 8 }, (_, i) => `arvivoh${i + 1}.png`);
+        const stickerOverlay = document.getElementById('sticker-overlay');
+        const stickerOverlayImg = document.getElementById('sticker-overlay-img');
+        let stickerOverlayTimeout = null;
+
+        function enhanceTexture(texture, saturation = 1.85) {
+            const source = texture.image;
+            if (!source || !source.width || !source.height) return texture;
+
+            const MAX_TEXTURE_SIZE = 720;
+            const QUALITY_SCALE = 0.6;
+            let width = Math.max(64, Math.round(source.width * QUALITY_SCALE));
+            let height = Math.max(64, Math.round(source.height * QUALITY_SCALE));
+            const largestSide = Math.max(width, height);
+            if (largestSide > MAX_TEXTURE_SIZE) {
+                const scale = MAX_TEXTURE_SIZE / largestSide;
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(source, 0, 0, width, height);
+
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            const brightnessBoost = 1.28;
+            const contrast = 1.08;
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                const avg = (r + g + b) / 3;
+                let nr = Math.min(255, Math.max(0, avg + (r - avg) * saturation));
+                let ng = Math.min(255, Math.max(0, avg + (g - avg) * saturation));
+                let nb = Math.min(255, Math.max(0, avg + (b - avg) * saturation));
+                nr = ((nr - 128) * contrast + 128) * brightnessBoost + 8;
+                ng = ((ng - 128) * contrast + 128) * brightnessBoost + 8;
+                nb = ((nb - 128) * contrast + 128) * brightnessBoost + 8;
+                data[i] = Math.min(255, Math.max(0, nr));
+                data[i + 1] = Math.min(255, Math.max(0, ng));
+                data[i + 2] = Math.min(255, Math.max(0, nb));
+            }
+            ctx.putImageData(imageData, 0, 0);
+
+            const enhanced = new THREE.CanvasTexture(canvas);
+            enhanced.colorSpace = THREE.SRGBColorSpace;
+            enhanced.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
+            enhanced.needsUpdate = true;
+            return enhanced;
+        }
+        const sharedBoxGeometry = new THREE.BoxGeometry(4, 5, 0.2);
+        const edgeMaterial = new THREE.MeshLambertMaterial({ color: 0xeeeeee }); 
+
+        const baseImages = [];
+        for(let i=1; i<=33; i++) { baseImages.push(`arvivo${i}.jpg`); }
+        const TOTAL_INSTANCES = 100;
+        const MAX_PHOTOS = 200;
+        const imageFiles = Array.from({ length: TOTAL_INSTANCES }, (_, idx) => baseImages[idx % baseImages.length]);
+
+        // Función auxiliar para generar posición aleatoria
+        function getRandomPosition() {
+            const radius = 18 + Math.random() * 30; 
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            return new THREE.Vector3(
+                radius * Math.sin(phi) * Math.cos(theta),
+                radius * Math.sin(phi) * Math.sin(theta),
+                radius * Math.cos(phi)
+            );
+        }
+
+        function buildPhotoMesh(texture, path) {
+            const pos = getRandomPosition();
+
+            const faceMaterial = new THREE.MeshBasicMaterial({ 
+                map: texture,
+                toneMapped: false
+            });
+            const materials = [edgeMaterial, edgeMaterial, edgeMaterial, edgeMaterial, faceMaterial, faceMaterial];
+            const mesh = new THREE.Mesh(sharedBoxGeometry, materials);
+
+            mesh.position.copy(pos);
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            mesh.scale.setScalar(0.01);
+
+            mesh.userData = { 
+                src: path,
+                basePos: pos.clone(),
+                targetPos: pos.clone(),
+                rotSpeed: { x: (Math.random()-0.5)*0.03, y: (Math.random()-0.5)*0.03 },
+                drift: { speed: 0.5 + Math.random(), amp: 2 + Math.random() * 3, offset: Math.random() * 100 },
+                fadeState: 'in',
+                lifespan: 9000 + Math.random() * 7000,
+                birth: performance.now()
+            };
+
+            imageGroup.add(mesh);
+        }
+
+        function getEnhancedTexture(fileName, onReady) {
+            if (textureCache.has(fileName)) {
+                onReady(textureCache.get(fileName));
+                return;
+            }
+            textureLoader.load('assets/images/' + fileName, (texture) => {
+                texture.colorSpace = THREE.SRGBColorSpace;
+                const vividTexture = enhanceTexture(texture);
+                textureCache.set(fileName, vividTexture);
+                onReady(vividTexture);
+            });
+        }
+
+        function createPhotoMesh(fileName, delay = 0) {
+            setTimeout(() => {
+                if (imageGroup.children.length >= MAX_PHOTOS) return;
+                getEnhancedTexture(fileName, (vividTexture) => {
+                    if (imageGroup.children.length >= MAX_PHOTOS) return;
+                    buildPhotoMesh(vividTexture, 'assets/images/' + fileName);
+                });
+            }, delay);
+        }
+
+        function loadImageSequentially(index = 0) {
+            if (index >= imageFiles.length) return;
+            createPhotoMesh(imageFiles[index]);
+            setTimeout(() => loadImageSequentially(index + 1), 45);
+        }
+
+        function triggerPhotoBurst(extra = 25) {
+            for (let i = 0; i < extra; i++) {
+                if (imageGroup.children.length >= MAX_PHOTOS) break;
+                const file = baseImages[Math.floor(Math.random() * baseImages.length)];
+                createPhotoMesh(file, i * 25);
+            }
+        }
+
+        loadImageSequentially();
+
+        function showStickerOverlay() {
+            if (!stickerOverlay || !stickerOverlayImg) return;
+            const file = stickerFiles[Math.floor(Math.random() * stickerFiles.length)];
+            stickerOverlayImg.src = 'assets/images/' + file;
+            stickerOverlay.classList.add('visible');
+            if (stickerOverlayTimeout) clearTimeout(stickerOverlayTimeout);
+            stickerOverlayTimeout = setTimeout(() => {
+                stickerOverlay.classList.remove('visible');
+            }, 1800);
+        }
+
+        // --- 4. FUNCIÓN RANDOMIZAR ---
+        function randomizeImages() {
+            // Aumentar velocidad de rotación global un momento para dar efecto de "sacudida"
+            controls.autoRotateSpeed = 20;
+            setTimeout(() => { controls.autoRotateSpeed = 0.8; }, 500);
+
+            imageGroup.children.forEach(mesh => {
+                // Generar nueva posición base
+                const newPos = getRandomPosition();
+                mesh.userData.basePos.copy(newPos);
+                
+                // Efecto visual: Rotar bruscamente
+                mesh.rotation.x += Math.random() * Math.PI;
+                mesh.rotation.y += Math.random() * Math.PI;
+            });
+        }
+
+        // --- 5. INTERACCIÓN ---
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onMouseClick(event) {
+            if(document.getElementById('modal').classList.contains('active')) return;
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+
+            // Detectar click en TEXTO o en IMÁGENES
+            // Creamos un array con todo: las imágenes y el texto (si existe)
+            const targets = [...imageGroup.children];
+            if(centerTextParams.mesh) targets.push(centerTextParams.mesh);
+
+            const intersects = raycaster.intersectObjects(targets);
+
+            if (intersects.length > 0) {
+                const object = intersects[0].object;
+
+                // CASO 1: CLICK EN EL TEXTO
+                // (El texto es un Mesh normal, verificamos por nombre o si no tiene 'src' en userData)
+                if (object.name === "centerText") {
+                    randomizeImages();
+                    triggerPhotoBurst(30);
+                    return;
+                }
+
+                // CASO 2: CLICK EN IMAGEN
+                // Si tiene src, es una foto
+                if (object.userData.src) {
+                    showStickerOverlay();
+                    const modal = document.getElementById('modal');
+                    const modalImg = document.getElementById('modal-img');
+                    modalImg.src = object.userData.src;
+                    modal.classList.add('active');
+                    return;
+                }
+            }
+
+            randomizeImages();
+            triggerPhotoBurst(20);
+        }
+        window.addEventListener('click', onMouseClick);
+
+        document.getElementById('modal').addEventListener('click', () => {
+            document.getElementById('modal').classList.remove('active');
+        });
+
+        // --- 6. ANIMACIÓN ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.elapsedTime;
+
+            const now = performance.now();
+
+            imageGroup.children.forEach(mesh => {
+                const u = mesh.userData;
+                const scale = mesh.scale;
+                if (u.fadeState === 'in') {
+                    const nextScale = Math.min(1, scale.x + 0.07);
+                    scale.setScalar(nextScale);
+                    if (nextScale >= 0.99) {
+                        scale.setScalar(1);
+                        u.fadeState = 'idle';
+                        u.birth = now;
+                    }
+                } else if (u.fadeState === 'idle') {
+                    if (now - u.birth > u.lifespan) {
+                        u.fadeState = 'out';
+                    }
+                } else if (u.fadeState === 'out') {
+                    const nextScale = Math.max(0.01, scale.x * 0.84);
+                    scale.setScalar(nextScale);
+                    if (nextScale <= 0.012) {
+                        const newPos = getRandomPosition();
+                        mesh.position.copy(newPos);
+                        u.basePos.copy(newPos);
+                        mesh.rotation.x = Math.random() * Math.PI;
+                        mesh.rotation.y = Math.random() * Math.PI;
+                        scale.setScalar(0.01);
+                        u.fadeState = 'in';
+                        u.lifespan = 9000 + Math.random() * 7000;
+                        u.birth = now;
+                    }
+                }
+                
+                mesh.position.x += (u.basePos.x - mesh.position.x) * 0.05;
+                mesh.position.y += (u.basePos.y - mesh.position.y) * 0.05;
+                mesh.position.z += (u.basePos.z - mesh.position.z) * 0.05;
+
+                const driftX = Math.sin(time * u.drift.speed + u.drift.offset) * u.drift.amp;
+                const driftY = Math.cos(time * u.drift.speed * 0.8 + u.drift.offset) * u.drift.amp;
+                const driftZ = Math.sin(time * u.drift.speed * 0.5 + u.drift.offset) * (u.drift.amp * 0.5);
+
+                mesh.position.x += driftX * 0.01; 
+                mesh.position.y += driftY * 0.01;
+                mesh.position.z += driftZ * 0.01;
+
+                mesh.rotation.x += u.rotSpeed.x;
+                mesh.rotation.y += u.rotSpeed.y;
+            });
+
+            if (centerTextParams.mesh) {
+                centerTextParams.mesh.rotation.y = Math.sin(time * 0.5) * 0.1;
+                centerTextParams.mesh.rotation.x = Math.cos(time * 0.3) * 0.05;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden; 
+    background-color: transparent; 
+}
+
+/* --- FONDO --- */
+.background-locked {
+    position: absolute; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; 
+}
+.background-locked img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+/* --- ESTRUCTURA PRINCIPAL --- */
+.container {
+    display: flex;
+    height: 100vh; /* Ocupa toda la altura */
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- SECCIÓN IZQUIERDA (Pantalla) --- */
+.left-section {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    left: 0;
+}
+
+.screen-frame {
+    position: absolute;
+    left: 120px;
+    top: 245px;
+    width: 75%;
+    height: 50%;
+    border-radius: 3.964px;
+    background: linear-gradient(0deg, #CFCFCF 0%, #869DEA 100%);
+    box-shadow: 0 7.705px 7.705px 0 rgba(0, 0, 0, 0.25);
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Texto debajo de la pantalla */
+.screen-caption {
+    position: absolute;
+    left: 50%;
+    bottom: -38px; /* Ajusta según el espacio que quieras */
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+    background: rgba(255,255,255,0.7);
+    padding: 8px 0 6px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 2;
+}
+
+.screen-content {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #f0f0f0 0%, #d9d9d9 100%);
+    box-shadow: inset 3px 3px 8px rgba(0,0,0,0.3);
+    border: 1px solid #999;
+    position: relative;
+}
+
+.hover-screen-png {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 20px rgba(14, 24, 54, 0.45));
+    transform: translateY(10px) scale(0.95);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 5;
+}
+
+.hover-screen-png.visible {
+    opacity: 1;
+    transform: translateY(-4px) scale(1);
+}
+
+/* Asegura que las imágenes dentro de .screen-content se ajusten correctamente */
+.left-section .screen-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: filter 0.3s, transform 0.3s;
+}
+.left-section .screen-content img:hover {
+    filter: brightness(0.7) blur(1px);
+    transform: scale(1.03);
+}
+.screen-info-overlay {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: rgba(0,0,0,0.25);
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: inherit;
+    text-align: center;
+    padding: 24px;
+    z-index: 10;
+}
+.left-section .screen-content img:hover + .screen-info-overlay {
+    opacity: 1;
+}
+
+/* --- SECCIÓN DERECHA (Galería 4 Columnas) --- */
+.gallery-right {
+    width: 38%;
+    height: 100%;
+    display: flex;
+    background-color: transparent; 
+    border-left: 1px solid rgba(0,0,0,0.2);
+    padding-top: 4rem; /* Esto baja las columnas. Ajusta el número (ej. 6rem, 10rem) a tu gusto */
+    box-sizing: border-box; /* IMPORTANTE: Para que el relleno no rompa el ancho del 40% */
+}
+
+.column {
+    /* Clave: Hace que cada columna ocupe una parte igual del espacio disponible. */
+    flex: 1;
+    height: 100%;
+    /* Esencial: Oculta las cajas que se salen del área visible para la animación. */
+    overflow: hidden;
+    position: relative;
+}
+.column-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    padding-top: 30px;
+    /* Para animación infinita fluida */
+    will-change: transform;
+    /* La altura debe ser suficiente para mostrar el doble de cajas */
+    min-height: 200%;
+}
+
+/* Permite ajustar la posición X de cada columna manualmente */
+.column.col-1 { left: 17px; position: relative; }
+.column.col-2 { left: 7px; position: relative; }
+.column.col-3 { left: 1px; position: relative; }
+.column.col-4 { left: 1px; position: relative; }
+/* Modifica los valores de left para alinear con la grilla del fondo */
+
+/* --- CAJAS AZULES --- */
+.blue-box {
+    width: 130px;
+    height: 130px;
+    background: linear-gradient(135deg, #ffffff 0%, #cfd9ff 30%, #6d82d9 65%, #2d3a7c 100%);
+    background-size: 250% 250%;
+    border-top: 4px solid #333;
+    border-bottom: 4px solid #333;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+    position: relative;
+    overflow: visible; /* Permite que el PNG sobresalga */
+    animation: blueGlow 6s ease-in-out infinite;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.blue-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.blue-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 6px 10px 18px rgba(0,0,0,0.35);
+}
+
+/* PNG flotando por encima de la caja */
+.blue-box .box-png {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* --- ANIMACIONES --- */
+.scroll-slow { animation: scrollDown 30s linear infinite; }
+.scroll-medium { animation: scrollDown 22s linear infinite; }
+.scroll-fast { animation: scrollDown 16s linear infinite; }
+
+/* Desincroniza el inicio de cada tira usando delay */
+.column-track.scroll-slow { animation-delay: 0s; }
+.column-track.scroll-medium { animation-delay: -7s; }
+.column-track.scroll-fast { animation-delay: -13s; }
+
+/* Si quieres más columnas, puedes variar el delay para cada una */
+
+@keyframes scrollDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes blueGlow {
+    0% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 0 rgba(173, 201, 255, 0.3));
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 18px rgba(173, 201, 255, 0.55));
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 0 rgba(173, 201, 255, 0.3));
+    }
+}
+
+.back-link {
+    position: absolute;
+    top: 8px; /* 32px desde arriba */
+    right: 40px; /* 32px desde la derecha */
+    z-index: 100; /* Asegura que esté por encima de todo */
+    display: block;
+   width: 110px;
+    height: 32.673px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+}
+
+.back-link img {
+    width: 100%;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem;
+      
+        margin-top: 10px;
+        margin-bottom: 0;
+        position: static ;
+        }
+
+.side-text {
+    position: absolute;
+    left: 590px;
+    top: 810px;
+    width: 468px;
+    height: 152px;
+    flex-shrink: 0;
+    color: #000;
+    font-family: "Thermal VF";
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: normal;
+    /* Elimino el fondo para dejar solo el texto animado */
+    background: none;
+    animation: fontPulse 2.5s ease-in-out infinite;
+    background-clip: border-box;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    transition: font-weight 1.2s, opacity 1.2s;
+    opacity: 0.92;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; opacity: 0.92; }
+    50% { background-position: 100% 50%; opacity: 1; }
+    100% { background-position: 0% 50%; opacity: 0.92; }
+}
+
+@keyframes fontPulse {
+    0% { font-weight: 300; opacity: 0.92; }
+    20% { font-weight: 350; opacity: 0.96; }
+    50% { font-weight: 400; opacity: 1; }
+    80% { font-weight: 350; opacity: 0.96; }
+    100% { font-weight: 300; opacity: 0.92; }
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOME PAGE - AV</title>
+    
+    <link rel="stylesheet" href="home.css">
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <div class="top-strip-container">
+        <div class="marquee-track" id="marqueeTrack">
+            <span class="marquee-item">El objetivo no es solo mostrar un "antes y un después", sino deconstruir las fuerzas específicas que están transformando la identidad del barrio.</span>
+            <span class="marquee-item">El objetivo no es solo mostrar un "antes y un después", sino deconstruir las fuerzas específicas que están transformando la identidad del barrio.</span>
+            <span class="marquee-item">El objetivo no es solo mostrar un "antes y un después", sino deconstruir las fuerzas específicas que están transformando la identidad del barrio.</span>
+        </div>
+    </div>
+
+    <main class="main-content">
+
+    <div id="hover-image-pr" class="hover-image-container">
+        <!-- Reemplaza esta ruta por la de tu imagen -->
+        <img src="assets/images/Prtexto.png" alt="Info Prboton">
+    </div>
+    <div id="hover-image-sito" class="hover-image-container">
+        <!-- Reemplaza esta ruta por la de tu imagen -->
+        <img src="assets/images/Patexto.png" alt="Info Sitoboton">
+    </div>
+
+
+        <div id="blur-backdrop"></div>
+        <div class="model-container">
+            <model-viewer
+                class="logo-central"
+                id="modelViewer"
+                src="assets/images/AVblend.glb"
+                alt="Logo AV 3D"
+                auto-rotate
+                camera-controls
+                disable-zoom
+                shadow-intensity="1"
+                exposure="1"
+                min-camera-orbit="auto 0deg auto"
+                max-camera-orbit="auto 180deg auto"
+            ></model-viewer>
+            <div id="artifactLayer" class="artifact-layer" aria-hidden="true"></div>
+
+            <div class="canvas-controls" role="group" aria-label="Controles canvas">
+                <button id="canvas-pr" class="canvas-btn" title="Prboton" aria-label="Prboton">
+                    <!-- Verifica que el archivo se llame exactamente "Prboton.png" -->
+                    <img src="assets/images/Prboton.png" alt="Prboton icon">
+                </button>
+                <button id="canvas-sito" class="canvas-btn" title="sitoboton" aria-label="sitoboton">
+                    <!-- Verifica que el archivo se llame exactamente "sitobton.png" (sin la 'o' extra) -->
+                    <img src="assets/images/Paboton.png" alt="sitobton icon">
+                </button>
+            </div>
+        </div>
+<nav class="keywords-nav">
+            <a href="fenomeno.html" class="keyword-box keyword-fenomeno" data-gradient="radial-gradient(circle, #FFDDDD 0%, #FF8888 100%)" data-color="#FFDDDD">Fenómeno</a>
+            <a href="arvivo.html" class="keyword-box keyword-arvivo" data-gradient="radial-gradient(circle, #FFFFDD 0%, #FFEE55 100%)" data-color="#FFFFDD">Ar.Vivo</a>
+            <a href="simulacion.html" class="keyword-box keyword-simulacion" data-gradient="radial-gradient(circle, #DDFFDD 0%, #77FF77 100%)" data-color="#DDFFDD">Simulación</a>
+            <a href="archivovivogame/index.html" target="_blank" class="keyword-box keyword-barrio" data-gradient="radial-gradient(circle, #FFDDFE 0%, #FF88FE 100%)" data-color="#FFDDFE">Barrio</a>
+            <a href="historias.html" class="keyword-box keyword-historias" data-gradient="radial-gradient(circle, #DDEEFF 0%, #88BBFF 100%)" data-color="#DDEEFF">Historias</a>
+        </nav>
+
+    </main>
+
+    <script>
+        // --- SCRIPT PARA CAMBIAR EL FONDO DEL BODY ---
+        const body = document.body;
+        const keywordBoxes = document.querySelectorAll('.keyword-box');
+        const defaultBackground = 'white';
+
+        keywordBoxes.forEach(box => {
+            box.addEventListener('mouseenter', () => {
+                const hoverGradient = box.getAttribute('data-gradient');
+                // Se descomenta la siguiente línea para activar el efecto
+                if (hoverGradient) body.style.background = hoverGradient;
+            });
+            box.addEventListener('mouseleave', () => {
+                // Se descomenta la siguiente línea para volver al fondo original
+                body.style.background = defaultBackground;
+            });
+        });
+
+        // --- SCRIPT PARA MARQUEE CONTINUO ---
+        (function setupMarquee() {
+            const track = document.getElementById('marqueeTrack');
+            if (!track || track.dataset.duplicated) return;
+            
+            track.innerHTML += track.innerHTML;
+            track.dataset.duplicated = '1';
+            
+            function updateDuration() {
+                const contentWidth = track.scrollWidth / 2;
+                const speed = 100; // px/seg
+                const duration = Math.max(6, contentWidth / speed);
+                track.style.animationDuration = duration + 's';
+            }
+            window.addEventListener('load', updateDuration);
+            window.addEventListener('resize', () => {
+                clearTimeout(window._marqueeResize);
+                window._marqueeResize = setTimeout(updateDuration, 120);
+            });
+            updateDuration();
+        })();
+
+        // --- SCRIPT PARA ACCIONES DE BOTONES FIJOS ---
+        (function setupCanvasBtns(){
+            const mv = document.getElementById('modelViewer');
+            const btnPr = document.getElementById('canvas-pr');
+            const btnSito = document.getElementById('canvas-sito');
+
+            if (btnPr) {
+                btnPr.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!mv) return;
+                    if (mv.hasAttribute('auto-rotate')) mv.removeAttribute('auto-rotate');
+                    else mv.setAttribute('auto-rotate', '');
+                });
+            }
+
+            if (btnSito) {
+                btnSito.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!mv) return;
+                    const exp = parseFloat(mv.getAttribute('exposure') || '1');
+                    mv.setAttribute('exposure', String(exp === 1 ? 1.2 : 1));
+                });
+            }
+        })();
+
+        // --- SCRIPT PARA IMÁGENES HOVER Y FONDO BLUR ---
+        (function setupHoverImagesAndBlur() {
+            const btnPr = document.getElementById('canvas-pr');
+            const btnSito = document.getElementById('canvas-sito');
+            const imgContainerPr = document.getElementById('hover-image-pr');
+            const imgContainerSito = document.getElementById('hover-image-sito');
+            const blurBackdrop = document.getElementById('blur-backdrop');
+
+            if (btnPr && imgContainerPr && blurBackdrop) {
+                btnPr.addEventListener('mouseenter', () => {
+                    imgContainerPr.classList.add('visible');
+                    blurBackdrop.classList.add('visible');
+                });
+                btnPr.addEventListener('mouseleave', () => {
+                    imgContainerPr.classList.remove('visible');
+                    blurBackdrop.classList.remove('visible');
+                });
+            }
+
+            if (btnSito && imgContainerSito && blurBackdrop) {
+                btnSito.addEventListener('mouseenter', () => {
+                    imgContainerSito.classList.add('visible');
+                    blurBackdrop.classList.add('visible');
+});
+                btnSito.addEventListener('mouseleave', () => {
+                    imgContainerSito.classList.remove('visible');
+                    blurBackdrop.classList.remove('visible');
+                });
+            }
+        })();
+
+        // --- SCRIPT PARA CAMBIAR COLOR DE LA TIRA SUPERIOR ---
+        (function setupTopStripHover() {
+            const topStrip = document.querySelector('.top-strip-container');
+            const keywordBoxes = document.querySelectorAll('.keyword-box');
+            const originalColor = 'rgba(255, 255, 255, 0.95)';
+
+            if (!topStrip || !keywordBoxes.length) return;
+
+            keywordBoxes.forEach(box => {
+                const hoverColor = box.dataset.color;
+                if (hoverColor) {
+                    box.addEventListener('mouseenter', () => {
+                        topStrip.style.backgroundColor = hoverColor;
+                    });
+                    box.addEventListener('mouseleave', () => {
+                        topStrip.style.backgroundColor = originalColor;
+                    });
+                }
+            });
+        })();
+
+        // --- SCRIPT PARA GENERAR ARTEFACTOS SOBRE EL MODELO ---
+        (function setupModelArtifacts() {
+            const viewer = document.getElementById('modelViewer');
+            const layer = document.getElementById('artifactLayer');
+            if (!viewer || !layer) return;
+
+            const texturePool = [
+                'assets/images/back1.png',
+                'assets/images/back2.png',
+                'assets/images/Group 151.png',
+                'assets/images/Desktop - 3.png',
+                'assets/images/Vector 353.png',
+                'assets/images/ye.png'
+            ];
+
+            const strokePool = [
+                'linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 139, 208, 0.8))',
+                'linear-gradient(140deg, rgba(161, 224, 255, 0.35), rgba(255, 255, 255, 0.85))',
+                'conic-gradient(from 40deg, rgba(255, 255, 255, 0.05), rgba(255, 248, 138, 0.9), rgba(255, 255, 255, 0.2))',
+                'linear-gradient(95deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.08))'
+            ];
+
+            viewer.addEventListener('click', (event) => {
+                const rect = viewer.getBoundingClientRect();
+                const relativeX = (event.clientX - rect.left) / rect.width;
+                const relativeY = (event.clientY - rect.top) / rect.height;
+                createArtifact(relativeX, relativeY);
+            });
+
+            function createArtifact(relativeX, relativeY) {
+                const artifact = document.createElement('span');
+                artifact.className = 'artifact';
+
+                const isTexture = Math.random() > 0.35;
+                artifact.dataset.variant = isTexture ? 'texture' : 'wire';
+
+                const width = randomInRange(80, 220);
+                const height = width * randomInRange(0.4, 0.95);
+                artifact.style.width = width + 'px';
+                artifact.style.height = height + 'px';
+                artifact.style.left = (relativeX * 100) + '%';
+                artifact.style.top = (relativeY * 100) + '%';
+
+                const duration = randomInRange(4.5, 7.5);
+                artifact.style.setProperty('--artifact-duration', duration + 's');
+                artifact.style.setProperty('--artifact-rotateX', randomInRange(-35, 35) + 'deg');
+                artifact.style.setProperty('--artifact-rotateY', randomInRange(-55, 55) + 'deg');
+                artifact.style.setProperty('--artifact-rotateZ', randomInRange(-25, 25) + 'deg');
+                artifact.style.setProperty('--artifact-driftX', randomInRange(-120, 120) + 'px');
+                artifact.style.setProperty('--artifact-driftY', randomInRange(-90, 90) + 'px');
+                artifact.style.setProperty('--artifact-depth', randomInRange(60, 160) + 'px');
+
+                if (isTexture) {
+                    const pick = texturePool[Math.floor(Math.random() * texturePool.length)];
+                    artifact.style.backgroundImage = `url('${pick}')`;
+                } else {
+                    const stroke = strokePool[Math.floor(Math.random() * strokePool.length)];
+                    artifact.style.setProperty('--artifact-stroke', stroke);
+                }
+
+                layer.appendChild(artifact);
+
+                const maxArtifacts = 18;
+                while (layer.children.length > maxArtifacts) {
+                    layer.removeChild(layer.firstElementChild);
+                }
+
+                setTimeout(() => artifact.remove(), duration * 1000 + 250);
+            }
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias | Joaquina Videla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: #fff;
+            color: #000;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+        }
+
+        nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        /* CONTENT */
+        .page-content {
+            padding: 0 40px 40px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+
+        .section-desc {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.55;
+            max-width: 420px;
+            margin-bottom: 40px;
+        }
+
+        /* STORY CARDS */
+        .stories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 560px;
+        }
+
+        .story-card {
+            display: flex;
+            align-items: stretch;
+            min-height: 200px;
+            
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-card:hover {
+            background: #fafafa;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+        }
+
+        .story-thumb {
+            width: 145px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background: #f0f0f0;
+            border-right: 1px solid #ddd;
+        }
+
+        .story-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-thumb.placeholder {
+            background: linear-gradient(160deg, #a8d8e0 0%, #78c4cc 30%, #b0d8d0 60%, #c8a89a 100%);
+        }
+
+        .story-info {
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .story-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.8rem;
+            line-height: 1.1;
+        }
+
+        .story-desc {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 64px 40px 40px;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .c-label {
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            nav a { font-size: 1.1rem; }
+            .page-content { padding: 0 24px 32px; }
+            .stories-list { max-width: 100%; }
+            .story-card { min-height: 160px; }
+            .story-thumb { width: 110px; }
+            .story-info { padding: 18px 20px; }
+            .story-title { font-size: 1.5rem; }
+            .contact-section { padding: 40px 24px 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="indexarte.html" onclick="smoothTransition(event, 'indexarte.html')">Volver</a>
+        <a href="#">Historias</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="page-content">
+
+        <h2 class="section-title">Historias</h2>
+        <p class="section-desc">¿Cuántas historias pueden contarse y de qué maneras?</p>
+
+        <div class="stories-list">
+
+            <a class="story-card" href="epifania.html" onclick="smoothTransition(event, 'epifania.html')">
+                <div class="story-thumb">
+                    <img src="comicparaportfolio1.png" alt="Epifanía">
+                </div>
+                <div class="story-info">
+                    <p class="story-title">Epifanía</p>
+                    <p class="story-desc">Breve cómic sobre la identidad de género.</p>
+                </div>
+            </a>
+
+            <a class="story-card" href="senal.html" onclick="smoothTransition(event, 'senal.html')">
+                <div class="story-thumb">
+                    <img src="portadasenal.png" alt="Dame una señal">
+                </div>
+                <div class="story-info">
+                    <p class="story-title">Dame una señal</p>
+                    <p class="story-desc">Animación frame x frame sobre un amor no correspondido. Con la canción "Dame una señal" de Jimena Gonik</p>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    <section class="contact-section" id="contacto">
+        <div class="contact-row"><span class="c-label">Mail:</span><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></div>
+        <div class="contact-row"><span class="c-label">Whatsapp:</span><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></div>
+        <div class="contact-row"><span class="c-label">Instagram:</span><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></div>
+        <div class="contact-row"><span class="c-label">Behance:</span><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></div>
+    </section>
+
+    <script>
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+    </script>
+
+</body>
+</html>

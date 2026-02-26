@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALAMANTE | Joaquina Videla</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ajuste para que el borde suba hasta arriba */
+        body {
+            padding-top: 0;
+            background-color: #FFFEF3;
+        }
+
+        /* Color de fondo para todas las secciones */
+        .layout-container {
+            background-color: #FFFEF3;
+        }
+
+        .project-hero {
+            background-color: #FFFEF3;
+        }
+
+        .grid-2-cols {
+            background-color: #FFFEF3;
+        }
+
+        .col-text {
+            background-color: #FFFEF3;
+            padding: 30px 40px;
+        }
+
+        .col-text p, .padding-box p {
+            max-width: 520px;
+        }
+
+        .col-media {
+            background-color: #FFFEF3;
+        }
+
+        .fanzine-section {
+            background-color: #FFFEF3;
+        }
+
+        .fanzine-section .padding-box {
+            background-color: #FFFEF3;
+        }
+
+        .carousel-wrapper {
+            background-color: #FFFEF3;
+        }
+
+        .slide-counter {
+            background-color: #FFFEF3;
+        }
+
+        .carousel-controls {
+            background-color: #FFFEF3;
+        }
+
+        .arrow-btn {
+            background-color: #FFFEF3;
+        }
+
+        .resources-section {
+            background-color: #FFFEF3;
+        }
+
+        .resources-section .padding-box {
+            background-color: #FFFEF3;
+        }
+
+        .grid-3-cols {
+            background-color: #FFFEF3;
+        }
+
+        .res-col {
+            background-color: #FFFEF3;
+        }
+
+        .footer-action {
+            background-color: #FFFEF3;
+        }
+
+        /* Lightbox para ver imágenes del fanzine en grande */
+        .fanzine-slide {
+            cursor: pointer;
+        }
+
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-overlay img {
+            max-width: 80%;
+            max-height: 85%;
+            object-fit: contain;
+        }
+
+        .lightbox-overlay img.slide-in-right {
+            -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                    animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        .lightbox-overlay img.slide-in-left {
+            -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                    animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        .lightbox-overlay img.slide-out-right {
+            -webkit-animation: slide-out-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                    animation: slide-out-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        .lightbox-overlay img.slide-out-left {
+            -webkit-animation: slide-out-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                    animation: slide-out-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @-webkit-keyframes slide-in-right {
+            0% { -webkit-transform: translateX(100px); transform: translateX(100px); opacity: 0; }
+            100% { -webkit-transform: translateX(0); transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-in-right {
+            0% { transform: translateX(100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @-webkit-keyframes slide-in-left {
+            0% { -webkit-transform: translateX(-100px); transform: translateX(-100px); opacity: 0; }
+            100% { -webkit-transform: translateX(0); transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-in-left {
+            0% { transform: translateX(-100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @-webkit-keyframes slide-out-right {
+            0% { -webkit-transform: translateX(0); transform: translateX(0); opacity: 1; }
+            100% { -webkit-transform: translateX(100px); transform: translateX(100px); opacity: 0; }
+        }
+        @keyframes slide-out-right {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(100px); opacity: 0; }
+        }
+
+        @-webkit-keyframes slide-out-left {
+            0% { -webkit-transform: translateX(0); transform: translateX(0); opacity: 1; }
+            100% { -webkit-transform: translateX(-100px); transform: translateX(-100px); opacity: 0; }
+        }
+        @keyframes slide-out-left {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(-100px); opacity: 0; }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .lightbox-close svg {
+            stroke: white;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover svg {
+            opacity: 0.6;
+        }
+
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 15px;
+            z-index: 2001;
+        }
+
+        .lightbox-arrow svg {
+            stroke: white;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-arrow:hover svg {
+            opacity: 0.6;
+        }
+
+        .lightbox-prev {
+            left: 15px;
+        }
+
+        .lightbox-next {
+            right: 15px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.85rem;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-overlay img {
+                max-width: 95%;
+                max-height: 80%;
+            }
+
+            .lightbox-prev {
+                left: 5px;
+            }
+
+            .lightbox-next {
+                right: 5px;
+            }
+
+            .lightbox-arrow svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-header">
+        <a href="index.html" class="nav-link">Volver</a>
+        <span class="nav-title">MALA AMANTE</span>
+        <a href="#" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+        
+        <header class="project-hero padding-box">
+            <h1>MALA AMANTE</h1>
+        </header>
+
+        <section class="grid-2-cols border-bottom">
+            <div class="col-text padding-box border-right">
+                <h3>SOBRE EL PROYECTO</h3>
+                <p>
+                    MALAMANTE es un trabajo para mi tercer año de la facultad. 
+                    La consigna del mismo era construir una narrativa para un fanzine sobre un artista seleccionado. 
+                    Para hacerlo, me basé en la historia contada en el disco <i>El Mal Querer</i> de Rosalía, 
+                    que habla de un amor tóxico, posesivo y dañino.
+                </p>
+            </div>
+            <div class="col-media padding-box flex-center">
+               <iframe style="border-radius:12px; margin-top: 20px;" src="https://open.spotify.com/embed/album/355bjCHzRJztCzaG5Za4gq?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="caption-text">escuchá el disco :)</p>
+            </div>
+        </section>
+
+        <section class="fanzine-section border-bottom">
+            <div class="padding-box" style="padding: 30px 40px;">
+                <h3 id="fanzineTitle">EL FANZINE</h3>
+            </div>
+            
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="track">
+                    <img src="TAPAFANZINE.png" alt="Pagina 1" class="fanzine-slide">
+                    <img src="1-2PAGSFANZINE.png" alt="Pagina 2" class="fanzine-slide">
+                    <img src="3-4PAGSFANZINE.png" alt="Pagina 3" class="fanzine-slide">
+                    <img src="5-6PAGSFANZINE.png" alt="Pagina 4" class="fanzine-slide">
+                    <img src="CONTRATAPAFANZINE.png" alt="Pagina 5" class="fanzine-slide">
+                    <img src="POSTER.png" alt="Pagina 6" class="fanzine-slide">
+                </div>
+            </div>
+
+            <div id="slideCounter" class="slide-counter border-top">1 / 6</div>
+
+            <div class="carousel-controls border-top">
+                <button class="arrow-btn border-right" id="prevBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                </button>
+                <button class="arrow-btn" id="nextBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <section class="resources-section border-bottom">
+            <div class="padding-box" style="padding: 30px 40px;">
+                <h3>RECURSOS GRÁFICOS</h3>
+            </div>
+            
+            <div class="grid-3-cols">
+                
+                <div class="res-col border-right padding-box">
+                    <p class="italic-title">Colores opuestos complementarios</p>
+                    <div class="color-group">
+                        <div class="color-swatch" style="background-color: #F24636;"></div> <span class="color-label">Él</span>
+                    </div>
+                    <div class="color-group">
+                        <div class="color-swatch" style="background-color: #3BABC0;"></div> <span class="color-label">Ella</span>
+                    </div>
+                </div>
+
+                <div class="res-col border-right padding-box">
+                    <p class="italic-title">Edición e intervención fotográfica</p>
+                    <div class="img-placeholder-box">
+                        <img src="FOTOEDIT.png" alt="Edición">
+                    </div>
+                </div>
+
+                <div class="res-col padding-box">
+                    <p class="italic-title">Fotografía</p>
+                    <div class="img-placeholder-box">
+                        <img src="GIFMAKI.gif" alt="Gif Fotografía">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="footer-action padding-box flex-center">
+            <a href="index.html" class="btn-volver">VOLVER</a>
+        </div>
+
+    </div>
+
+    <!-- Lightbox overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <img id="lightbox-img" src="" alt="Fanzine ampliado">
+        <button class="lightbox-arrow lightbox-next" id="lightbox-next">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <span class="lightbox-counter" id="lightbox-counter"></span>
+    </div>
+
+    <script>
+        // LÓGICA DEL CARRUSEL DE FOTOS
+        const track = document.getElementById('track');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const slides = document.querySelectorAll('.fanzine-slide');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        const fanzineTitle = document.getElementById('fanzineTitle');
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            slideCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+            fanzineTitle.textContent = currentIndex === totalSlides - 1 ? 'EL POSTER' : 'EL FANZINE';
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = totalSlides - 1;
+            }
+            updateCarousel();
+        });
+
+        updateCarousel();
+        window.addEventListener('resize', updateCarousel);
+
+        // LIGHTBOX
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        let lightboxIndex = 0;
+
+        var isAnimating = false;
+
+        function clearAnimClasses() {
+            lightboxImg.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-right', 'slide-out-left');
+        }
+
+        function openLightbox(index) {
+            lightboxIndex = index;
+            lightboxImg.src = slides[lightboxIndex].src;
+            lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + totalSlides;
+            clearAnimClasses();
+            lightbox.style.display = 'flex';
+            void lightboxImg.offsetWidth;
+            lightboxImg.classList.add('slide-in-right');
+        }
+
+        function slideTo(newIndex, direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+            var outClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+            var inClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+            clearAnimClasses();
+            void lightboxImg.offsetWidth;
+            lightboxImg.classList.add(outClass);
+            setTimeout(function() {
+                lightboxIndex = newIndex;
+                lightboxImg.src = slides[lightboxIndex].src;
+                lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + totalSlides;
+                clearAnimClasses();
+                void lightboxImg.offsetWidth;
+                lightboxImg.classList.add(inClass);
+                setTimeout(function() { isAnimating = false; }, 500);
+            }, 500);
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        slides.forEach((slide, i) => {
+            slide.addEventListener('click', () => openLightbox(i));
+        });
+
+        document.getElementById('lightbox-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            slideTo((lightboxIndex + 1) % totalSlides, 'next');
+        });
+
+        document.getElementById('lightbox-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            slideTo((lightboxIndex - 1 + totalSlides) % totalSlides, 'prev');
+        });
+
+        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+
+        // Cerrar al hacer click fuera de la imagen
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Cerrar con Escape, navegar con flechas del teclado
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display !== 'flex') return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') {
+                slideTo((lightboxIndex + 1) % totalSlides, 'next');
+            }
+            if (e.key === 'ArrowLeft') {
+                slideTo((lightboxIndex - 1 + totalSlides) % totalSlides, 'prev');
+            }
+        });
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            var nav = document.querySelectorAll('.sticky-header .nav-link');
+            nav[0].textContent = 'Back';
+            nav[1].textContent = 'Contact';
+            document.querySelector('.col-text h3').textContent = 'ABOUT THE PROJECT';
+            document.querySelector('.col-text p').innerHTML = 'MALAMANTE is a project for my third year of university. The assignment was to build a narrative for a fanzine about a selected artist. To do so, I based it on the story told in Rosalía\'s album <i>El Mal Querer</i>, which tells of a toxic, possessive, and harmful love.';
+            document.querySelector('.caption-text').textContent = 'listen to the album :)';
+            document.querySelector('.resources-section .padding-box h3').textContent = 'GRAPHIC RESOURCES';
+            var resTitles = document.querySelectorAll('.italic-title');
+            resTitles[0].textContent = 'Complementary opposite colors';
+            resTitles[1].textContent = 'Photo editing and intervention';
+            resTitles[2].textContent = 'Photography';
+            var colorLabels = document.querySelectorAll('.color-label');
+            colorLabels[0].textContent = 'Him';
+            colorLabels[1].textContent = 'Her';
+            document.querySelector('.btn-volver').textContent = 'BACK';
+            // Override fanzine title logic
+            var origUpdate = updateCarousel;
+            updateCarousel = function() {
+                origUpdate();
+                fanzineTitle.textContent = currentIndex === totalSlides - 1 ? 'THE POSTER' : 'THE FANZINE';
+            };
+            updateCarousel();
+        })();
+    </script>
+</body>
+</html>

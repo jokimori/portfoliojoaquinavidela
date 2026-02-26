@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caras | Joaquina Videla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: #fff;
+            color: #000;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+        }
+
+        nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        /* CONTENT */
+        .page-content {
+            padding: 0 40px 40px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+
+        .section-desc {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.55;
+            max-width: 420px;
+            margin-bottom: 32px;
+        }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 0;
+            width: 100%;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #e8e8e8;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 56px 40px 40px;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .c-label {
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            nav a { font-size: 1.1rem; }
+            .page-content { padding: 0 24px 32px; }
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+            .contact-section { padding: 40px 24px 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* LIGHTBOX */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.open {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 80vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-inner img {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-caption {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .gallery-item.clickable {
+            cursor: pointer;
+        }
+
+        @keyframes itemFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item {
+            animation: itemFadeIn 0.5s ease-out backwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.10s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.20s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.30s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.40s; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="indexarte.html" onclick="smoothTransition(event, 'indexarte.html')">Volver</a>
+        <a href="#">Caras</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="page-content">
+
+        <h2 class="section-title">Caras</h2>
+        <p class="section-desc">
+            Me encanta hacer retratos, dibujar a gente que
+            existe y también crear personajes e imaginarme
+            sus personalidades. En búsqueda de un estilo
+            personal o de nada en particular, les dejo mi
+            colección de caras.
+        </p>
+
+        <div class="gallery-grid">
+            <!-- Row 1 -->
+            <div class="gallery-item clickable" onclick="openLightbox('retrato1.jpg', 'Mujer antes de hacer lo correcto, 2025, acrílico')"><img src="retrato1.jpg" alt="Retrato 1"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato2.jpg', 'ninfa del agua, 2025, acuarela')"><img src="retrato2.jpg" alt="Retrato 2"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato3.jpg', 'Quiero ser una chica cool! 2025, acrílico')"><img src="retrato3.jpg" alt="Retrato 3"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato4.jpg', 'Mujer doliente, 2025, acrílico')"><img src="retrato4.jpg" alt="Retrato 4"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato5.jpg', 'Sin nombre, 2025, restos de acrílico.')"><img src="retrato5.jpg" alt="Retrato 5"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato6.jpg', 'Paciente SM, 2026, digital')"><img src="retrato6.jpg" alt="Retrato 6"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato7.jpg', 'Sin nombre, 2024, digital')"><img src="retrato7.jpg" alt="Retrato 7"></div>
+            <div class="gallery-item clickable" onclick="openLightbox('retrato8.jpg', 'Sin nombre, 2025, digital')"><img src="retrato8.jpg" alt="Retrato 8"></div>
+        </div>
+
+    </div>
+
+    <section class="contact-section" id="contacto">
+        <div class="contact-row"><span class="c-label">Mail:</span><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></div>
+        <div class="contact-row"><span class="c-label">Whatsapp:</span><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></div>
+        <div class="contact-row"><span class="c-label">Instagram:</span><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></div>
+        <div class="contact-row"><span class="c-label">Behance:</span><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></div>
+    </section>
+
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-inner">
+            <img id="lightbox-img" src="" alt="">
+            <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <script>
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox').classList.add('open');
+        }
+
+        function closeLightbox(e) {
+            if (e.target === document.getElementById('lightbox')) {
+                document.getElementById('lightbox').classList.remove('open');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,5197 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fenómeno - Gentrificación</title>
+
+    <style>
+
+        @font-face {
+
+            font-family: 'Thermal VF';
+
+            src: url('fonts/Thermal-VF.woff2') format('woff2');
+
+            font-weight: 100 900;
+
+            font-style: normal;
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            background-color: #ffffff;
+
+            color: #000000;
+
+            font-family: 'Thermal VF', 'Courier New', monospace;
+
+            overflow-x: hidden;
+
+            overflow-y: auto;
+
+            position: relative;
+
+            width: 100%;
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            padding-top: 75px;
+
+        }
+
+
+
+        .container {
+
+            position: relative;
+
+            width: 1440px;
+
+            min-height: auto;
+
+            margin: 0 auto;
+
+            transform: scale(0.75);
+
+            transform-origin: top center;
+
+        }
+
+
+
+/* --- NUEVO HEADER FIJO --- */
+
+.fixed-header-container {
+
+    position: fixed; /* Esto hace que baje contigo */
+
+    top: 0;
+
+    left: 0;
+
+    width: 100vw; /* Ocupa todo el ancho de la pantalla */
+
+    height: 75px;
+
+    background-image: url('assets/images/header-bg.png?v=1');
+
+    background-size: 100% 100%;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    z-index: 1000; /* Para que esté siempre encima de todo */
+
+    display: flex;
+
+    justify-content: center; /* Centra el contenido de 1440px */
+
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.05); /* Sombra sutil opcional */
+
+    transform: scale(1);
+
+    transform-origin: top center;
+
+    overflow: hidden;
+
+}
+
+
+
+/* Este contenedor interno mantiene tus medidas de 1440px */
+
+.header-inner {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 1440px;
+
+    height: 100%;
+
+    padding: 0 20px;
+
+}
+
+
+
+.logo {
+
+    position: absolute;
+
+    left: 23px;
+
+    top: 50%; /* Centrado vertical automático */
+
+    transform: translateY(-50%);
+
+    font-family: 'Thermal VF', sans-serif;
+
+    font-size: 35.75px;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    line-height: 0;
+
+    color: black;
+
+    font-variation-settings: 'opsz' 500;
+
+}
+
+
+
+.header-title {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-family: 'Thermal VF', sans-serif;
+
+    font-size: 35.75px;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    line-height: 0;
+
+    color: black;
+
+    font-variation-settings: 'opsz' 500;
+
+}
+
+
+
+/* --- BOTÓN VOLVER ACTUALIZADO --- */
+
+.volver-top {
+
+    position: absolute;
+
+    right: 35px;
+
+    top: 50%; /* Centrado vertical automático */
+
+    transform: translateY(-50%);
+
+    font-family: 'Thermal VF', sans-serif;
+
+    font-size: 24px;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    text-transform: uppercase;
+
+    color: black;
+
+    text-decoration: none; /* Quitamos el subrayado por defecto de los links */
+
+    border-bottom: 1px solid black; /* Tu subrayado original */
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease; /* Transición suave */
+
+}
+
+
+
+/* Efecto Hover: Negrita */
+
+.volver-top:hover {
+
+    font-weight: 700; 
+
+    border-bottom: 2px solid black; /* Hacemos la línea un poco más gruesa también */
+
+}
+
+
+
+.header-line {
+
+    position: absolute;
+
+    bottom: 0; /* Pegada al borde de abajo del header */
+
+    left: -2px;
+
+    width: 1442px;
+
+    height: 1px;
+
+    overflow: hidden;
+
+}
+
+
+
+/* 1. El contenedor ahora arranca desde arriba de todo (top: 0) */
+
+.bg-letters-container {
+
+    position: absolute;
+
+    top: 0; /* CAMBIO: Antes 150px, ahora 0 para que cubra el header también */
+
+    left: 0;
+
+    width: 1440px;
+
+    height: 900px; /* Le damos un poco más de altura */
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+}
+
+
+
+/* 2. Las letras las bajamos para que se vea la punta de la A */
+
+.big-letter {
+
+    position: absolute;
+
+    font-family: 'Thermal VF', sans-serif;
+
+    font-size: 1100px;
+
+    font-style: italic;
+
+    font-weight: 700;
+
+    line-height: 0.8;
+
+    
+
+    /* CAMBIO IMPORTANTE: */
+
+    top: -50px; /* Antes estaba en -200px (muy arriba). Al ponerlo en -50px bajan y se ven completas. */
+
+    
+
+    background: linear-gradient(to bottom, #e6e6e6 0%, #ffffff 100%);
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+
+    
+
+    -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+
+}
+
+
+
+.big-a {
+
+    left: -100px;
+
+}
+
+
+
+.big-v {
+
+    right: -100px;
+
+}
+
+
+
+/* --- AJUSTE DEL RECTÁNGULO PUNTEADO --- */
+
+.dashed-box {
+
+    position: absolute;
+
+    left: 246.57px;
+
+    /* Lo subimos mucho más para que solo se vean las líneas bajando */
+
+    top: -400px; 
+
+    width: 312.897px;
+
+    height: 515.044px;
+
+    border: 1.987px dashed #a0a0a0; /* Un poco más gris para ser sutil */
+
+    opacity: 0.5; /* Baja opacidad */
+
+    z-index: 1;
+
+    border-bottom: none; /* Quitamos el borde de abajo si molesta, o lo dejamos */
+
+}
+
+
+
+/* --- ELIMINAR CLASE VIEJA --- */
+
+.letter-a {
+
+    display: none;
+
+}
+
+
+
+        .dashed-box {
+
+            position: absolute;
+
+            left: 246.57px;
+
+            top: -85px;
+
+            width: 312.897px;
+
+            height: 515.044px;
+
+            border: 1.987px dashed black;
+
+        }
+
+
+
+        .red-gradient-box {
+
+            position: absolute;
+
+            left: 190.5px;
+
+            top: 325.63px;
+
+            width: 390.5px;
+
+            height: 103.39px;
+
+            background: linear-gradient(to right, #ff8181, #e33b3b);
+
+            z-index: 1;
+
+        }
+
+
+
+        .text-un {
+
+            position: absolute;
+
+            left: 20px;
+
+            top: 329.78px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 101.534px;
+
+            font-weight: 300;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 900;
+
+            width: 132.177px;
+
+            height: 103.639px;
+
+            z-index: 2;
+
+        }
+
+
+
+        .text-fenomeno {
+
+            position: absolute;
+
+            left: 177.33px;
+
+            top: 329.78px;
+
+            width: 556.886px;
+
+            height: 122.985px;
+
+            z-index: 2;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 101.534px;
+
+            font-weight: 700;
+
+            font-style: italic;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 900;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-start;
+
+        }
+
+
+
+        .text-fenomeno .fenomeno-text {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            color: inherit;
+
+            font-family: inherit;
+
+            font-size: inherit;
+
+            font-weight: inherit;
+
+            font-style: inherit;
+
+            font-variation-settings: inherit;
+
+        }
+
+
+
+        .text-mundial {
+
+            position: absolute;
+
+            left: 246px;
+
+            top: 429px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 36.86px;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 500;
+
+            width: 494px;
+
+            height: 39px;
+
+            z-index: 2;
+
+        }
+
+
+
+        /* Gray gradient section */
+
+        .gray-gradient-section {
+
+            position: absolute;
+
+            left: -303px;
+
+            top: 719px;
+
+            width: 1743.15px;
+
+            height: 151.315px;
+
+            background: linear-gradient(to right, #ffffff, #e8e8e8);
+
+        }
+
+
+
+        .vertical-line-1 {
+
+            position: absolute;
+
+            left: 836.74px;
+
+            top: 769px;
+
+            width: 2px;
+
+            height: 764.656px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .vertical-line-1 img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+        .vertical-line-2 {
+
+            position: absolute;
+
+            left: 1386px;
+
+            top: 769px;
+
+            width: 2px;
+
+            height: 815px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .vertical-line-2 img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+    .text-nuevo-interes {
+
+    position: absolute;
+
+    /* Cambiamos la lógica de posicionamiento */
+
+    right: 28px; /* Alineado a la derecha (1440px - 1412px = 28px aprox) */
+
+    left: auto;
+
+    top: 719px;
+
+    width: 567px;
+
+    height: 136px;
+
+    font-family: 'Thermal VF', sans-serif;
+
+    font-size: 72.322px;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    line-height: 80.56%;
+
+    text-align: right;
+
+    background: linear-gradient(to bottom, #c0c0c0, #2f2b2b);
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+
+    font-variation-settings: 'opsz' 900;
+
+    /* Eliminamos el transform para evitar conflictos con animaciones */
+
+    transform: none; 
+
+}
+
+
+
+        .decorative-line-top {
+
+            position: absolute;
+
+            left: 5px;
+
+            top: 719.01px;
+
+            width: 1433px;
+
+            height: 1px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .decorative-line-top img {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+        }
+
+
+
+        .decorative-line-bottom {
+
+            position: absolute;
+
+            left: 5px;
+
+            top: 880px;
+
+            width: 1433px;
+
+            height: 1px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .decorative-line-bottom img {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+        }
+
+
+
+        /* Text block with highlights */
+
+        .text-block-main {
+
+            position: absolute;
+
+            left: 39.27px;
+
+            top: 1017.04px;
+
+            width: 1346.48px;
+
+            height: auto;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24.497px;
+
+            font-weight: 100;
+
+            line-height: 1.5;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .text-block-main .highlight {
+
+            background: linear-gradient(to right, rgba(255,181,181,0.84), rgba(238,72,72,0.84));
+
+            padding: 2px 4px;
+
+            display: inline;
+
+            line-height: inherit;
+
+        }
+
+
+
+            .gentrificacion-title {
+
+            position: absolute;
+
+            left: 0; /* Empieza desde el borde izquierdo */
+
+            top: 1200px;
+
+            width: 100%; /* Ocupa todo el ancho */
+
+            height: 293.96px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 180px;
+
+            font-weight: 700;
+
+            font-style: normal;
+
+            line-height: 0.85;
+
+            color: black;
+
+            text-transform: uppercase;
+
+            letter-spacing: -0.03em;
+
+            font-variation-settings: 'opsz' 900;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center; /* Esto asegura el centrado */
+
+            white-space: nowrap;
+
+            /* Eliminamos el transform */
+
+            transform: none;
+
+        }
+
+
+
+        .section-divider-1 {
+
+            position: absolute;
+
+            left: -2px;
+
+            top: 1583.96px;
+
+            width: 1442px;
+
+            height: 1px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .section-divider-1 img {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+        }
+
+
+
+        .text-fenomeno-urbano {
+
+            position: absolute;
+
+            left: 851px;
+
+            top: 1592px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 28px;
+
+            font-weight: 100;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 500;
+
+            width: 529px;
+
+            height: 31px;
+
+            white-space: pre-wrap;
+
+        }
+
+
+
+        /* Gray background section */
+
+        .gray-bg-section {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 1632px;
+
+            width: 1440px;
+
+            height: 1127px;
+
+            background: linear-gradient(to right, rgba(232,232,232,0.6), rgba(255,255,255,0.6));
+
+        }
+
+
+
+        .section-divider-2 {
+
+            position: absolute;
+
+            left: 7px;
+
+            top: 1632px;
+
+            width: 1433px;
+
+            height: 1px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .section-divider-2 img {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+        }
+
+
+
+        /* ¿Qué es? Section */
+
+        .que-es-section {
+
+            position: absolute;
+
+            left: 38.2px;
+
+            top: 1728px;
+
+            border: 1px solid black;
+
+            width: 716px;
+
+            height: 350px;
+
+            background: white;
+
+        }
+
+
+
+        .gray-box {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 10.35px;
+
+            width: 332.933px;
+
+            height: 108.379px;
+
+            background: linear-gradient(to right, #d9d9d9, #737373);
+
+        }
+
+
+
+        .white-text-box {
+
+            position: absolute;
+
+            left: 332.94px;
+
+            top: 0;
+
+            width: 383.06px;
+
+            height: 319px;
+
+            background: white;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            mix-blend-mode: multiply;
+
+        }
+
+
+
+        .text-que-es {
+
+            position: absolute;
+
+            left: 20.75px;
+
+            top: 10.35px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 79.924px;
+
+            font-style: italic;
+
+            font-weight: 700;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 900;
+
+            width: 315.384px;
+
+            height: 92.896px;
+
+            z-index: 2;
+
+        }
+
+
+
+        .text-explicacion {
+
+            position: relative;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24.497px;
+
+            font-weight: 100;
+
+            line-height: 1.4;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 100;
+
+            width: 100%;
+
+            height: auto;
+
+            transform: rotate(0deg);
+
+        }
+
+
+
+        .text-explicacion .bold-italic {
+
+            font-weight: 700;
+
+            font-style: italic;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .text-explicacion .medium-italic {
+
+            font-weight: 500;
+
+            font-style: italic;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .decorative-element-1 {
+
+            position: absolute;
+
+            left: 38.62px;
+
+            top: 1738.78px;
+
+            width: 332.398px;
+
+            height: 107.519px;
+
+        }
+
+
+
+        .decorative-element-2 {
+
+            position: absolute;
+
+            left: 371.14px;
+
+            top: 1739.5px;
+
+            width: 380.822px;
+
+            height: 317.52px;
+
+        }
+
+
+
+        .gray-gradient-box-2 {
+
+            position: absolute;
+
+            left: 100px;
+
+            top: 1846.49px;
+
+            width: 331.827px;
+
+            height: 210.53px;
+
+            background: linear-gradient(to bottom, #ffffff, #737373);
+
+        }
+
+
+
+        .decorative-element-3 {
+
+            position: absolute;
+
+            left: 37px;
+
+            top: 1738.04px;
+
+            width: 716px;
+
+            height: 319.246px;
+
+        }
+
+
+
+        /* Image cards */
+
+        .image-card-1 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 1824px;
+
+            width: 300.83px;
+
+            height: 220px;
+
+            transform: rotate(0deg);
+
+            
+
+            
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            z-index: 50; /* Para que quede por encima y se pueda dar click */
+
+        }
+
+
+
+        .image-card-1 img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: 50% 50%;
+
+        }
+
+
+
+        
+
+
+
+        .text-otros-casos {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 1750px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 25.368px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            opacity: 0.61;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        /* --- BOTÓN BERLÍN ACTUALIZADO --- */
+
+        .image-card-2 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 2080px;
+
+            width: 286.83px;
+
+            height: 188.853px;
+
+            transform: rotate(0deg);
+
+            box-shadow: 0px 5.68px 5.68px 0px rgba(0,0,0,0.25);
+
+            border: 1px solid black;
+
+            border-radius: 13px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .image-card-2 img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: 50% 50%;
+
+        }
+
+
+
+        .image-card-2 .card-text {
+
+            position: absolute;
+
+            left: 54.05px;
+
+            top: 33.69px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 32.35px;
+
+            font-weight: 100;
+
+            line-height: normal;
+
+            color: white;
+
+            white-space: pre;
+
+            transform: rotate(0deg);
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        /* --- BOTÓN BARCELONA ACTUALIZADO --- */
+
+        .image-card-3 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 2335px;
+
+            width: 286.83px;
+
+            height: 188.853px;
+
+            transform: rotate(0deg);
+
+            box-shadow: 0px 5.68px 5.68px 0px rgba(0,0,0,0.25);
+
+            border: 1px solid black;
+
+            border-radius: 13px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .image-card-3 img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: 50% 50%;
+
+        }
+
+
+
+        .image-card-3 .card-text {
+
+            position: absolute;
+
+            left: 54.05px;
+
+            top: 33.69px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 32.35px;
+
+            font-weight: 100;
+
+            line-height: normal;
+
+            color: white;
+
+            white-space: pre;
+
+            transform: rotate(0deg);
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .decorative-lines {
+
+            position: absolute;
+
+        }
+
+
+
+        .decorative-line-1 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 2012px;
+
+            width: 286.83px;
+
+            height: 1px;
+
+            border-top: 1px dashed black;
+
+        }
+
+
+
+        .decorative-line-2 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 2270px;
+
+            width: 286.83px;
+
+            height: 1px;
+
+            border-top: 1px dashed black;
+
+        }
+
+
+
+        .decorative-line-3 {
+
+            position: absolute;
+
+            left: 884px;
+
+            top: 2525px;
+
+            width: 286.83px;
+
+            height: 1px;
+
+            border-top: 1px dashed black;
+
+        }
+
+
+
+        .vertical-line-3 {
+
+            position: absolute;
+
+            left: 199px;
+
+            top: 2602px;
+
+            width: 0;
+
+            height: 1028px;
+
+        }
+
+
+
+        /* Factores clave section */
+
+        .factores-clave {
+
+            position: absolute;
+
+            left: calc(50% - 209px);
+
+            top: 2746px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 84.732px;
+
+            font-style: italic;
+
+            font-weight: 300;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 500;
+
+            width: 472px;
+
+            height: 93px;
+
+            z-index: 10;
+
+        }
+
+
+
+        .factores-gradient-left {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 2760px;
+
+            width: 456px;
+
+            height: 79px;
+
+            background: linear-gradient(to left, #ffffff, #d3d2d2);
+
+            mix-blend-mode: multiply;
+
+            z-index: 1;
+
+            pointer-events: none;
+
+        }
+
+
+
+        .factores-gradient-right {
+
+            position: absolute;
+
+            right: 0;
+
+            top: 2760px;
+
+            width: 435px;
+
+            height: 84px;
+
+            background: linear-gradient(to left, #ffffff, #d3d2d2);
+
+            transform: rotate(180deg);
+
+            mix-blend-mode: multiply;
+
+            z-index: 1;
+
+            pointer-events: none;
+
+        }
+
+
+
+        .factores-divider-top-1 {
+
+            position: absolute;
+
+            left: -7px;
+
+            top: 2746px;
+
+            width: 1447px;
+
+            height: 0;
+
+        }
+
+
+
+        .factores-divider-top-2 {
+
+            position: absolute;
+
+            left: -7px;
+
+            top: 2759px;
+
+            width: 1447px;
+
+            height: 0;
+
+        }
+
+
+
+        .factores-vertical-left {
+
+            position: absolute;
+
+            left: 36px;
+
+            top: 2759px;
+
+            width: 0;
+
+            height: 80px;
+
+        }
+
+
+
+        .factores-vertical-right {
+
+            position: absolute;
+
+            right: 35px;
+
+            top: 2760px;
+
+            width: 0;
+
+            height: 79px;
+
+        }
+
+
+
+        .factores-divider-bottom-1 {
+
+            position: absolute;
+
+            left: -2px;
+
+            top: 2844px;
+
+            width: 1447px;
+
+            height: 0;
+
+        }
+
+
+
+        .factores-divider-bottom-2 {
+
+            position: absolute;
+
+            left: -7px;
+
+            top: 2854px;
+
+            width: 1447px;
+
+            height: 0;
+
+        }
+
+
+
+        /* Transformación section -- SUBIDA 200px (Antes 3973) */
+
+        .text-transformacion {
+
+            position: absolute;
+
+            left: 40px;
+
+            top: 2773px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 80.74px;
+
+            font-weight: 300;
+
+            line-height: normal;
+
+            color: black;
+
+            letter-spacing: 1.6148px;
+
+            width: 931px;
+
+            height: 80.74px;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .text-transformacion .bold-italic {
+
+            font-weight: 700;
+
+            font-style: italic;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .text-transformacion .extrabold-italic {
+
+            font-weight: 800;
+
+            font-style: italic;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .transformacion-divider-1 {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 3777px;
+
+            width: 1440.5px;
+
+            height: 0;
+
+        }
+
+
+
+        .transformacion-divider-2 {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 3874px;
+
+            width: 1440.5px;
+
+            height: 0;
+
+        }
+
+
+
+        .text-lo-visible {
+
+            position: absolute;
+
+            left: 369px;
+
+            top: 2888px;
+
+            width: 1052px;
+
+            height: 104px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 84.732px;
+
+            font-weight: 300;
+
+            font-style: italic;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 500;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .transformacion-divider-3 {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 3984px;
+
+            width: 1440.5px;
+
+            height: 0;
+
+        }
+
+
+
+        /* Examples section - Positioned Top Left */
+
+        .examples-section {
+
+            position: absolute;
+
+            left: 55px;
+
+            top: 5284px;
+
+            width: 666.656px;
+
+            height: 206.733px;
+
+            background: white;
+
+            border: 3px solid black;
+
+            z-index: 10;
+
+        }
+
+
+
+       
+
+
+
+        /* Image section - Positioned Right, overlapping/next to examples */
+
+        .image-section {
+
+            position: absolute;
+
+            left: 720px; /* Moved to the right */
+
+            top: 6284px; /* Aligned with top of examples box */
+
+            width: 680px; /* Filled remaining space */
+
+            height: 500px; /* Adjusted height */
+
+            overflow: hidden;
+
+            z-index: 5; /* Behind text boxes */
+
+        }
+
+
+
+        .image-section img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: center;
+
+        }
+
+
+
+        /* Disputa simbólica section - Positioned Bottom Right */
+
+        .disputa-simbolica {
+
+            position: absolute;
+
+            right: 810px; /* Aligned right */
+
+            left: auto;
+
+            top: 5340px; /* Below the image */
+
+            width: auto;
+
+            height: auto;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 72.322px;
+
+            font-weight: 700;
+
+            font-style: italic;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 900;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            z-index: 10;
+
+        }
+
+
+
+        /* Text Gentrificación - Positioned Bottom Left */
+
+        .text-gentrificacion-chacarita {
+
+            position: absolute;
+
+            left: 750px;
+
+            top: 5400px; /* Below the examples box */
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 36px;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: black;
+
+            text-align: justify;
+
+            width: 600px;
+
+            height: auto;
+
+            font-variation-settings: 'opsz' 100;
+
+            z-index: 10;
+
+        }
+
+
+
+        .disputa-divider-1 {
+
+            position: absolute;
+
+            left: 641px;
+
+            top: 6884px;
+
+            width: 771px;
+
+            height: 0;
+
+        }
+
+
+
+        .disputa-divider-2 {
+
+            position: absolute;
+
+            left: 760px;
+
+            top: 6913px;
+
+            width: 686px;
+
+            height: 0;
+
+        }
+
+
+
+        .disputa-divider-3 {
+
+            position: absolute;
+
+            left: 827px;
+
+            top: 7147px;
+
+            width: 627px;
+
+            height: 0;
+
+        }
+
+
+
+        .disputa-vertical {
+
+            position: absolute;
+
+            left: 1057.5px;
+
+            top: 7122px;
+
+            width: 0;
+
+            height: 255px;
+
+        }
+
+
+
+        .disputa-horizontal {
+
+            position: absolute;
+
+            left: 12.5px;
+
+            top: 7123px;
+
+            width: 1439px;
+
+            height: 0;
+
+        }
+
+
+
+        /* TENSIÓN section */
+
+        .tension-bg {
+
+            position: absolute;
+
+            left: 60px;
+
+            top: 5700px;
+
+            width: 1046px;
+
+            height: 256px;
+
+            background: linear-gradient(to left, #ee4848, #000000);
+
+        }
+
+
+
+        .text-tension {
+
+            position: absolute;
+
+            left: 150.5px;
+
+            top: 5700px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 212.83px;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: white;
+
+            width: 872px;
+
+            height: 201px;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .text-tension-desc {
+
+            position: absolute;
+
+            left: 1150.5px;
+
+            top: 5800px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 40px;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: black;
+
+            width: 365px;
+
+            height: 204px;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .tension-decorative-1 {
+
+            position: absolute;
+
+            left: 724.5px;
+
+            top: 7379px;
+
+            width: 335px;
+
+            height: 505px;
+
+        }
+
+
+
+        .tension-vertical-1 {
+
+            position: absolute;
+
+            left: 1057.5px;
+
+            top: 7378px;
+
+            width: 0;
+
+            height: 394px;
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        .tension-horizontal-1 {
+
+            position: absolute;
+
+            left: 1060.5px;
+
+            top: 7378px;
+
+            width: 393.001px;
+
+            height: 0;
+
+            transform: rotate(359.854deg);
+
+        }
+
+
+
+        .tension-gradient-overlay {
+
+            position: absolute;
+
+            left: 5px;
+
+            top: 6000px;
+
+            width: 1446px;
+
+            height: 498px;
+
+            background: linear-gradient(to right, rgba(250,248,248,1), rgba(255,255,255,1));
+
+            mix-blend-mode: multiply;
+
+        }
+
+
+
+        .tension-divider {
+
+            position: absolute;
+
+            left: 8px;
+
+            top: 7379px;
+
+            width: 850px;
+
+            height: 0;
+
+        }
+
+
+
+        .text-hoy-chacarita {
+
+            position: absolute;
+
+            left: 80px;
+
+            top: 6098px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 56.656px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: #404040;
+
+            width: 648px;
+
+            height: 305.463px;
+
+            font-variation-settings: 'opsz' 500;
+
+            z-index: 10;
+
+        }
+
+
+
+        .text-hoy-chacarita .regular {
+
+            font-weight: 400;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .highlight-registro {
+
+            position: absolute;
+
+            left: 270.5px;
+
+            top: 6320px;
+
+            width: 200px;
+
+            height: 53.194px;
+
+            background: linear-gradient(to bottom, #ee4848, #d9537e);
+
+            z-index: 1;
+
+        }
+
+
+
+        .section-divider-final {
+
+            position: absolute;
+
+            left: 12px;
+
+            top: 5879px;
+
+            width: 1444px;
+
+            height: 0;
+
+        }
+
+
+
+        .vertical-line-final-1 {
+
+            position: absolute;
+
+            left: 25px;
+
+            top: 7884px;
+
+            width: 0;
+
+            height: 653px;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .gradient-sidebar-right {
+
+            position: absolute;
+
+            right: -3px;
+
+            top: 6884px;
+
+            width: 14px;
+
+            height: 655px;
+
+            background: linear-gradient(to bottom, #ffffff, #b5b5b5);
+
+        }
+
+
+
+        .vertical-line-final-2 {
+
+            position: absolute;
+
+            left: 725px;
+
+            top: 6886px;
+
+            width: 0;
+
+            height: 399px;
+
+        }
+
+
+
+        .vertical-line-final-3 {
+
+            position: absolute;
+
+            right: 3px;
+
+            top: 6886px;
+
+            width: 0;
+
+            height: 653px;
+
+        }
+
+
+
+        .gradient-sidebar-left {
+
+            position: absolute;
+
+            left: 11px;
+
+            top: 6889px;
+
+            width: 14px;
+
+            height: 650px;
+
+            background: linear-gradient(to bottom, #ffffff, #b5b5b5);
+
+        }
+
+
+
+        .final-text {
+
+            position: absolute;
+
+            left: 92px; 
+
+            top: 6700px; 
+
+            width: 1266px; 
+
+            height: auto;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 47.646px;
+
+            font-weight: 300;
+
+            line-height: 1.4;
+
+            color: black;
+
+            text-align: center;
+
+            font-variation-settings: 'opsz' 500;
+
+            transform: none;
+
+        }
+
+
+
+        .final-text .bold-italic {
+
+            font-weight: 700;
+
+            font-style: italic;
+
+            font-variation-settings: 'opsz' 100;
+
+            background: linear-gradient(to right, #ff8181, #e33b3b);
+
+            color: black;
+
+            padding: 4px 8px 4px 4px;
+
+            display: inline-block;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        .final-text .bold {
+
+            font-weight: 700;
+
+            font-variation-settings: 'opsz' 500;
+
+            text-decoration: underline;
+
+            text-decoration-color: black;
+
+            text-decoration-thickness: 2px;
+
+            text-underline-offset: 6px;
+
+            display: inline;
+
+        }
+
+
+
+        .highlight-futuros {
+
+            display: none;
+
+        }
+
+
+
+        .final-divider {
+
+            position: absolute;
+
+            left: 249.5px;
+
+            top: 8520px;
+
+            width: 945.5px;
+
+            height: 0;
+
+        }
+
+
+
+        .final-decorative {
+
+            position: absolute;
+
+            left: 1149px;
+
+            top: 8454.96px;
+
+            width: 208.982px;
+
+            height: 3.041px;
+
+            transform: rotate(359.529deg) scaleY(-1);
+
+        }
+
+
+
+        /* VOLVER button */
+
+        .volver-bottom {
+
+            position: absolute;
+
+            left: 482px;
+
+            top: 8827px;
+
+            width: 485px;
+
+            height: 153.158px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        
+
+
+
+        /* Revalorización section */
+
+        .revalorizacion-section {
+
+            position: absolute;
+
+            left: 40px;
+
+            top: 2100px;
+
+            width: 710px;
+
+            height: 400px;
+
+            background: #eaeaea;
+
+            border-radius: 10px;
+
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+
+            padding: 30px;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        .revalorizacion-bg {
+
+            display: none;
+
+        }
+
+
+
+        .text-zonas {
+
+            position: absolute;
+
+            left: 30px;
+
+            top: 100px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 32px;
+
+            font-weight: 200;
+
+            line-height: 1.4;
+
+            color: black;
+
+            width: 650px;
+
+            height: auto;
+
+            font-variation-settings: 'opsz' 500;
+
+            z-index: 5;
+
+        }
+
+
+
+
+
+        .revalorizacion-gradient {
+
+            position: absolute;
+
+            left: 30px;
+
+            top: 320px;
+
+            width: 357px;
+
+            height: 33px;
+
+            background: linear-gradient(to right, #070707, #f3f3f3);
+
+        }
+
+
+
+        
+
+       
+
+
+
+        .text-revalorizacion {
+
+            position: absolute;
+
+            left: 30px;
+
+            top: 30px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 48px;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: black;
+
+            width: 510px;
+
+            height: 54.019px;
+
+            font-variation-settings: 'opsz' 900;
+
+            z-index: 5;
+
+        }
+
+
+
+        .text-revalorizacion .bold {
+
+            font-weight: 700;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        
+
+
+
+        /* Navigation buttons */
+
+        .nav-buttons-container {
+
+            position: absolute;
+
+            left: 444px;
+
+            top: 3630px;
+
+            width: 533px;
+
+            height: 98px;
+
+            background: transparent;
+
+            border-radius: 7px;
+
+        }
+
+
+
+        .nav-button-prev {
+
+            position: absolute;
+
+            left: 477px;
+
+            top: 3599px;
+
+            width: 186px;
+
+            height: 55px;
+
+            background: linear-gradient(to bottom, #d9d9d9, #737373);
+
+            border: 1px solid black;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .nav-button-next {
+
+            position: absolute;
+
+            left: 764px;
+
+            top: 3599px;
+
+            width: 186px;
+
+            height: 55px;
+
+            background: linear-gradient(to bottom, #d9d9d9, #737373);
+
+            border: 1px solid black;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .nav-button-prev-text {
+
+            position: absolute;
+
+            left: 513px;
+
+            top: 3623.5px;
+
+            transform: translateY(-50%);
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 35.539px;
+
+            font-style: italic;
+
+            font-weight: 300;
+
+            line-height: 0;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 100;
+
+            width: 119px;
+
+            height: 33px;
+
+            text-align: center;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .nav-button-next-text {
+
+            position: absolute;
+
+            left: 797px;
+
+            top: 3623.5px;
+
+            transform: translateY(-50%);
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 35.539px;
+
+            font-style: italic;
+
+            font-weight: 300;
+
+            line-height: 0;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 100;
+
+            width: 119px;
+
+            height: 33px;
+
+            text-align: center;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .nav-divider {
+
+            position: absolute;
+
+            left: 444px;
+
+            top: 3600.5px;
+
+            width: 532.33px;
+
+            height: 74.5px;
+
+        }
+
+
+
+        .nav-button-prev-inner {
+
+            position: absolute;
+
+            left: 494px;
+
+            top: 3607px;
+
+            width: 152px;
+
+            height: 38px;
+
+            background: linear-gradient(to bottom, #e4e4e4, #a7a7a7);
+
+            border: 0.8px solid black;
+
+            border-radius: 8px;
+
+        }
+
+
+
+        .nav-button-next-inner {
+
+            position: absolute;
+
+            left: 781px;
+
+            top: 3607px;
+
+            width: 152px;
+
+            height: 38px;
+
+            background: linear-gradient(to bottom, #e4e4e4, #a7a7a7);
+
+            border: 0.8px solid black;
+
+            border-radius: 8px;
+
+        }
+
+
+
+        .page-number {
+
+            position: absolute;
+
+            right: 30px;
+
+            bottom: 30px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 43.961px;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            line-height: normal;
+
+            color: black;
+
+            font-variation-settings: 'opsz' 500;
+
+            width: 55.441px;
+
+        }
+
+
+
+        .revalorizacion-divider-2 {
+
+            position: absolute;
+
+            left: 270.66px;
+
+            top: 2988.89px;
+
+            width: 887.05px;
+
+            height: 0;
+
+        }
+
+
+
+        .revalorizacion-divider-3 {
+
+            position: absolute;
+
+            left: 267.81px;
+
+            top: 3541.87px;
+
+            width: 887.05px;
+
+            height: 0;
+
+        }
+
+
+
+        /* Charts section - SUBIDA 200px (4718 -> 4518) */
+
+        .chart-section-1 {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 4518.38px;
+
+            width: 727px;
+
+            height: 0;
+
+        }
+
+
+
+        .chart-section-2 {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 4731.08px;
+
+            width: 727px;
+
+            height: 0;
+
+        }
+
+
+
+        .chart-label-1 {
+
+            position: absolute;
+
+            left: 53px;
+
+            top: 4213px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 36px;
+
+            font-weight: 100;
+
+            line-height: normal;
+
+            color: #524f4f;
+
+            width: 237px;
+
+            height: 140px;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-label-2 {
+
+            position: absolute;
+
+            left: 1078px;
+
+            top: 4832px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 36px;
+
+            font-weight: 100;
+
+            line-height: normal;
+
+            color: #524f4f;
+
+            width: 237px;
+
+            height: 140px;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        /* Chart 1 - Altura máxima */
+
+        .chart-1-container {
+
+            position: absolute;
+
+            left: 419.17px;
+
+            top: 4330.36px;
+
+            width: 991.984px;
+
+            height: 0;
+
+        }
+
+
+
+        .chart-1-y-axis {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 4761.13px;
+
+            width: 0;
+
+            height: 582.603px;
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        .chart-1-grid-1 {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 4810.7px;
+
+            width: 980.287px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-grid-2 {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 4914.3px;
+
+            width: 980.287px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-grid-3 {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 5016.78px;
+
+            width: 980.287px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-grid-4 {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 5120.38px;
+
+            width: 980.287px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-grid-5 {
+
+            position: absolute;
+
+            left: 430.86px;
+
+            top: 5223.98px;
+
+            width: 980.287px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-bar-1 {
+
+            position: absolute;
+
+            left: 1266.34px;
+
+            top: 3755px;
+
+            width: 128.106px;
+
+            height: 572.577px;
+
+            background: linear-gradient(to bottom, #2a2a2a, #4d4d4d);
+
+        }
+
+
+
+        .chart-1-bar-2 {
+
+            position: absolute;
+
+            left: 1103.7px;
+
+            top: 3853.03px;
+
+            width: 128.106px;
+
+            height: 474.548px;
+
+            background: linear-gradient(to bottom, #6ad3df, #424242);
+
+        }
+
+
+
+        .chart-1-bar-3 {
+
+            position: absolute;
+
+            left: 941.06px;
+
+            top: 4060.23px;
+
+            width: 128.106px;
+
+            height: 267.351px;
+
+            background: linear-gradient(to bottom, #39a4cc, #1c5b66);
+
+        }
+
+
+
+        .chart-1-bar-4 {
+
+            position: absolute;
+
+            left: 614px;
+
+            top: 4208.15px;
+
+            width: 128.106px;
+
+            height: 120.308px;
+
+            background: linear-gradient(to bottom, #2d89a3, #bedbe2);
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-1-bar-5 {
+
+            position: absolute;
+
+            left: 448px;
+
+            top: 4237.15px;
+
+            width: 128.106px;
+
+            height: 91.345px;
+
+            background: linear-gradient(to bottom, #40b6ff, #1a7da8);
+
+        }
+
+
+
+        .chart-1-bar-6 {
+
+            position: absolute;
+
+            left: 777px;
+
+            top: 4169.15px;
+
+            width: 129.22px;
+
+            height: 159.297px;
+
+            background: linear-gradient(to bottom, #8fc8ce, #3673ac);
+
+        }
+
+
+
+        .chart-1-label-1000 {
+
+            position: absolute;
+
+            left: 354px;
+
+            top: 3790.65px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 100;
+
+        }
+
+
+
+        .chart-1-label-800 {
+
+            position: absolute;
+
+            left: 359.57px;
+
+            top: 3893.13px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-label-600 {
+
+            position: absolute;
+
+            left: 359.57px;
+
+            top: 3997.84px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-label-400 {
+
+            position: absolute;
+
+            left: 361.8px;
+
+            top: 4100.33px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-label-200 {
+
+            position: absolute;
+
+            left: 361.8px;
+
+            top: 4202.81px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-label-0 {
+
+            position: absolute;
+
+            left: 388.53px;
+
+            top: 4307.53px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-1980 {
+
+            position: absolute;
+
+            left: 482.11px;
+
+            top: 4333.15px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-1990 {
+
+            position: absolute;
+
+            left: 645.86px;
+
+            top: 4333.15px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-2000 {
+
+            position: absolute;
+
+            left: 809.61px;
+
+            top: 4333.15px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-2010 {
+
+            position: absolute;
+
+            left: 975.59px;
+
+            top: 4333.15px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-2020 {
+
+            position: absolute;
+
+            left: 1139.34px;
+
+            top: 4333.15px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .chart-1-year-2024 {
+
+            position: absolute;
+
+            left: 1301.98px;
+
+            top: 4330.92px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 26.735px;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+       /* Chart 2 - Precio de alquiler */
+
+       .chart-2-container {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            pointer-events: none;
+
+        }
+
+
+
+        .chart-2-x-axis {
+
+            position: absolute;
+
+            left: 110.5px;
+
+            top: 5071px;
+
+            width: 890.5px;
+
+            height: 0;
+
+        }
+
+
+
+        .chart-2-y-axis {
+
+            position: absolute;
+
+            left: 121px;
+
+            top: 4560px;
+
+            width: 0;
+
+            height: 523px;
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        .chart-2-grid-1 {
+
+            position: absolute;
+
+            left: 121px;
+
+            top: 4617px;
+
+            width: 880px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-2-grid-2 {
+
+            position: absolute;
+
+            left: 121px;
+
+            top: 4729px;
+
+            width: 880px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-2-grid-3 {
+
+            position: absolute;
+
+            left: 121px;
+
+            top: 4844px;
+
+            width: 880px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-2-grid-4 {
+
+            position: absolute;
+
+            left: 121px;
+
+            top: 4957px;
+
+            width: 880px;
+
+            height: 0;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-2-bar-1 {
+
+            position: absolute;
+
+            left: 877px;
+
+            top: 4564px;
+
+            width: 116px;
+
+            height: 505px;
+
+            background: linear-gradient(to bottom, #2a2a2a, #4d4d4d);
+
+        }
+
+
+
+        .chart-2-bar-2 {
+
+            position: absolute;
+
+            left: 729px;
+
+            top: 4834px;
+
+            width: 117px;
+
+            height: 235px;
+
+            background: linear-gradient(to bottom, #305946, #102b1f);
+
+        }
+
+
+
+        .chart-2-bar-3 {
+
+            position: absolute;
+
+            left: 582px;
+
+            top: 4930px;
+
+            width: 116px;
+
+            height: 139px;
+
+            background: linear-gradient(to bottom, #318e5f, #15452d);
+
+        }
+
+
+
+        .chart-2-bar-4 {
+
+            position: absolute;
+
+            left: 285px;
+
+            top: 5064px;
+
+            width: 117px;
+
+            height: 5px;
+
+            background: linear-gradient(to bottom, #89ddab, #9bf5c0);
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .chart-2-bar-5 {
+
+            position: absolute;
+
+            left: 136px;
+
+            top: 5067px;
+
+            width: 116px;
+
+            height: 2px;
+
+            background: linear-gradient(to bottom, #baf9d6, #a8fdc1);
+
+        }
+
+
+
+        .chart-2-bar-6 {
+
+            position: absolute;
+
+            left: 433px;
+
+            top: 5024px;
+
+            width: 117px;
+
+            height: 45px;
+
+            background: linear-gradient(to bottom, #4fba7d, #368a5a);
+
+        }
+
+
+
+        .chart-2-label-800 {
+
+            position: absolute;
+
+            left: 69px;
+
+            top: 4598px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-label-600 {
+
+            position: absolute;
+
+            left: 68px;
+
+            top: 4710px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-label-400 {
+
+            position: absolute;
+
+            left: 69px;
+
+            top: 4822px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-label-200 {
+
+            position: absolute;
+
+            left: 69px;
+
+            top: 4934px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-label-0 {
+
+            position: absolute;
+
+            left: 96px;
+
+            top: 5050.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2010 {
+
+            position: absolute;
+
+            left: 167px;
+
+            top: 5073.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2015 {
+
+            position: absolute;
+
+            left: 314px;
+
+            top: 5073.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2020 {
+
+            position: absolute;
+
+            left: 461px;
+
+            top: 5073.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2022 {
+
+            position: absolute;
+
+            left: 610px;
+
+            top: 5073.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2023 {
+
+            position: absolute;
+
+            left: 757px;
+
+            top: 5073.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .chart-2-year-2024 {
+
+            position: absolute;
+
+            left: 903px;
+
+            top: 5071.5px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+
+            font-weight: 500;
+
+            line-height: normal;
+
+            color: black;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        /* Other sections */
+
+        .renovacion-section {
+
+            position: absolute;
+
+            left: 500px;
+
+            top: 3087px;
+
+            width: 500px;
+
+            height: 414px;
+
+            border: 2.245px dashed #323232;
+
+            border-radius: 20.209px;
+
+        }
+
+
+
+        .renovacion-bg {
+
+            position: absolute;
+
+            left: 502.5px;
+
+            top: 3104px;
+
+            width: 495px;
+
+            height: 376px;
+
+            background: linear-gradient(to bottom, #898989, #b7b7b7);
+
+        }
+
+
+
+        .text-otra-cara {
+
+            position: absolute;
+
+            left: 520px;
+
+            top: 3128px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 40px;
+
+            font-style: italic;
+
+            font-weight: 700;
+
+            line-height: normal;
+
+            color: #e5e2e2;
+
+            letter-spacing: -0.4206px;
+
+            white-space: pre;
+
+            font-variation-settings: 'opsz' 500;
+
+        }
+
+
+
+        .text-otra-cara-desc {
+
+            position: absolute;
+
+            left: 520px;
+
+            top: 3200px;
+
+            font-family: 'Thermal VF', sans-serif;
+
+            font-size: 24px;
+
+            font-weight: 300;
+
+            line-height: normal;
+
+            color: #121212;
+
+            width: 450px;
+
+            height: 214px;
+
+            font-variation-settings: 'opsz' 900;
+
+        }
+
+
+
+        .renovacion-divider {
+
+            position: absolute;
+
+            left: 780px;
+
+            top: 4194px;
+
+            width: 661px;
+
+            height: 0;
+
+        }
+
+
+
+        .renovacion-icon {
+
+            position: absolute;
+
+            left: 1313px;
+
+            top: 4116px;
+
+            width: 0;
+
+            height: 77.5px;
+
+        }
+
+
+
+        .renovacion-gradient-1 {
+
+            position: absolute;
+
+            left: 5.63px;
+
+            top: 3518.38px;
+
+            width: 695.489px;
+
+            height: 212.698px;
+
+            background: linear-gradient(to right, rgba(255,255,255,0.37), rgba(204,247,255,0.37));
+
+        }
+
+
+
+        .renovacion-gradient-2 {
+
+            position: absolute;
+
+            left: 701.12px;
+
+            top: 3506px;
+
+            width: 25.884px;
+
+            height: 212.698px;
+
+            background: linear-gradient(to right, rgba(255,255,255,0.37), rgba(204,247,255,0.37));
+
+        }
+
+
+
+        .renovacion-box {
+
+            position: absolute;
+
+            left: 686px;
+
+            top: 3403px;
+
+            width: 756px;
+
+            height: 397px;
+
+            background: linear-gradient(to right, #e86f6f, #ffffff);
+
+            border: 1px solid black;
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        .vertical-line-4 {
+
+            position: absolute;
+
+            left: 1243px;
+
+            top: 2760px;
+
+            width: 0;
+
+            height: 839px;
+
+        }
+
+
+
+        .gentrificacion-title-overlay {
+
+            position: absolute;
+
+            left: 35px;
+
+            top: 1288.96px;
+
+            width: 1370.47px;
+
+            height: 294.984px;
+
+        }
+
+
+
+        .letter-v {
+
+            position: absolute;
+
+            left: 788px;
+
+            top: 66px;
+
+            width: 718px;
+
+            height: 652px;
+
+        }
+
+
+
+        .decorative-line-v {
+
+            position: absolute;
+
+            left: 4.68px;
+
+            top: 533.25px;
+
+            width: 1435.32px;
+
+            height: 0;
+
+        }
+
+
+
+        /* Rectangle elements - SUBIDOS 200px */
+
+        .rectangle-1 {
+
+            position: absolute;
+
+            left: 1022px;
+
+            top: 2779px;
+
+            width: 418px;
+
+            height: 94px;
+
+            background: linear-gradient(to right, #ffffff, #ff7e7e);
+
+        }
+
+
+
+        .rectangle-2 {
+
+            position: absolute;
+
+            left: -72px;
+
+            top: 2876px;
+
+            width: 418px;
+
+            height: 106px;
+
+            background: linear-gradient(to right, #ffffff, #ff7e7e);
+
+            transform: rotate(180deg);
+
+        }
+
+
+
+        /* Utility classes for images */
+
+        img {
+
+            display: block;
+
+            max-width: 100%;
+
+            height: auto;
+
+        }
+
+
+
+        svg {
+
+            display: block;
+
+        }
+
+
+
+        /* --- DISEÑO DEL OVERLAY TIPO EXPEDIENTE (NUEVO) --- */
+
+        .overlay-backdrop {
+
+            display: none; 
+
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+
+            background-color: rgba(0, 0, 0, 0.6); 
+
+            z-index: 9999; justify-content: center; align-items: center;
+
+            backdrop-filter: blur(4px);
+
+        }
+
+
+
+        .folder-card {
+
+            width: 900px;
+
+            min-height: 550px;
+
+            background-color: #E8E8E8; /* Gris carpeta */
+
+            border: 2px solid #000;
+
+            border-radius: 10px;
+
+            position: relative;
+
+            padding: 40px 50px;
+
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.25); /* Sombra dura */
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .close-btn {
+
+            position: absolute; top: 10px; right: 20px; font-size: 35px; cursor: pointer; line-height: 1; color: #333; transition: color 0.2s;
+
+        }
+
+        .close-btn:hover { color: #d00; }
+
+
+
+        /* Header del Overlay */
+
+        .folder-header {
+
+            display: flex; justify-content: space-between; align-items: flex-end;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .folder-title {
+
+            font-family: 'Thermal VF', serif; font-size: 72px; font-style: italic; font-weight: 400; color: black; line-height: 1;
+
+        }
+
+
+
+        .folder-subtitle-container {
+
+            display: flex; align-items: center; gap: 15px;
+
+        }
+
+
+
+        .folder-subtitle {
+
+            font-family: 'Thermal VF', serif; font-size: 48px; font-style: italic; font-weight: 300; color: black;
+
+        }
+
+
+
+        .folder-map-img {
+
+            width: 80px; height: 80px; object-fit: cover; border: 1px solid #777;
+
+        }
+
+
+
+        /* Línea doble divisoria */
+
+        .folder-divider {
+
+            width: 100%; height: 5px; 
+
+            border-top: 1px solid black; border-bottom: 1px solid black;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        /* Texto descriptivo */
+
+        .folder-body {
+
+            font-family: 'Thermal VF', serif; font-size: 32px; line-height: 1.4; color: #1a1a1a; margin-bottom: 30px; text-align: justify;
+
+        }
+
+        .folder-body strong { font-weight: 700; }
+
+
+
+        /* Contenedor de imágenes inferiores */
+
+        .folder-images-row {
+
+            display: flex; gap: 20px; margin-bottom: 20px;
+
+        }
+
+        .folder-img {
+
+            width: 48%; height: 180px; object-fit: cover; border: 1px solid transparent;
+
+        }
+
+
+
+        /* Botón Siguiente */
+
+        .folder-footer {
+
+            display: flex; justify-content: flex-end; align-items: center; margin-top: auto;
+
+        }
+
+
+
+        .btn-siguiente {
+
+            font-family: 'Thermal VF', serif; font-size: 28px; font-style: italic;
+
+            padding: 5px 30px;
+
+            background: linear-gradient(to bottom, #dedede 0%, #b5b5b5 100%);
+
+            border: 1px solid #555; border-radius: 6px;
+
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+
+            cursor: pointer;
+
+            color: black;
+
+        }
+
+        .btn-siguiente:active { transform: translateY(2px); box-shadow: none; }
+
+
+
+        /* ============ RESPONSIVE DESIGN - SCALES ENTIRE PAGE ============ */
+
+        
+
+        /* Tablets and smaller devices */
+
+        @media (max-width: 768px) {
+
+            body {
+
+                padding-top: 60px;
+
+            }
+
+        }
+
+        
+
+        /* Mobile devices */
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding-top: 55px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="fixed-header-container">
+
+        <div class="header-inner">
+
+            <div class="logo">Archivo vivo</div>
+
+            <div class="header-title">Fenómeno</div>
+
+            
+
+            <a href="index.html" class="volver-top">VOLVER</a>
+
+            
+
+            <div class="header-line">
+
+                <img src="http://localhost:3845/assets/imgVector183.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="bg-letters-container">
+
+            <div class="big-letter big-a">A</div>
+
+            <div class="big-letter big-v">V</div>
+
+        </div>
+
+
+
+        <div class="header-line">
+
+            <img src="http://localhost:3845/assets/imgVector183.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+        </div>
+
+
+
+        <div class="hero-section" data-animate-scale>
+
+            <div class="dashed-box" data-animate-fade></div>
+
+            <div class="red-gradient-box" data-animate-left></div>
+
+            <div class="text-un" data-animate>Un</div>
+
+            <div class="text-fenomeno" data-animate>
+
+                <div class="fenomeno-text">fenómeno</div>
+
+            </div>
+
+            <div class="text-mundial" data-animate>mundial está pasando en Chaca.</div>
+
+        </div>
+
+
+
+        <div class="gray-gradient-section"></div>
+
+        <div class="vertical-line-1">
+
+            <img src="http://localhost:3845/assets/imgVector289.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+        </div>
+
+        <div class="vertical-line-2">
+
+            <img src="http://localhost:3845/assets/imgVector480.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+        </div>
+
+        <div class="text-nuevo-interes" data-animate>Este nuevo interés no es casual ni aislado</div>
+
+        <div class="decorative-line-top">
+
+            <img src="http://localhost:3845/assets/imgVector447.png" alt="" style="width: 100%; height: auto;">
+
+        </div>
+
+        <div class="decorative-line-bottom">
+
+            <img src="http://localhost:3845/assets/imgVector400.png" alt="" style="width: 100%; height: auto;">
+
+        </div>
+
+
+
+        <div class="text-block-main" data-animate>
+
+            En los últimos años, <span class="highlight">Chacarita</span> dejó de ser un barrio periférico en la imaginación porteña para convertirse en un territorio <span class="highlight">deseado, visitado y disputado</span>. Sus calles tranquilas, su escala barrial, la mezcla entre casas bajas, talleres, cafés históricos, pasajes arbolados, veredas anchas y un <span class="highlight">ritmo propio</span> hicieron que su <span class="highlight">identidad</span> —durante décadas casi inadvertida— comenzara a llamar la atención de <span class="highlight">nuevos públicos</span>.
+
+        </div>
+
+
+
+        <div class="gentrificacion-title" data-animate-left>GENTRIFICACIÓN</div>
+
+        <div class="section-divider-1">
+
+            <img src="http://localhost:3845/assets/imgVector401.png" alt="" style="width: 100%; height: auto;">
+
+        </div>
+
+        <div class="text-fenomeno-urbano" data-animate>un fenómeno urbano  cada vez más evidente.</div>
+
+
+
+        <div class="gray-bg-section"></div>
+
+        <div class="section-divider-2">
+
+            <img src="http://localhost:3845/assets/imgVector400.png" alt="" style="width: 100%; height: auto;">
+
+        </div>
+
+
+
+        <div class="que-es-section" data-animate-scale>
+
+            <div class="gray-box" data-animate-fade></div>
+
+            <div class="white-text-box" data-animate>
+
+                <div class="text-explicacion">
+
+                    Es un <span class="medium-italic">proceso de transformación </span>urbana por el cual un área tradicionalmente habitada por <span class="bold-italic">sectores populares</span> o de clase media estable comienza a atraer a <span class="medium-italic">residentes con mayor poder adquisitivo</span>, así como a nuevos comercios orientados a esos consumos.
+
+            </div>
+
+            </div>
+
+            <div class="text-que-es" data-animate-left>¿Qué es?</div>
+
+            <div class="decorative-element-1"></div>
+
+            <div class="decorative-element-2"></div>
+
+           
+
+        </div>
+
+
+
+        <div class="image-card-1" 
+
+             style="cursor: pointer; z-index: 50;"
+
+             onclick="openOverlay(
+
+                 'San Francisco', 
+
+                 'La ley de la oferta y la demanda postula que, en un mercado libre, ante el aumento de la demanda de un producto, el precio de éste también lo hace. Si a ello se le suma un incremento en las rentas, con el consecuente incremento general de precios... La llegada de empresas 2.0, como Google, Apple o Twitter, <strong>con unas rentas muy superiores a la media de la ciudad</strong>, ha producido una transformación social y urbana de la ciudad.', 
+
+                 'assets/images/mapa.png',
+
+                 ['assets/images/protesta.png']
+
+             )">
+
+            <img src="assets/images/Group_103.png" alt="San Francisco">
+
+        </div>
+
+
+
+        <div class="text-otros-casos" data-animate-rotate>OTROS CASOS</div>
+
+
+
+        <div class="image-card-2" 
+
+             style="cursor: pointer; z-index: 50;"
+
+             onclick="openOverlay(
+
+                 'Berlín', 
+
+                 'En Berlín, la gentrificación está marcada por la venta masiva de edificios residenciales a grandes fondos de inversión. Esto provocó un aumento drástico de los alquileres, desplazando a la clase trabajadora. La respuesta ciudadana ha sido contundente: referéndums para expropiar a grandes inmobiliarias y lucha por el control de precios.', 
+
+                 'assets/images/mapaberlin.jpeg',
+
+                 ['assets/images/protestaberlin.png']
+
+             )">
+
+            <img src="assets/images/berlin.png" alt="Berlín">
+
+            
+
+        </div>
+
+
+
+        <div class="image-card-3" 
+
+             style="cursor: pointer; z-index: 50;"
+
+             onclick="openOverlay(
+
+                 'Barcelona', 
+
+                 'El modelo de Barcelona sufre la presión del turismo masivo y los alquileres temporarios. Barrios enteros se han vaciado de vecinos para dar lugar a hoteles y Airbnb. La identidad local resiste en un contexto donde el derecho a la vivienda colisiona con la rentabilidad turística global.', 
+
+                 'assets/images/mapabarcelona.jpg',
+
+                 ['assets/images/protestabarcelona.jpg']
+
+             )">
+
+            <img src="assets/images/barcelona.png" alt="Barcelona">
+
+            
+
+        </div>
+
+
+
+        <div class="decorative-line-1"></div>
+
+        <div class="decorative-line-2"></div>
+
+        <div class="decorative-line-3"></div>
+
+        <div class="vertical-line-3"></div>
+
+
+
+        <div class="revalorizacion-section" data-animate-scale>
+
+            <div class="text-revalorizacion" data-animate><span class="bold">R</span>evalorización inmobiliaria</div>
+
+            <div class="revalorizacion-gradient"></div>
+
+            
+
+            <div class="revalorizacion-image-box"></div>
+
+            <div class="text-zonas" data-animate>Zonas antes consideradas "intermedias" o "menos céntricas" se vuelven atractivas por sus precios todavía accesibles, acelerando la compra de propiedades y la remodelación de viviendas.</div>
+
+        </div>
+
+
+
+        <div class="renovacion-section"></div>
+
+        <div class="renovacion-bg"></div>
+
+        <div class="text-otra-cara" data-animate-left>La otra cara de la renovación</div>
+
+        <div class="text-otra-cara-desc" data-animate>Si bien puede traer inversiones, apertura de comercios y mejoras edilicias, la gentrificación también tiene un costo social: desplaza, directa o indirectamente, a los vecinos históricos, modifica dinámicas comunitarias y tensiona la identidad original del barrio.</div>
+
+        <div class="renovacion-divider"></div>
+
+        <div class="renovacion-icon"></div>
+
+        <div class="renovacion-gradient-1"></div>
+
+        <div class="renovacion-gradient-2"></div>
+
+        
+
+        <div class="vertical-line-4"></div>
+
+
+
+        <div class="text-transformacion" data-animate>Una <span class="bold-italic">transformación</span><span class="extrabold-italic"> </span>entre</div>
+
+        <div class="transformacion-divider-1"></div>
+
+        <div class="transformacion-divider-2"></div>
+
+        <div class="text-lo-visible" data-animate>lo visible y lo silencioso</div>
+
+        <div class="transformacion-divider-3"></div>
+
+
+
+        <div class="chart-section-1"></div>
+
+        <div class="chart-section-2"></div>
+
+        <div class="chart-label-1">Altura máxima de los edificios en Chacarita</div>
+
+
+
+        <div class="chart-1-container"></div>
+
+        <div class="chart-1-y-axis"></div>
+
+        <div class="chart-1-grid-1"></div>
+
+        <div class="chart-1-grid-2"></div>
+
+        <div class="chart-1-grid-3"></div>
+
+        <div class="chart-1-grid-4"></div>
+
+        <div class="chart-1-grid-5"></div>
+
+        <div class="chart-1-bar-1"></div>
+
+        <div class="chart-1-bar-2"></div>
+
+        <div class="chart-1-bar-3"></div>
+
+        <div class="chart-1-bar-4"></div>
+
+        <div class="chart-1-bar-5"></div>
+
+        <div class="chart-1-bar-6"></div>
+
+        <div class="chart-1-label-1000">1000</div>
+
+        <div class="chart-1-label-800">800</div>
+
+        <div class="chart-1-label-600">600</div>
+
+        <div class="chart-1-label-400">400</div>
+
+        <div class="chart-1-label-200">200</div>
+
+        <div class="chart-1-label-0">0</div>
+
+        <div class="chart-1-year-1980">1980</div>
+
+        <div class="chart-1-year-1990">1990</div>
+
+        <div class="chart-1-year-2000">2000</div>
+
+        <div class="chart-1-year-2010">2010</div>
+
+        <div class="chart-1-year-2020">2020</div>
+
+        <div class="chart-1-year-2024">2024</div>
+
+
+
+        <div class="chart-2-container">
+
+            <div class="chart-2-x-axis"></div>
+
+            <div class="chart-2-y-axis"></div>
+
+            <div class="chart-2-grid-1"></div>
+
+            <div class="chart-2-grid-2"></div>
+
+            <div class="chart-2-grid-3"></div>
+
+            <div class="chart-2-grid-4"></div>
+
+            <div class="chart-2-bar-1"></div>
+
+            <div class="chart-2-bar-2"></div>
+
+            <div class="chart-2-bar-3"></div>
+
+            <div class="chart-2-bar-4"></div>
+
+            <div class="chart-2-bar-5"></div>
+
+            <div class="chart-2-bar-6"></div>
+
+            <div class="chart-2-label-800">800</div>
+
+            <div class="chart-2-label-600">600</div>
+
+            <div class="chart-2-label-400">400</div>
+
+            <div class="chart-2-label-200">200</div>
+
+            <div class="chart-2-label-0">0</div>
+
+            <div class="chart-2-year-2010">2010</div>
+
+            <div class="chart-2-year-2015">2015</div>
+
+            <div class="chart-2-year-2020">2020</div>
+
+            <div class="chart-2-year-2022">2022</div>
+
+            <div class="chart-2-year-2023">2023</div>
+
+            <div class="chart-2-year-2024">2024</div>
+
+        </div>
+
+        <div class="chart-label-2">Precio de alquiler por m*2 en Chacarita</div>
+
+
+
+        <div class="examples-section"></div>
+
+        
+
+
+
+        
+        <div class="disputa-simbolica">Disputa simbólica</div>
+
+        <div class="text-gentrificacion-chacarita" data-animate>La Gentrificación en Chacarita no es únicamente un fenómeno de mercado: </div>
+
+        <div class="disputa-divider-1"></div>
+
+        <div class="disputa-divider-2"></div>
+
+        <div class="disputa-divider-3"></div>
+
+        <div class="disputa-vertical"></div>
+
+        <div class="disputa-horizontal"></div>
+
+
+
+        <div class="tension-bg"></div>
+
+        <div class="text-tension" data-animate-rotate>TENSIÓN</div>
+
+        <div class="text-tension-desc" data-animate>entre la mejora urbana y la pérdida del paisaje humano.</div>
+
+        <div class="tension-decorative-1"></div>
+
+        <div class="tension-vertical-1"></div>
+
+        <div class="tension-horizontal-1"></div>
+
+        <div class="tension-gradient-overlay"></div>
+
+        <div class="tension-divider"></div>
+
+        <div class="text-hoy-chacarita">
+
+            <span class="regular">Hoy Chacarita está en un punto de inflexión. Narrar este proceso es una forma de dejar</span> <span class="bold-italic">registro</span><span class="bold-italic">.</span>
+
+        </div>
+
+        <div class="highlight-registro"></div>
+
+       
+
+        <div class="gradient-sidebar-right"></div>
+
+        
+
+        <div class="gradient-sidebar-left"></div>
+
+
+
+        <div class="final-text" data-animate>
+
+            <span>Comprenderlo es el primer paso para imaginar </span><span class="bold-italic">futuros posibles</span><span> donde el desarrollo no implique expulsión, y donde la </span><span class="bold">identidad original del barrio no desaparezca en silencio</span>.
+
+        </div>
+
+
+
+
+        <div class="rectangle-1" data-animate-scale></div>
+
+        <div class="rectangle-2" data-animate-scale></div>
+
+
+
+        <div class="gentrificacion-title-overlay"></div>
+
+            <div class="letter-v"></div>
+
+            <div class="decorative-line-v"></div>
+
+        </div>
+
+
+
+    <div id="infoOverlay" class="overlay-backdrop">
+
+        <div class="folder-card">
+
+            <span class="close-btn" onclick="closeOverlay()">×</span>
+
+            
+
+            <div class="folder-header">
+
+                <h2 id="overlayTitle" class="folder-title">Título</h2>
+
+                <div class="folder-subtitle-container">
+
+                    <span class="folder-subtitle">Caso</span>
+
+                    <img id="overlayMap" src="" alt="Mapa" class="folder-map-img">
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="folder-divider"></div>
+
+            
+
+            <div id="overlayBody" class="folder-body">
+
+                <p>Texto...</p>
+
+            </div>
+
+            
+
+            <div id="overlayImagesContainer" class="folder-images-row">
+
+                </div>
+
+            
+
+            
+
+        </div>
+
+    </div>
+
+
+
+        <script src="assets/scroll-animations.js"></script>
+
+
+
+    <script>
+
+        // --- JAVASCRIPT ACTUALIZADO ---
+
+        const overlay = document.getElementById('infoOverlay');
+
+        const titleEl = document.getElementById('overlayTitle');
+
+        const bodyEl = document.getElementById('overlayBody');
+
+        const mapEl = document.getElementById('overlayMap');
+
+        const imagesContainer = document.getElementById('overlayImagesContainer');
+
+
+
+        // Función que recibe título, texto, url del mapa pequeño y array de urls de fotos
+
+        function openOverlay(title, descriptionHtml, mapUrl, photoUrls) {
+
+            titleEl.textContent = title;
+
+            bodyEl.innerHTML = descriptionHtml; // Permite HTML para las negritas
+
+            
+
+            // Si hay mapa, ponlo, si no usa un placeholder o ocúltalo
+
+            if(mapUrl) {
+
+                mapEl.src = mapUrl;
+
+                mapEl.style.display = 'block';
+
+            } else {
+
+                mapEl.style.display = 'none';
+
+            }
+
+
+
+            // Limpiar imágenes anteriores
+
+            imagesContainer.innerHTML = '';
+
+            
+
+            // Agregar las nuevas imágenes si existen
+
+            if (photoUrls && photoUrls.length > 0) {
+
+                photoUrls.forEach(url => {
+
+                    const img = document.createElement('img');
+
+                    img.src = url; 
+
+                    img.className = 'folder-img';
+
+                    imagesContainer.appendChild(img);
+
+                });
+
+            }
+
+
+
+            overlay.style.display = 'flex';
+
+        }
+
+
+
+        function closeOverlay() {
+
+            overlay.style.display = 'none';
+
+        }
+
+
+
+        window.onclick = function(event) {
+
+            if (event.target == overlay) {
+
+                closeOverlay();
+
+            }
+
+        }
+
+    </script>
+
+    </body>
+
+    </html>

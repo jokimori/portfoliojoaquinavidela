@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Thermal:ital,wght@1,400&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+
+body { 
+    font-family: 'Work Sans', sans-serif; 
+    height: 100vh; width: 100vw;
+    overflow: hidden; 
+    background-color: #b0a79a;
+    background-image: linear-gradient(180deg, #bfb5a8 0%, #93897f 100%);
+}
+
+/* --- CAPA 3D --- */
+.sim-wrapper {
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    z-index: 5; /* POR ENCIMA DEL FONDO */
+    background: transparent; /* CLAVE PARA VER EL FONDO */
+}
+canvas { display: block; outline: none; }
+
+/* --- 3. CAPA UI (FRENTE) --- */
+.game-ui {
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    z-index: 10; /* POR ENCIMA DE TODO */
+    pointer-events: none; /* Click through */
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 30px;
+}
+
+/* --- ELEMENTOS UI --- */
+
+.back-link {
+    position: absolute; top: 20px; right: 40px; /* Ajustado derecha */
+    z-index: 20; pointer-events: auto;
+    width: auto; height: auto;
+    padding: 8px 15px; border-radius: 20px;
+    display: flex; align-items: center;
+    transition: transform 0.2s;
+}
+.back-link img { height: 32px; width: auto; }
+.back-link:hover { transform: scale(1.25); }
+
+/* Header (Solo Badge) */
+.top-bar {
+    pointer-events: auto;
+    position: absolute; top: 20px; left: 40px; /* Alineado con botón volver */
+}
+.status-badge { 
+    color: #000000; padding: 12px 26px; 
+    border-radius: 2.997px;
+    border: 1.665px solid #000;
+    background: transparent;
+    font-size: 16px; font-weight: 600; letter-spacing: 1.2px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    text-transform: uppercase;
+    font-family: 'Thermal', 'Thermal VF', serif;
+
+}
+
+/* Panel Estadísticas */
+.stats-panel {
+    pointer-events: auto;
+    position: absolute; top: 220px; right: 30px;
+    width: 400px;
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+    border-radius: 24px; padding: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.9);
+}
+.stats-panel h3 {
+    font-size: 25px; color: #1d1d1d; margin-bottom: 22px;
+    font-weight: 800; letter-spacing: 1.2px; border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 10px; text-align: center;
+    font-family: 'Thermal', 'Thermal VF', serif;
+    font-style: italic;
+}
+.chart-box { height: 260px; width: 100%; margin-bottom: 26px; }
+.metrics-row { display: flex; justify-content: space-between; gap: 18px; }
+.metric { flex: 1; text-align: center; background: #f8f9fa; padding: 16px; border-radius: 14px; border: 1px solid #e1e1e1; box-shadow: inset 0 0 25px rgba(0,0,0,0.03); }
+.metric small {
+    display: block; font-size: 14px; font-weight: 700; color: #888; letter-spacing: 0.4px;
+    font-family: 'Thermal', 'Thermal VF', serif; font-style: italic;
+}
+.metric span {
+    display: block; font-size: 19px; font-weight: 900; margin-top: 6px;
+    font-family: 'Thermal', 'Thermal VF', serif; font-style: italic;
+}
+
+#val-identity,
+#val-air {
+    font-family: 'Thermal', 'Thermal VF', serif;
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+/* Barra Inferior */
+.bottom-toolbar {
+    pointer-events: auto;
+    position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 120px); min-width: 950px;
+    background: linear-gradient(180deg, #f0f0f0 0%, #d5d5d5 100%);
+    backdrop-filter: blur(18px);
+    padding: 24px 60px; border-radius: 26px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.22); border: 2px dotted #888;
+    display: flex; gap: 50px; align-items: center; justify-content: center;
+}
+
+.tool-group { display: flex; flex-direction: column; width: 220px; }
+.tool-group label { font-size: 13px; font-weight: 900; color: #222; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.labels { display: flex; justify-content: space-between; margin-top: 8px; }
+.labels span { font-size: 11px; font-weight: 700; color: #444; }
+
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; background: #bcbcbc; border-radius: 6px; outline: none; box-shadow: inset 0 0 8px rgba(0,0,0,0.18); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #2c3e50; cursor: pointer; border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.35); }
+
+/* Botones */
+.action-group { display: flex; gap: 16px; border-left: 2px solid #999; padding-left: 28px; }
+.btn-icon { 
+    border: 2px solid #000; padding: 14px 34px; border-radius: 60px; 
+    font-weight: 800; font-size: 13px; cursor: pointer; 
+    background: #fff; color: #000; transition: all 0.2s ease;
+    text-transform: uppercase; box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+}
+.btn-icon:hover { transform: translateY(-2px); background: #efefef; }
+.btn-icon.clean { background: #c8f1d4; border-color: #0b7731; color: #0b7731; }
+
+/* Popup Info */
+.info-popup {
+    position: absolute; top: 220px; left: 40px; transform: translateY(20px);
+    width: 320px; max-width: 360px; padding: 10px;
+    background: linear-gradient(0deg, #2b2b2b 0%, #4e4e4e 100%);
+    color: #ffffff;
+    border-radius: 10px; border: 0.5px dotted #000;
+    text-align: left; font-size: 20px;
+    font-family: 'Thermal', 'Thermal Vf', serif;
+    font-style: italic; letter-spacing: 1px;
+    font-weight: 400;
+    z-index: 100; visibility: hidden; opacity: 0; transition: 0.4s;
+}

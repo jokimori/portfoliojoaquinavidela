@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dame una señal | Joaquina Videla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: #fff;
+            color: #000;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 100;
+        }
+
+        nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        /* CONTENT */
+        .page-content {
+            padding: 0 40px 60px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        /* VIDEO */
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 780px;
+            background: #000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* CONTROLS */
+        .controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 14px 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.55));
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .video-container:hover .controls { opacity: 1; }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ctrl-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #fff;
+            border-radius: 2px;
+            width: 0%;
+            pointer-events: none;
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 64px 40px 40px;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .c-label {
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        .video-container.controls-visible .controls { opacity: 1; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            nav a { font-size: 1.1rem; }
+            .page-content { padding: 0 24px 40px; }
+            .contact-section { padding: 40px 24px 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="historias.html" onclick="smoothTransition(event, 'historias.html')">Volver</a>
+        <a href="#">DUS</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="page-content">
+
+        <h2 class="section-title">Dame una señal</h2>
+
+        <div class="video-wrapper">
+            <div class="video-container" id="videoContainer">
+                <video id="mainVideo" preload="metadata">
+                    <source src="dameunasenal.MP4" type="video/mp4">
+                </video>
+
+                <div class="controls" id="controls">
+
+                    <!-- Play / Pause -->
+                    <button class="ctrl-btn" id="playBtn" title="Play / Pausa">
+                        <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+
+                    <!-- Progress bar -->
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+                    <!-- Mute / Unmute -->
+                    <button class="ctrl-btn" id="muteBtn" title="Silenciar / Activar sonido">
+                        <svg id="iconSound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        <svg id="iconMute" viewBox="0 0 24 24" style="display:none"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.73 1.73L21 18.46 4.54 2 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="contact-section" id="contacto">
+        <div class="contact-row"><span class="c-label">Mail:</span><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></div>
+        <div class="contact-row"><span class="c-label">Whatsapp:</span><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></div>
+        <div class="contact-row"><span class="c-label">Instagram:</span><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></div>
+        <div class="contact-row"><span class="c-label">Behance:</span><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></div>
+    </section>
+
+    <script>
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+
+        const video        = document.getElementById('mainVideo');
+        const playBtn      = document.getElementById('playBtn');
+        const iconPlay     = document.getElementById('iconPlay');
+        const iconPause    = document.getElementById('iconPause');
+        const muteBtn      = document.getElementById('muteBtn');
+        const iconSound    = document.getElementById('iconSound');
+        const iconMute     = document.getElementById('iconMute');
+        const progressBar  = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+
+        // Play / Pause button
+        playBtn.addEventListener('click', function() {
+            if (video.paused) { video.play(); } else { video.pause(); }
+        });
+
+        // Click on video: on desktop toggle play/pause; on mobile show controls briefly then toggle
+        var container = document.getElementById('videoContainer');
+        var mobileHideTimer;
+
+        video.addEventListener('click', function() {
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                container.classList.add('controls-visible');
+                clearTimeout(mobileHideTimer);
+                mobileHideTimer = setTimeout(function() {
+                    container.classList.remove('controls-visible');
+                }, 3000);
+            } else {
+                if (video.paused) { video.play(); } else { video.pause(); }
+            }
+        });
+
+        video.addEventListener('play', function() {
+            iconPlay.style.display  = 'none';
+            iconPause.style.display = '';
+        });
+
+        video.addEventListener('pause', function() {
+            iconPlay.style.display  = '';
+            iconPause.style.display = 'none';
+        });
+
+        // Mute / Unmute
+        muteBtn.addEventListener('click', function() {
+            video.muted = !video.muted;
+            iconSound.style.display = video.muted ? 'none' : '';
+            iconMute.style.display  = video.muted ? '' : 'none';
+        });
+
+        // Progress bar update
+        video.addEventListener('timeupdate', function() {
+            if (video.duration) {
+                progressFill.style.width = (video.currentTime / video.duration * 100) + '%';
+            }
+        });
+
+        // Seek by clicking progress bar
+        progressBar.addEventListener('click', function(e) {
+            var rect = progressBar.getBoundingClientRect();
+            var ratio = (e.clientX - rect.left) / rect.width;
+            video.currentTime = ratio * video.duration;
+        });
+    </script>
+
+</body>
+</html>

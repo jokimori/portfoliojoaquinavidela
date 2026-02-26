@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barrio Vivo</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+    </script>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <img src="assets/images/back2.png" alt="Volver">
+    </a>
+
+    <div class="sim-wrapper" id="wrapper"></div>
+
+    <div class="game-ui">
+        
+        <div class="top-bar">
+            <div class="status-badge" id="status-indicator">BARRIO EQUILIBRADO</div>
+        </div>
+
+        <div class="stats-panel">
+            <h3>INDICADORES</h3>
+            <div class="chart-box">
+                <canvas id="statsChart"></canvas>
+            </div>
+            <div class="metrics-row">
+                <div class="metric">
+                    <small>IDENTIDAD</small>
+                    <span id="val-identity" style="color: #27ae60;">ALTA</span>
+                </div>
+                <div class="metric">
+                    <small>AIRE</small>
+                    <span id="val-air" style="color: #27ae60;">PURO</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-toolbar">
+            
+            <div class="tool-group">
+                <label>Densidad</label>
+                <input type="range" id="market-slider" min="0" max="100" value="0">
+                <div class="labels"><span>Baja</span><span>Alta</span></div>
+            </div>
+
+            <div class="tool-group">
+                <label>Perfil gastronómico</label>
+                <input type="range" id="commerce-slider" min="0" max="100" value="0">
+                <div class="labels"><span>Bodegón</span><span>Gourmet</span></div>
+            </div>
+
+            <div class="tool-group">
+                <label>Negocios</label>
+                <input type="range" id="business-slider" min="0" max="100" value="0">
+                <div class="labels"><span>Local</span><span>Franquicia</span></div>
+            </div>
+
+            <div class="action-group">
+                <button id="btn-grid-view" class="btn-icon">Infraestructura</button>
+                <button id="btn-smog" class="btn-icon">Contaminación</button>
+                <button id="btn-clear" class="btn-icon clean">Limpiar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="info-popup" class="info-popup"><p id="info-popup-text"></p></div>
+    <script type="module" src="simulation.js"></script>
+</body>
+</html>

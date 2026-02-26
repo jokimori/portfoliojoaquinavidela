@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epifanía | Joaquina Videla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: #fff;
+            color: #000;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 100;
+        }
+
+        nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        /* CONTENT */
+        .page-content {
+            padding: 0 40px 40px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 32px;
+        }
+
+        /* COMIC LAYOUT */
+        .comic-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comic-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .comic-row img,
+        .comic-single img {
+            width: 100%;
+            display: block;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .comic-single {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .comic-row .comic-half {
+            width: 50%;
+            flex-shrink: 0;
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 64px 40px 40px;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .c-label {
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        /* LIGHTBOX */
+        .comic-row img,
+        .comic-single img {
+            cursor: zoom-in;
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox.active {
+            display: flex;
+        }
+
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            display: block;
+        }
+
+        .lb-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .lb-arrow:hover { background: rgba(255, 255, 255, 0.3); }
+        #lb-prev { left: 20px; }
+        #lb-next { right: 20px; }
+
+        .lb-arrow.hidden { opacity: 0; pointer-events: none; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            nav a { font-size: 1.1rem; }
+            .page-content { padding: 0 24px 32px; }
+            .comic-grid { max-width: 100%; }
+            .comic-row { flex-direction: column; }
+            .comic-row .comic-half { width: 100%; }
+            .contact-section { padding: 40px 24px 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="historias.html" onclick="smoothTransition(event, 'historias.html')">Volver</a>
+        <a href="#">Epifanía</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="page-content">
+
+        <h2 class="section-title">Epifanía</h2>
+
+        <div class="comic-grid">
+
+            <div class="comic-single">
+                <img src="comicparaportfolio1.png" alt="Epifanía página 1">
+            </div>
+
+            <div class="comic-row">
+                <div class="comic-half">
+                    <img src="comicparaportfolio2.png" alt="Epifanía página 2">
+                </div>
+                <div class="comic-half">
+                    <img src="comicparaportfolio3.png" alt="Epifanía página 3">
+                </div>
+            </div>
+
+            <div class="comic-row">
+                <div class="comic-half">
+                    <img src="comicparaportfolio4.png" alt="Epifanía página 4">
+                </div>
+                <div class="comic-half">
+                    <img src="comicparaportfolio5.png" alt="Epifanía página 5">
+                </div>
+            </div>
+
+            <div class="comic-row">
+                <div class="comic-half">
+                    <img src="comicparaportfolio6.png" alt="Epifanía página 6">
+                </div>
+                <div class="comic-half">
+                    <img src="comicparaportfolio7.png" alt="Epifanía página 7">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox">
+        <button class="lb-arrow" id="lb-prev">&#8592;</button>
+        <img id="lb-img" src="" alt="">
+        <button class="lb-arrow" id="lb-next">&#8594;</button>
+    </div>
+
+    <section class="contact-section" id="contacto">
+        <div class="contact-row"><span class="c-label">Mail:</span><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></div>
+        <div class="contact-row"><span class="c-label">Whatsapp:</span><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></div>
+        <div class="contact-row"><span class="c-label">Instagram:</span><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></div>
+        <div class="contact-row"><span class="c-label">Behance:</span><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></div>
+    </section>
+
+    <script>
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+
+        // LIGHTBOX
+        const images = Array.from(document.querySelectorAll('.comic-grid img'));
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbPrev = document.getElementById('lb-prev');
+        const lbNext = document.getElementById('lb-next');
+        let current = 0;
+
+        function openLightbox(index) {
+            current = index;
+            lbImg.src = images[current].src;
+            lbImg.alt = images[current].alt;
+            lightbox.classList.add('active');
+            updateArrows();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        function updateArrows() {
+            lbPrev.classList.toggle('hidden', current === 0);
+            lbNext.classList.toggle('hidden', current === images.length - 1);
+        }
+
+        images.forEach(function(img, i) {
+            img.addEventListener('click', function() { openLightbox(i); });
+        });
+
+        lbPrev.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (current > 0) { current--; lbImg.src = images[current].src; lbImg.alt = images[current].alt; updateArrows(); }
+        });
+
+        lbNext.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (current < images.length - 1) { current++; lbImg.src = images[current].src; lbImg.alt = images[current].alt; updateArrows(); }
+        });
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'ArrowLeft' && current > 0) lbPrev.click();
+            if (e.key === 'ArrowRight' && current < images.length - 1) lbNext.click();
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+
+</body>
+</html>

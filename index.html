@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joaquina Videla | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { animation: fadeInPage 0.6s ease-out; }
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+        @keyframes toggleTease {
+            0%   { flex-grow: 1; }
+            40%  { flex-grow: 1.45; }
+            60%  { flex-grow: 1.45; }
+            100% { flex-grow: 1; }
+        }
+        .switch-btn.tease-active {
+            animation: toggleTease 0.7s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        
+        <a href="#proyectos">Proyectos</a>
+        <a href="#">Portfolio</a>
+
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="layout-container">
+
+        <header class="main-header">
+            <h1>PORTFOLIO</h1>
+            <p class="author-name">Joaquina Videla</p>
+        </header>
+
+        <section class="about-grid">
+            
+            <div class="about-col-photo">
+                <div class="photo-wrapper">
+                    <img src="yoportfolio.png" alt="Joaquina Videla">
+                </div>
+                <div class="mode-switch-container">
+                    <div class="switch-btn design active-design">MODO DISEÑO</div>
+                    <a href="indexarte.html" class="switch-btn art" style="text-decoration:none;color:inherit;" onclick="smoothTransition(event, 'indexarte.html')">MODO ARTE</a>
+                </div>
+                <div class="mode-switch-container lang-switch-container">
+                    <div class="switch-btn lang-btn active" data-lang="es">ESPAÑOL</div>
+                    <div class="switch-btn lang-btn" data-lang="en">ENGLISH</div>
+                </div>
+            </div>
+
+            <div class="about-col-text">
+                <h2>SOBRE MÍ</h2>
+                <div class="text-content">
+                    <p>
+                        Soy una diseñadora integral y multidisciplinaria, especializada en diseño de experiencia, UX/UI, diseño de juegos y diseño gráfico. 
+                        Mi enfoque combina pensamiento estratégico con sensibilidad visual, y se complementa con 
+                        conocimientos en diseño 3D y programación.
+                    </p>
+                    <p>
+                        Cuando hablo de diseño de experiencia, me refiero a pensar cada parte de la interacción entre el usuario 
+                        y lo diseñado. Es un enfoque amplio que abarca distintas áreas, como el diseño de juegos, tanto 
+                        virtuales como analógicos, el diseño de interfaces, instancias de lectura e incluso el de objetos, muebles o ambientes.
+                    </p>
+                    <p>
+                        Me gusta crear soluciones innovadoras que no solo sean funcionales, sino que también generen 
+                        emociones y conexiones significativas con los usuarios. Siempre estoy en busca de nuevas experiencias 
+                        que me permitan crecer profesionalmente y aportar valor a cada proyecto en el que participo. Creo que el 
+                        el diseño se hace evidente cuando se hace con sentido y propósito.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about-col-buttons">
+                <div class="sidebar-btn" onclick="openModal('modal-estudios')">
+                    <div class="btn-box-outline"><span class="btn-label">ESTUDIOS</span></div>
+                </div>
+                <div class="sidebar-btn" onclick="openModal('modal-aptitudes')">
+                    <div class="btn-box-outline"><span class="btn-label">APTITUDES</span></div>
+                </div>
+                <div class="sidebar-btn" onclick="openModal('modal-conocimientos')">
+                    <div class="btn-box-outline"><span class="btn-label">CONOCIMIENTOS</span></div>
+                </div>
+                <div class="sidebar-btn" onclick="openModal('modal-experiencia')">
+                    <div class="btn-box-outline"><span class="btn-label">EXPERIENCIA</span></div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="projects-section" id="proyectos">
+            <div class="section-header-left">
+                <h2>PROYECTOS</h2>
+            </div>
+            
+            <div class="horizontal-scroll-container" id="projectsSlider">
+
+                <a href="arvivo.html" class="project-card">
+                    <div class="p-image-placeholder">
+                        <img src="POPUPPANEL-thumb.jpg" alt="Portada Archivo Vivo" loading="lazy">
+                    </div>
+                    <div class="p-title">AR.VIVO</div>
+                </a>
+
+                <a href="motomami.html" class="project-card">
+                    <div class="p-image-placeholder">
+                        <img src="analisismotomami.png" alt="Portada Qué es Motomami" loading="lazy" style="object-position: 38% center;">
+                    </div>
+                    <div class="p-title">QUÉ ES MOTOMAMI</div>
+                </a>
+
+                <a href="timeloot.html" class="project-card">
+                    <div class="p-image-placeholder">
+                        <img src="IMG_2020.jpeg" alt="Portada Timeloot" loading="lazy">
+                    </div>
+                    <div class="p-title">TIMELOOT</div>
+                </a>
+
+                <a href="malamante.html" class="project-card">
+                    <div class="p-image-placeholder">
+                        <img src="portadafinal-thumb.jpg" alt="Portada Malamante" loading="lazy">
+                    </div>
+                    <div class="p-title">MALA AMANTE</div>
+                </a>
+
+
+            </div>
+        </section>
+
+        <section class="contact-section" id="contacto">
+            <div class="section-header-right">
+                <h2>CONTACTO</h2>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">MAIL:</span> <span class="c-data"><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">WHATSAPP:</span> <span class="c-data"><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">INSTAGRAM:</span> <span class="c-data"><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></span>
+            </div>
+            <div class="contact-row">
+                <span class="c-label">BEHANCE:</span> <span class="c-data"><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></span>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <p>este portfolio se actualiza en tiempo real a medida que trabajo en más proyectos y aprendo cosas nuevas :)</p>
+        </footer>
+
+    </div>
+
+    <div id="modal-estudios" class="modal-overlay" onclick="closeModal(event, 'modal-estudios')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModalForce('modal-estudios')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </span>
+            <h3 class="modal-title">MIS ESTUDIOS</h3>
+            <div class="modal-body">
+                <p class="modal-item">
+                    <strong>Secundario (2017-2021)</strong><br>
+                    I.L.S.E (Instituo Libre de Segunda Enseñanza)
+                </p>
+                <p class="modal-item">
+                    <strong>Universitario (2022-2025)</strong><br>
+                    Licenciatura en diseño, UTDT (Universidad Torcuato Di Tella)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-aptitudes" class="modal-overlay" onclick="closeModal(event, 'modal-aptitudes')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModalForce('modal-aptitudes')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </span>
+            <h3 class="modal-title">APTITUDES</h3>
+            <div class="modal-body">
+                <p class="modal-text-justified">
+                    <strong>Creatividad</strong> aplicada a la resolución de problemas y creación de proyectos. 
+                    A la hora de trabajar, tengo un <strong>enfoque empático centrado en las personas</strong>. 
+                    Disfruto el <strong>trabajo en equipo</strong> y los intercambios interdisciplinarios, 
+                    entendiendo el <strong>diálogo como una herramienta clave</strong> para construir mejores soluciones de diseño.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-conocimientos" class="modal-overlay" onclick="closeModal(event, 'modal-conocimientos')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModalForce('modal-conocimientos')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </span>
+            <h3 class="modal-title">HERRAMIENTAS Y CONOCIMIENTOS</h3>
+            <div class="modal-body">
+                <div class="knowledge-block">
+                    <h4>Software</h4>
+                    <p>Adobe Illustrator • Photoshop • After Effects • Premiere Pro • Lightroom • Rhinoceros 3D • Blender • Figma • Procreate</p>
+                </div>
+                <div class="knowledge-block">
+                    <h4>Programación</h4>
+                    <p>HTML • CSS • Next.js • Construct 3 (desarrollo de videojuegos)</p>
+                </div>
+                <div class="knowledge-block">
+                    <h4>Idiomas</h4>
+                    <p>Inglés — Cambridge English: Proficiency (C2)<br>Francés — A2 (en progreso hacia B1)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-experiencia" class="modal-overlay" onclick="closeModal(event, 'modal-experiencia')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModalForce('modal-experiencia')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </span>
+            <h3 class="modal-title">EXPERIENCIA</h3>
+            <div class="modal-body">
+                <div class="exp-item">
+                    <p class="exp-head">Museo Virtual Justicialista — CM & diseño de identidad visual (actualidad)</p>
+                    <p class="exp-sub">Identidad visual • Comunicación digital • Trabajo colaborativo</p>
+                    <p class="exp-desc">Desarrollo de la identidad visual y gestión de redes sociales en equipo.</p>
+                </div>
+                <div class="exp-item">
+                    <p class="exp-head">ForHer — Diseño de identidad de marca</p>
+                    <p class="exp-sub">Branding • Dirección visual</p>
+                    <p class="exp-desc">Diseño de identidad visual y definición de criterios gráficos.</p>
+                </div>
+                <div class="exp-item">
+                    <p class="exp-head">Babette Agency — Creadora de contenido (2023)</p>
+                    <p class="exp-sub">Contenido digital • Comunicación visual</p>
+                    <p class="exp-desc">Producción de contenidos por encargo para distintas marcas.</p>
+                </div>
+                <div class="exp-item">
+                    <p class="exp-head">Bond • Sotheby’s — Contenido freelance</p>
+                    <p class="exp-sub">Diseño de piezas • Adaptación a lineamientos de marca</p>
+                    <p class="exp-desc">Desarrollo de contenido puntual para comunicación digital.</p>
+                </div>
+                <div class="exp-item">
+                    <p class="exp-head">Chill Fish — Community Manager</p>
+                    <p class="exp-sub">Gestión de redes • Creación de contenido</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 0. SMOOTH PAGE TRANSITION
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() {
+                window.location.href = url;
+            }, 400);
+        }
+
+        // 1. MODALES
+        function openModal(modalId) { document.getElementById(modalId).style.display = "flex"; }
+        function closeModal(event, modalId) {
+            if (event.target.classList.contains('modal-overlay')) { document.getElementById(modalId).style.display = "none"; }
+        }
+        function closeModalForce(modalId) { document.getElementById(modalId).style.display = "none"; }
+
+        // 2. DRAG AND DROP DEL CARRUSEL (MEJORADO)
+        const slider = document.getElementById('projectsSlider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isDragging = false; 
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            isDragging = false; 
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            setTimeout(() => slider.classList.remove('active'), 0); 
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return; 
+            e.preventDefault();
+            
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; 
+
+            if (Math.abs(x - startX) > 5) {
+                isDragging = true;
+            }
+
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        const projectLinks = document.querySelectorAll('a.project-card');
+        projectLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // 3. LANGUAGE TOGGLE
+        (function setupLangToggle() {
+            const translations = {
+                es: {
+                    navProyectos: 'Proyectos',
+                    navPortfolio: 'Portfolio',
+                    navContacto: 'Contacto',
+                    headerTitle: 'PORTFOLIO',
+                    authorName: 'Joaquina Videla',
+                    aboutTitle: 'SOBRE MÍ',
+                    aboutP1: 'Soy una diseñadora integral y multidisciplinaria, especializada en diseño de experiencia, UX/UI, diseño de juegos y diseño gráfico. Mi enfoque combina pensamiento estratégico con sensibilidad visual, y se complementa con conocimientos en diseño 3D y programación.',
+                    aboutP2: 'Cuando hablo de diseño de experiencia, me refiero a pensar cada parte de la interacción entre el usuario y lo diseñado. Es un enfoque amplio que abarca distintas áreas, como el diseño de juegos, tanto virtuales como analógicos, el diseño de interfaces, instancias de lectura e incluso el de objetos, muebles o ambientes.',
+                    aboutP3: 'Me gusta crear soluciones innovadoras que no solo sean funcionales, sino que también generen emociones y conexiones significativas con los usuarios. Siempre estoy en busca de nuevas experiencias que me permitan crecer profesionalmente y aportar valor a cada proyecto en el que participo. Creo que el el diseño se hace evidente cuando se hace con sentido y propósito.',
+                    btnEstudios: 'ESTUDIOS',
+                    btnAptitudes: 'APTITUDES',
+                    btnConocimientos: 'CONOCIMIENTOS',
+                    btnExperiencia: 'EXPERIENCIA',
+                    sectionProyectos: 'PROYECTOS',
+                    sectionContacto: 'CONTACTO',
+                    footer: 'este portfolio se actualiza en tiempo real a medida que trabajo en más proyectos y aprendo cosas nuevas :)',
+                    modoDiseno: 'MODO DISEÑO',
+                    modoArte: 'MODO ARTE',
+                    // Modals
+                    modalEstudiosTitle: 'MIS ESTUDIOS',
+                    estudioSecundario: '<strong>Secundario (2017-2021)</strong><br>I.L.S.E (Instituo Libre de Segunda Enseñanza)',
+                    estudioUniversitario: '<strong>Universitario (2022-2025)</strong><br>Licenciatura en diseño, UTDT (Universidad Torcuato Di Tella)',
+                    modalAptitudesTitle: 'APTITUDES',
+                    aptitudesText: '<strong>Creatividad</strong> aplicada a la resolución de problemas y creación de proyectos. A la hora de trabajar, tengo un <strong>enfoque empático centrado en las personas</strong>. Disfruto el <strong>trabajo en equipo</strong> y los intercambios interdisciplinarios, entendiendo el <strong>diálogo como una herramienta clave</strong> para construir mejores soluciones de diseño.',
+                    modalConocimientosTitle: 'HERRAMIENTAS Y CONOCIMIENTOS',
+                    conocSoftwareTitle: 'Software',
+                    conocSoftware: 'Adobe Illustrator • Photoshop • After Effects • Premiere Pro • Lightroom • Rhinoceros 3D • Blender • Figma • Procreate',
+                    conocProgTitle: 'Programación',
+                    conocProg: 'HTML • CSS • Next.js • Construct 3 (desarrollo de videojuegos)',
+                    conocIdiomasTitle: 'Idiomas',
+                    conocIdiomas: 'Inglés — Cambridge English: Proficiency (C2)<br>Francés — A2 (en progreso hacia B1)',
+                    modalExperienciaTitle: 'EXPERIENCIA',
+                    exp1Head: 'Museo Virtual Justicialista — CM & diseño de identidad visual (actualidad)',
+                    exp1Sub: 'Identidad visual • Comunicación digital • Trabajo colaborativo',
+                    exp1Desc: 'Desarrollo de la identidad visual y gestión de redes sociales en equipo.',
+                    exp2Head: 'ForHer — Diseño de identidad de marca',
+                    exp2Sub: 'Branding • Dirección visual',
+                    exp2Desc: 'Diseño de identidad visual y definición de criterios gráficos.',
+                    exp3Head: 'Babette Agency — Creadora de contenido (2023)',
+                    exp3Sub: 'Contenido digital • Comunicación visual',
+                    exp3Desc: 'Producción de contenidos por encargo para distintas marcas.',
+                    exp4Head: 'Bond • Sotheby\'s — Contenido freelance',
+                    exp4Sub: 'Diseño de piezas • Adaptación a lineamientos de marca',
+                    exp4Desc: 'Desarrollo de contenido puntual para comunicación digital.',
+                    exp5Head: 'Chill Fish — Community Manager',
+                    exp5Sub: 'Gestión de redes • Creación de contenido',
+                    // Contact labels
+                    labelMail: 'MAIL:',
+                    labelWhatsapp: 'WHATSAPP:',
+                    labelInstagram: 'INSTAGRAM:',
+                    labelBehance: 'BEHANCE:'
+                },
+                en: {
+                    navProyectos: 'Projects',
+                    navPortfolio: 'Portfolio',
+                    navContacto: 'Contact',
+                    headerTitle: 'PORTFOLIO',
+                    authorName: 'Joaquina Videla',
+                    aboutTitle: 'ABOUT ME',
+                    aboutP1: 'I am a comprehensive and multidisciplinary designer, specializing in experience design, UX/UI, game design, and graphic design. My approach combines strategic thinking with visual sensibility, complemented by knowledge in 3D design and programming.',
+                    aboutP2: 'When I talk about experience design, I mean thinking through every part of the interaction between the user and what is designed. It is a broad approach that encompasses different areas, such as game design, both virtual and analog, interface design, reading experiences, and even the design of objects, furniture, or environments.',
+                    aboutP3: 'I enjoy creating innovative solutions that are not only functional, but also generate emotions and meaningful connections with users. I am always looking for new experiences that allow me to grow professionally and add value to every project I participate in. I believe that design becomes evident when it is done with meaning and purpose.',
+                    btnEstudios: 'EDUCATION',
+                    btnAptitudes: 'SKILLS',
+                    btnConocimientos: 'KNOWLEDGE',
+                    btnExperiencia: 'EXPERIENCE',
+                    sectionProyectos: 'PROJECTS',
+                    sectionContacto: 'CONTACT',
+                    footer: 'this portfolio is updated in real time as I work on more projects and learn new things :)',
+                    modoDiseno: 'DESIGN MODE',
+                    modoArte: 'ART MODE',
+                    // Modals
+                    modalEstudiosTitle: 'MY EDUCATION',
+                    estudioSecundario: '<strong>High School (2017-2021)</strong><br>I.L.S.E (Instituo Libre de Segunda Enseñanza)',
+                    estudioUniversitario: '<strong>University (2022-2025)</strong><br>Bachelor\'s Degree in Design, UTDT (Universidad Torcuato Di Tella)',
+                    modalAptitudesTitle: 'SKILLS',
+                    aptitudesText: '<strong>Creativity</strong> applied to problem-solving and project creation. When working, I have an <strong>empathetic, people-centered approach</strong>. I enjoy <strong>teamwork</strong> and interdisciplinary exchanges, understanding <strong>dialogue as a key tool</strong> to build better design solutions.',
+                    modalConocimientosTitle: 'TOOLS & KNOWLEDGE',
+                    conocSoftwareTitle: 'Software',
+                    conocSoftware: 'Adobe Illustrator • Photoshop • After Effects • Premiere Pro • Lightroom • Rhinoceros 3D • Blender • Figma • Procreate',
+                    conocProgTitle: 'Programming',
+                    conocProg: 'HTML • CSS • Next.js • Construct 3 (game development)',
+                    conocIdiomasTitle: 'Languages',
+                    conocIdiomas: 'English — Cambridge English: Proficiency (C2)<br>French — A2 (in progress towards B1)',
+                    modalExperienciaTitle: 'EXPERIENCE',
+                    exp1Head: 'Museo Virtual Justicialista — CM & visual identity design (current)',
+                    exp1Sub: 'Visual identity • Digital communication • Collaborative work',
+                    exp1Desc: 'Development of visual identity and social media management as a team.',
+                    exp2Head: 'ForHer — Brand identity design',
+                    exp2Sub: 'Branding • Visual direction',
+                    exp2Desc: 'Visual identity design and definition of graphic criteria.',
+                    exp3Head: 'Babette Agency — Content creator (2023)',
+                    exp3Sub: 'Digital content • Visual communication',
+                    exp3Desc: 'Commissioned content production for various brands.',
+                    exp4Head: 'Bond • Sotheby\'s — Freelance content',
+                    exp4Sub: 'Design pieces • Adaptation to brand guidelines',
+                    exp4Desc: 'Development of specific content for digital communication.',
+                    exp5Head: 'Chill Fish — Community Manager',
+                    exp5Sub: 'Social media management • Content creation',
+                    // Contact labels
+                    labelMail: 'EMAIL:',
+                    labelWhatsapp: 'WHATSAPP:',
+                    labelInstagram: 'INSTAGRAM:',
+                    labelBehance: 'BEHANCE:'
+                }
+            };
+
+            let currentLang = localStorage.getItem('portfolioLang') || 'es';
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            // Apply saved language on load
+            if (currentLang === 'en') {
+                langBtns.forEach(b => b.classList.remove('active'));
+                document.querySelector('.lang-btn[data-lang="en"]').classList.add('active');
+                applyTranslations('en');
+            }
+
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    if (lang === currentLang) return;
+                    currentLang = lang;
+                    localStorage.setItem('portfolioLang', lang);
+                    langBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyTranslations(lang);
+                });
+            });
+
+            function applyTranslations(lang) {
+                const t = translations[lang];
+
+                // Nav
+                const navLinks = document.querySelectorAll('.top-nav a');
+                navLinks[0].textContent = t.navProyectos;
+                navLinks[0].href = lang === 'en' ? '#projects' : '#proyectos';
+                navLinks[1].textContent = t.navPortfolio;
+                navLinks[2].textContent = t.navContacto;
+                navLinks[2].href = lang === 'en' ? '#contact' : '#contacto';
+
+                // Header
+                document.querySelector('.main-header h1').textContent = t.headerTitle;
+                document.querySelector('.author-name').textContent = t.authorName;
+
+                // About
+                document.querySelector('.about-col-text h2').textContent = t.aboutTitle;
+                const aboutPs = document.querySelectorAll('.text-content p');
+                aboutPs[0].textContent = t.aboutP1;
+                aboutPs[1].textContent = t.aboutP2;
+                aboutPs[2].textContent = t.aboutP3;
+
+                // Mode switch
+                document.querySelector('.switch-btn.design').textContent = t.modoDiseno;
+                document.querySelector('.switch-btn.art').textContent = t.modoArte;
+
+                // Sidebar buttons
+                const btnLabels = document.querySelectorAll('.about-col-buttons .btn-label');
+                btnLabels[0].textContent = t.btnEstudios;
+                btnLabels[1].textContent = t.btnAptitudes;
+                btnLabels[2].textContent = t.btnConocimientos;
+                btnLabels[3].textContent = t.btnExperiencia;
+
+                // Projects section
+                const projSection = document.getElementById('proyectos') || document.getElementById('projects');
+                projSection.id = lang === 'en' ? 'projects' : 'proyectos';
+                projSection.querySelector('h2').textContent = t.sectionProyectos;
+
+                // Contact section
+                const contactSection = document.getElementById('contacto') || document.getElementById('contact');
+                contactSection.id = lang === 'en' ? 'contact' : 'contacto';
+                contactSection.querySelector('h2').textContent = t.sectionContacto;
+                const contactLabels = contactSection.querySelectorAll('.c-label');
+                contactLabels[0].textContent = t.labelMail;
+                contactLabels[1].textContent = t.labelWhatsapp;
+                contactLabels[2].textContent = t.labelInstagram;
+                contactLabels[3].textContent = t.labelBehance;
+
+                // Footer
+                document.querySelector('.site-footer p').textContent = t.footer;
+
+                // Modal: Estudios
+                document.querySelector('#modal-estudios .modal-title').textContent = t.modalEstudiosTitle;
+                const estudiosItems = document.querySelectorAll('#modal-estudios .modal-item');
+                estudiosItems[0].innerHTML = t.estudioSecundario;
+                estudiosItems[1].innerHTML = t.estudioUniversitario;
+
+                // Modal: Aptitudes
+                document.querySelector('#modal-aptitudes .modal-title').textContent = t.modalAptitudesTitle;
+                document.querySelector('#modal-aptitudes .modal-text-justified').innerHTML = t.aptitudesText;
+
+                // Modal: Conocimientos
+                document.querySelector('#modal-conocimientos .modal-title').textContent = t.modalConocimientosTitle;
+                const knowBlocks = document.querySelectorAll('#modal-conocimientos .knowledge-block');
+                knowBlocks[0].querySelector('h4').textContent = t.conocSoftwareTitle;
+                knowBlocks[0].querySelector('p').textContent = t.conocSoftware;
+                knowBlocks[1].querySelector('h4').textContent = t.conocProgTitle;
+                knowBlocks[1].querySelector('p').textContent = t.conocProg;
+                knowBlocks[2].querySelector('h4').textContent = t.conocIdiomasTitle;
+                knowBlocks[2].querySelector('p').innerHTML = t.conocIdiomas;
+
+                // Modal: Experiencia
+                document.querySelector('#modal-experiencia .modal-title').textContent = t.modalExperienciaTitle;
+                const expItems = document.querySelectorAll('#modal-experiencia .exp-item');
+                expItems[0].querySelector('.exp-head').textContent = t.exp1Head;
+                expItems[0].querySelector('.exp-sub').textContent = t.exp1Sub;
+                expItems[0].querySelector('.exp-desc').textContent = t.exp1Desc;
+                expItems[1].querySelector('.exp-head').textContent = t.exp2Head;
+                expItems[1].querySelector('.exp-sub').textContent = t.exp2Sub;
+                expItems[1].querySelector('.exp-desc').textContent = t.exp2Desc;
+                expItems[2].querySelector('.exp-head').textContent = t.exp3Head;
+                expItems[2].querySelector('.exp-sub').textContent = t.exp3Sub;
+                expItems[2].querySelector('.exp-desc').textContent = t.exp3Desc;
+                expItems[3].querySelector('.exp-head').textContent = t.exp4Head;
+                expItems[3].querySelector('.exp-sub').textContent = t.exp4Sub;
+                expItems[3].querySelector('.exp-desc').textContent = t.exp4Desc;
+                expItems[4].querySelector('.exp-head').textContent = t.exp5Head;
+                expItems[4].querySelector('.exp-sub').textContent = t.exp5Sub;
+            }
+        })();
+
+        // 4. TEASE ANIMATIONS
+
+        // Toggle tease — mode first, lang 200ms later
+        function runTease(btn) {
+            if (!btn) return;
+            btn.classList.add('tease-active');
+            btn.addEventListener('animationend', () => btn.classList.remove('tease-active'), { once: true });
+        }
+        setTimeout(() => runTease(document.querySelector('.switch-btn.design')), 1000);
+        setTimeout(() => runTease(document.querySelector('.lang-btn.active')), 1200);
+
+        // Carousel peek — triggers when carousel scrolls into view
+        (function() {
+            let peeked = false;
+            function runPeek() {
+                if (peeked) return;
+                peeked = true;
+                const carousel = document.getElementById('projectsSlider');
+                const peek = 90;
+                const dur = 550;
+                function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+                let t0 = null;
+                function scrollOut(ts) {
+                    if (!t0) t0 = ts;
+                    const p = Math.min((ts - t0) / dur, 1);
+                    carousel.scrollLeft = peek * ease(p);
+                    if (p < 1) { requestAnimationFrame(scrollOut); }
+                    else {
+                        let t1 = null;
+                        function scrollBack(ts) {
+                            if (!t1) t1 = ts;
+                            const p = Math.min((ts - t1) / dur, 1);
+                            carousel.scrollLeft = peek * (1 - ease(p));
+                            if (p < 1) requestAnimationFrame(scrollBack);
+                        }
+                        requestAnimationFrame(scrollBack);
+                    }
+                }
+                setTimeout(() => requestAnimationFrame(scrollOut), 300);
+            }
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) { observer.disconnect(); runPeek(); }
+            }, { threshold: 0.5 });
+            observer.observe(document.getElementById('projectsSlider'));
+        })();
+    </script>
+
+</body>
+</html>

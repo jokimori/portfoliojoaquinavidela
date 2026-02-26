@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIVO VIVO | Joaquina Videla</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 0;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* --- Artifact layer --- */
+        .artifact-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+            perspective: 1000px;
+            z-index: 1500;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2));
+        }
+
+        .artifact {
+            position: absolute;
+            transform-style: preserve-3d;
+            border-radius: 22px;
+            opacity: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            mix-blend-mode: screen;
+            animation: artifactFloat var(--artifact-duration, 6s) ease-in-out forwards,
+                       artifactSpin calc(var(--artifact-duration, 6s) * 0.9) linear infinite;
+            transform-origin: center;
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.15);
+            background-image: radial-gradient(circle at center, transparent 35%, rgba(255, 255, 255, 0.25) 36%, transparent 45%),
+                              var(--artifact-stroke, linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.65)));
+            background-size: 40px 40px, 100% 100%;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+        }
+
+        @keyframes artifactFloat {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translate3d(0, 0, 0) rotateX(var(--artifact-rotateX, 0deg)) rotateY(var(--artifact-rotateY, 0deg)) rotateZ(var(--artifact-rotateZ, 0deg)) scale(0.2);
+            }
+            15% {
+                opacity: 0.95;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translate3d(var(--artifact-driftX, 0px), var(--artifact-driftY, 0px), var(--artifact-depth, 80px)) rotateX(calc(var(--artifact-rotateX, 0deg) * -1)) rotateY(calc(var(--artifact-rotateY, 0deg) * -1)) rotateZ(calc(var(--artifact-rotateZ, 0deg) * -1)) scale(1.05);
+            }
+        }
+
+        @keyframes artifactSpin {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(60deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .artifact {
+                animation: none;
+                display: none;
+            }
+        }
+
+        /* --- PIEZAS: 3 cards --- */
+        .piezas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .pieza-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+        }
+
+        .pieza-btn {
+            width: 100%;
+            border: var(--border-thickness) solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pieza-img-box {
+            width: 100%;
+            aspect-ratio: 7 / 3;
+            background-color: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .pieza-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .pieza-label {
+            font-size: 1.1rem;
+            font-style: italic;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 1px;
+            padding: 15px 10px;
+            border-top: var(--border-thickness) solid var(--border-color);
+        }
+
+        /* --- PROYECTO: large clickable area --- */
+        .proyecto-link-area {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            aspect-ratio: 3 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5e6a0, #f0d060, #f0a0d0, #e060c0, #f0a0d0, #f0d060, #f5e6a0);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        .proyecto-link-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .btn-ir {
+            position: relative;
+            z-index: 2;
+            padding: 10px 30px;
+            border: 1px solid black;
+            background: white;
+            font-family: 'Satoshi', Helvetica, Arial, sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-ir:hover {
+            background: black;
+            color: white;
+        }
+
+        /* --- About section left-aligned text --- */
+        .about-project-section {
+            padding: 30px 40px;
+        }
+
+        .about-project-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .about-project-section p {
+            max-width: 520px;
+        }
+
+        /* --- Piezas section header --- */
+        .piezas-header {
+            padding: 30px 40px 10px 40px;
+        }
+
+        .piezas-header h3 {
+            margin-bottom: 5px;
+        }
+
+        .piezas-header p {
+            font-style: italic;
+            margin: 0;
+            text-align: left;
+            max-width: 520px;
+        }
+
+        /* --- Proyecto section header --- */
+        .proyecto-header {
+            padding: 30px 40px 10px 40px;
+        }
+
+        .proyecto-header h3 {
+            margin-bottom: 5px;
+        }
+
+        .proyecto-header p {
+            margin: 0;
+            text-align: left;
+            max-width: 520px;
+        }
+
+        .proyecto-area-wrapper {
+            padding: 20px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .piezas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pieza-card {
+                border-bottom: var(--border-thickness) solid var(--border-color);
+            }
+
+            .pieza-card:last-child {
+                border-bottom: none;
+            }
+
+            .about-project-section,
+            .piezas-header,
+            .proyecto-header {
+                padding: 20px 25px;
+            }
+
+            .proyecto-area-wrapper {
+                padding: 15px;
+            }
+
+            .proyecto-link-area {
+                aspect-ratio: 4 / 3;
+            }
+        }
+
+        /* --- Panel popup overlay --- */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5%;
+            cursor: pointer;
+        }
+
+        .popup-overlay img {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            cursor: default;
+        }
+
+        /* --- Animations --- */
+        .sticky-header {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .project-hero h1 {
+            animation: fadeInUp 0.7s ease-out 0.1s backwards;
+        }
+
+        .about-project-section {
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+
+        .piezas-header {
+            animation: slideInLeft 0.6s ease-out 0.5s backwards;
+        }
+
+        .pieza-card:nth-child(1) {
+            animation: fadeInUp 0.6s ease-out 0.6s backwards;
+        }
+
+        .pieza-card:nth-child(2) {
+            animation: fadeInUp 0.6s ease-out 0.75s backwards;
+        }
+
+        .pieza-card:nth-child(3) {
+            animation: fadeInUp 0.6s ease-out 0.9s backwards;
+        }
+
+        .proyecto-header {
+            animation: slideInLeft 0.6s ease-out 1s backwards;
+        }
+
+        .proyecto-area-wrapper {
+            animation: fadeInUp 0.7s ease-out 1.1s backwards;
+        }
+
+        .footer-action {
+            animation: fadeIn 0.8s ease-out 1.3s backwards;
+        }
+
+        .pieza-btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pieza-card:hover .pieza-btn {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-overlay img {
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bgDrift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body.bg-animated {
+            background-size: 300% 300% !important;
+            animation: bgDrift 14s ease-in-out infinite !important;
+            transition: background 0.8s ease;
+        }
+
+        @media (max-width: 480px) {
+            .pieza-label {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-header">
+        <a href="index.html" class="nav-link">Volver</a>
+        <span class="nav-title">ARCHIVO VIVO</span>
+        <a href="#" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+
+        <header class="project-hero">
+            <h1>ARCHIVO VIVO</h1>
+        </header>
+
+        <section class="about-project-section border-bottom">
+            <h3>SOBRE EL PROYECTO</h3>
+            <p>
+                <i>ARCHIVO VIVO</i> es mi tesis para la facultad, hecha con mi
+                compañero Nicolás Herrero. Para la misma, se nos dio una
+                zona de Buenos Aires, y se nos pidió que identifiquemos
+                una problemática dentro de la misma y en consecuencia
+                propusiésemos una solución.
+            </p>
+
+            <p>
+                Es así como, tras una extensa investigación, tomamos como problemática
+                la gentrificación en el barrio de Chacarita. Como propuesta, desarrollamos un proyecto de diseño especulativo, que busca generar conciencia sobre este fenómeno y sus consecuencias, a la vez que ofrece una experiencia inmersiva para que los usuarios puedan entenderlo mejor.
+            </p>
+        </section>
+
+        <section class="border-bottom">
+            <div class="piezas-header">
+                <h3>PIEZAS</h3>
+                <p>Partes del proyecto para entenderlo mejor.</p>
+            </div>
+
+            <div class="piezas-grid">
+                <div class="pieza-card border-right" onclick="document.getElementById('panel-popup').style.display='flex'">
+                    <div class="pieza-btn">
+                        <div class="pieza-img-box">
+                            <img src="PANELBOTON.png" alt="Panel">
+                        </div>
+                        <span class="pieza-label">Panel</span>
+                    </div>
+                </div>
+                <a href="bitacora_pagweb.pdf" target="_blank" class="pieza-card border-right" style="text-decoration:none;color:inherit;">
+                    <div class="pieza-btn">
+                        <div class="pieza-img-box">
+                            <img src="BITACORABOTON.png" alt="Bitácora">
+                        </div>
+                        <span class="pieza-label">Bitácora</span>
+                    </div>
+                </a>
+                <a href="manifiestoarchivovivo.pdf" target="_blank" class="pieza-card" style="text-decoration:none;color:inherit;">
+                    <div class="pieza-btn">
+                        <div class="pieza-img-box">
+                            <img src="MANIFIESTOBOTON.png" alt="Manifiesto">
+                        </div>
+                        <span class="pieza-label">Manifiesto</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="border-bottom">
+            <div class="proyecto-header">
+                <h3>PROYECTO</h3>
+                <p>El proyecto se abrirá en una pestaña nueva.</p>
+                <p>Nota: si estás en celular, no vas a poder ver la página web correctamente. Ver <a href="https://drive.google.com/drive/folders/1rq-ZIGUDgQJzomnhb9piHOKeZIaUlRwW?usp=sharing" target="_blank" style="color:#4A90D9;text-decoration:underline;">videos</a> en su lugar.</p>
+            </div>
+
+            <div class="proyecto-area-wrapper">
+                <a href="web_vol2_4/index.html" target="_blank" class="proyecto-link-area">
+                    <!-- PROYECTO.png — replace gradient with image when ready -->
+                    <span class="btn-ir">ABRIR PROYECTO</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="footer-action padding-box flex-center">
+            <a href="index.html" class="btn-volver">VOLVER</a>
+        </div>
+
+    </div>
+
+    <!-- Artifact layer for click effects -->
+    <div class="artifact-layer" id="artifactLayer"></div>
+
+    <!-- Panel popup -->
+    <div id="panel-popup" class="popup-overlay" onclick="this.style.display='none'">
+        <img src="POPUPPANEL.png" alt="Panel" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        // --- HOVER: cambiar fondo del body al pasar sobre pieza cards ---
+        (function setupHoverBackgrounds() {
+            var cards = document.querySelectorAll('.pieza-card');
+            var gradients = [
+                // Panel: yellow to pink (matching proyecto-link-area tones)
+                'linear-gradient(135deg, #f5e6a0 0%, #f0d060 35%, #f0a0d0 65%, #e060c0 100%)',
+                // Bitácora: multicolor with white between each color
+                'linear-gradient(90deg, #d0d0d0 0%, #e8e8e8 4%, #ffffff 7%, #c8d4f0 10%, #dde6f8 13%, #ffffff 16%, #a8f0c8 20%, #d0f8e0 23%, #ffffff 27%, #f5f0a0 31%, #faf8d0 34%, #ffffff 38%, #f0b8d8 42%, #f8d8e8 45%, #ffffff 49%, #f8c8e0 53%, #fce0ee 56%, #ffffff 60%, #f0a8a8 64%, #f8d0d0 67%, #ffffff 71%, #e08080 75%, #f0b0b0 78%, #ffffff 82%, #d0d0d0 88%, #e8e8e8 94%, #ffffff 100%)',
+                // Manifiesto: mostly white with a hint of grey
+                'linear-gradient(135deg, #e8e8e8 0%, #f2f2f2 25%, #ffffff 50%, #f5f5f5 75%, #ffffff 100%)'
+            ];
+
+            cards.forEach(function(card, i) {
+                card.addEventListener('mouseenter', function() {
+                    document.body.style.background = gradients[i] || gradients[0];
+                    document.body.classList.add('bg-animated');
+                });
+                card.addEventListener('mouseleave', function() {
+                    document.body.classList.remove('bg-animated');
+                    document.body.style.background = 'white';
+                });
+            });
+        })();
+
+        // --- ARTIFACTS: click + random spawning ---
+        (function setupArtifacts() {
+            var layer = document.getElementById('artifactLayer');
+            if (!layer) return;
+
+            var strokePool = [
+                'linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 139, 208, 0.8))',
+                'linear-gradient(140deg, rgba(161, 224, 255, 0.35), rgba(255, 255, 255, 0.85))',
+                'conic-gradient(from 40deg, rgba(255, 255, 255, 0.05), rgba(255, 248, 138, 0.9), rgba(255, 255, 255, 0.2))',
+                'linear-gradient(95deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.08))',
+                'linear-gradient(160deg, rgba(240, 160, 208, 0.6), rgba(245, 230, 160, 0.8))',
+                'linear-gradient(200deg, rgba(224, 96, 192, 0.5), rgba(255, 255, 255, 0.7))'
+            ];
+
+            // Click to create artifact where you click
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('a, button, .popup-overlay, .btn-ir, .btn-volver, .nav-link')) return;
+                createArtifact(e.clientX, e.clientY);
+            });
+
+            // Random artifacts spawning every few seconds
+            function spawnRandom() {
+                var x = Math.random() * window.innerWidth;
+                var y = Math.random() * window.innerHeight;
+                createArtifact(x, y);
+                var next = randomInRange(2000, 5000);
+                setTimeout(spawnRandom, next);
+            }
+            setTimeout(spawnRandom, 3000);
+
+            function createArtifact(x, y) {
+                var artifact = document.createElement('span');
+                artifact.className = 'artifact';
+
+                var width = randomInRange(80, 200);
+                var height = width * randomInRange(0.4, 0.95);
+                artifact.style.width = width + 'px';
+                artifact.style.height = height + 'px';
+                artifact.style.left = x + 'px';
+                artifact.style.top = y + 'px';
+
+                var duration = randomInRange(4.5, 7.5);
+                artifact.style.setProperty('--artifact-duration', duration + 's');
+                artifact.style.setProperty('--artifact-rotateX', randomInRange(-35, 35) + 'deg');
+                artifact.style.setProperty('--artifact-rotateY', randomInRange(-55, 55) + 'deg');
+                artifact.style.setProperty('--artifact-rotateZ', randomInRange(-25, 25) + 'deg');
+                artifact.style.setProperty('--artifact-driftX', randomInRange(-120, 120) + 'px');
+                artifact.style.setProperty('--artifact-driftY', randomInRange(-90, 90) + 'px');
+                artifact.style.setProperty('--artifact-depth', randomInRange(60, 160) + 'px');
+
+                var stroke = strokePool[Math.floor(Math.random() * strokePool.length)];
+                artifact.style.setProperty('--artifact-stroke', stroke);
+
+                layer.appendChild(artifact);
+
+                while (layer.children.length > 18) {
+                    layer.removeChild(layer.firstElementChild);
+                }
+
+                setTimeout(function() { artifact.remove(); }, duration * 1000 + 250);
+            }
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+        })();
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            var nav = document.querySelectorAll('.sticky-header .nav-link');
+            nav[0].textContent = 'Back';
+            nav[1].textContent = 'Contact';
+            document.querySelector('.about-project-section h3').textContent = 'ABOUT THE PROJECT';
+            var aboutPs = document.querySelectorAll('.about-project-section p');
+            aboutPs[0].innerHTML = '<i>ARCHIVO VIVO</i> is my thesis project for university, made with my classmate Nicolás Herrero. For it, we were given a neighborhood in Buenos Aires, and we were asked to identify a problem within it and consequently propose a solution.';
+            aboutPs[1].textContent = 'That is how, after extensive research, we took gentrification in the Chacarita neighborhood as our problem. As a proposal, we developed a speculative design project that seeks to raise awareness about this phenomenon and its consequences, while offering an immersive experience so that users can better understand it.';
+            document.querySelector('.piezas-header h3').textContent = 'PIECES';
+            document.querySelector('.piezas-header p').textContent = 'Parts of the project to understand it better.';
+            var labels = document.querySelectorAll('.pieza-label');
+            labels[1].textContent = 'Logbook';
+            labels[2].textContent = 'Manifesto';
+            document.querySelector('.proyecto-header h3').textContent = 'PROJECT';
+            var proyPs = document.querySelectorAll('.proyecto-header p');
+            proyPs[0].textContent = 'The project will open in a new tab.';
+            proyPs[1].innerHTML = 'Note: if you\'re on mobile, you won\'t be able to view the website correctly. See <a href="https://drive.google.com/drive/folders/1rq-ZIGUDgQJzomnhb9piHOKeZIaUlRwW?usp=sharing" target="_blank" style="color:#4A90D9;text-decoration:underline;">videos</a> instead.';
+            document.querySelector('.btn-ir').textContent = 'OPEN PROJECT';
+            document.querySelector('.btn-volver').textContent = 'BACK';
+        })();
+    </script>
+
+</body>
+</html>

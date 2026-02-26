@@ -1,0 +1,10 @@
+<svg width="1440" height="75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 75">
+    <!-- White background -->
+    <rect width="1440" height="75" fill="white"/>
+    
+    <!-- Dashed border top -->
+    <line x1="0" y1="0" x2="1440" y2="0" stroke="#ccc" stroke-width="1" stroke-dasharray="5,5"/>
+    
+    <!-- Dashed border bottom -->
+    <line x1="0" y1="74" x2="1440" y2="74" stroke="#ccc" stroke-width="1" stroke-dasharray="5,5"/>
+</svg>
