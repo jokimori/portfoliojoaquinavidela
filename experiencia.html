@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiencia | Joaquina Videla</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { animation: fadeInPage 0.6s ease-out; }
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* fill viewport height */
+        html, body { height: 100%; }
+        body:has(.sticky-header) .layout-container {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 55px); /* subtract sticky-header height */
+        }
+
+        /* ---- ACCORDION COLUMNS ---- */
+        .exp-cols {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex: 1;
+            border-bottom: var(--border-thickness) solid var(--border-color);
+        }
+
+        /* Each column — collapsed by default */
+        .exp-col {
+            display: flex;
+            flex-direction: row;
+            flex: 0 0 50px;
+            border-right: var(--border-thickness) solid var(--border-color);
+            overflow: hidden;
+            /* closing: ease-out compression */
+            transition: flex-basis 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .exp-col:last-child { border-right: none; }
+
+        /* Expanded state */
+        .exp-col.active {
+            flex: 1 0 260px;
+            cursor: default;
+            /* opening: spring overshoot expansion */
+            transition: flex-basis 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+        }
+
+        /* ---- STRIP (always visible) ---- */
+        .exp-strip {
+            flex-shrink: 0;
+            width: 50px;
+            min-width: 50px;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .exp-col:not(.active):hover .exp-strip {
+            background: #f4f4f4;
+        }
+        .exp-col.active .exp-strip {
+            border-right: none;
+        }
+
+        .exp-strip-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 0.85rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            transition: letter-spacing 0.25s ease;
+        }
+        .exp-col:not(.active):hover .exp-strip-label {
+            letter-spacing: 2px;
+        }
+
+        /* ---- BOOK COVERS GRID ---- */
+        .book-covers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 20px;
+            border: var(--border-thickness) solid var(--border-color);
+        }
+        .book-cover-item {
+            aspect-ratio: 2 / 3;
+            background: #f0f0f0;
+            border-right: var(--border-thickness) solid var(--border-color);
+            overflow: hidden;
+        }
+        .book-cover-item:last-child { border-right: none; }
+        .book-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .book-cover-item:hover .book-cover-img { transform: scale(1.05); }
+        .book-cover-img { cursor: zoom-in; }
+
+        /* ---- LIGHTBOX ---- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            cursor: default;
+            animation: lbIn 0.25s cubic-bezier(0.34, 1.3, 0.64, 1);
+        }
+        @keyframes lbIn {
+            from { opacity: 0; transform: scale(0.88); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* ---- INSTAGRAM CARD ---- */
+        .ig-card {
+            display: block;
+            margin-top: 20px;
+            border: var(--border-thickness) solid var(--border-color);
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .ig-card:hover {
+            box-shadow: 4px 4px 0 #000;
+            transform: translateY(-2px);
+        }
+        .ig-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-bottom: var(--border-thickness) solid var(--border-color);
+        }
+        .ig-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .ig-avatar svg { width: 22px; height: 22px; fill: white; }
+        .ig-handle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .ig-verified {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 1px;
+        }
+        .ig-stats {
+            display: flex;
+            border-bottom: var(--border-thickness) solid var(--border-color);
+        }
+        .ig-stat {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            border-right: var(--border-thickness) solid var(--border-color);
+            font-size: 0.72rem;
+        }
+        .ig-stat:last-child { border-right: none; }
+        .ig-stat-num { font-weight: 700; display: block; font-size: 0.82rem; }
+        .ig-bio {
+            padding: 10px 14px;
+            font-size: 0.75rem;
+            line-height: 1.45;
+            font-style: normal;
+            color: #333;
+            border-bottom: var(--border-thickness) solid var(--border-color);
+        }
+        .ig-feed {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: var(--border-thickness) solid var(--border-color);
+        }
+        .ig-feed-item {
+            aspect-ratio: 1 / 1;
+            background: #f0f0f0;
+            border-right: var(--border-thickness) solid var(--border-color);
+            overflow: hidden;
+        }
+        .ig-feed-item:last-child { border-right: none; }
+        .ig-feed-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ig-cta {
+            padding: 9px 14px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            transition: background 0.2s ease;
+        }
+        .ig-card:hover .ig-cta { background: #f4f4f4; }
+
+        /* ---- CONTENT (revealed on expand) ---- */
+        .exp-content {
+            flex: 1;
+            padding: 24px 24px;
+            min-width: 260px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            opacity: 0;
+            transform: translateX(-10px) scale(0.98);
+            /* closing: fade out quickly */
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+        .exp-content::-webkit-scrollbar { display: none; }
+        .exp-col.active .exp-content {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+            /* opening: spring in after column starts expanding */
+            transition: opacity 0.4s ease 0.3s, transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) 0.28s;
+        }
+
+        .exp-content-role {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin: 0 0 10px 0;
+        }
+        .exp-content-title {
+            font-size: 2rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            margin: 0 0 6px 0;
+            line-height: 1.1;
+        }
+        .exp-content-year {
+            font-size: 1rem;
+            color: #888;
+            margin: 0 0 24px 0;
+        }
+        .exp-content-tags {
+            font-size: 1rem;
+            font-style: italic;
+            color: #555;
+            margin: 0 0 18px 0;
+            line-height: 1.5;
+        }
+        .exp-content-desc {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            text-align: left;
+            margin: 0;
+            color: #222;
+        }
+
+        /* ---- RESPONSIVE: vertical accordion on mobile ---- */
+        @media (max-width: 768px) {
+            .exp-cols {
+                flex-direction: column;
+                min-height: unset;
+            }
+
+            .exp-col {
+                flex-direction: column;
+                flex: 0 0 auto;
+                max-height: 52px;
+                border-right: none;
+                border-bottom: var(--border-thickness) solid var(--border-color);
+                transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow: hidden;
+            }
+            .exp-col.active {
+                max-height: 360px;
+                flex: 0 0 auto;
+            }
+            .exp-col:last-child { border-bottom: none; }
+
+            .exp-strip {
+                width: 100%;
+                min-width: unset;
+                height: 52px;
+                flex-direction: row;
+                align-items: center;
+                padding: 0 20px;
+                border-right: none;
+            }
+            .exp-col.active .exp-strip {
+                border-right: none;
+                border-bottom: var(--border-thickness) solid var(--border-color);
+            }
+
+            .exp-strip-label {
+                writing-mode: horizontal-tb;
+                transform: none;
+                font-size: 0.8rem;
+            }
+
+            .exp-content {
+                min-width: unset;
+                padding: 20px;
+                transform: translateY(-8px) translateX(0);
+            }
+            .exp-col.active .exp-content {
+                transform: translateY(0);
+            }
+
+            .exp-content-title { font-size: 1.1rem; }
+
+            .project-hero { padding: 20px; }
+            .project-hero h1 { font-size: 3rem; }
+            .sticky-header { padding: 12px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .project-hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-header">
+        <a href="index.html" class="nav-link" id="nav-back" onclick="smoothTransition(event, 'index.html')">Volver</a>
+        <span class="nav-title" id="nav-title">EXPERIENCIA</span>
+        <a href="index.html#contacto" class="nav-link" id="nav-contact">Contacto</a>
+    </nav>
+
+    <div class="layout-container">
+
+        <div class="project-hero">
+            <h1 id="page-title">EXPERIENCIA</h1>
+        </div>
+
+        <div class="exp-cols">
+
+            <div class="exp-col" data-index="0">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Portadas de libros" data-en="Book covers">Portadas de libros</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Diseño editorial freelance" data-en="Freelance editorial design">Diseño editorial freelance</h3>
+                    <p class="exp-content-year">—</p>
+                    <p class="exp-content-tags" data-es="Diseño editorial • Tipografía" data-en="Editorial design • Typography">Diseño editorial • Tipografía</p>
+                    <p class="exp-content-desc" data-es="Diseño de tapas y piezas editoriales para proyectos independientes." data-en="Cover and editorial design for independent projects.">Diseño de tapas y piezas editoriales para proyectos independientes.</p>
+                    <div class="book-covers">
+                        <div class="book-cover-item"><img src="clemencia.jpeg" alt="Clemencia" class="book-cover-img"></div>
+                        <div class="book-cover-item"><img src="eroticaarmeria.jpeg" alt="Erótica Armería" class="book-cover-img"></div>
+                        <div class="book-cover-item"><img src="elgrancanal.jpeg" alt="El Gran Canal" class="book-cover-img"></div>
+                        <div class="book-cover-item"><img src="labaguala.jpeg" alt="La Baguala" class="book-cover-img"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="1">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Museo Virtual Justicialista" data-en="Museo Virtual Justicialista">Museo Virtual Justicialista</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="CM & diseño de identidad visual" data-en="CM & visual identity design">CM &amp; diseño de identidad visual</h3>
+                    <p class="exp-content-year">2025–2026</p>
+                    <p class="exp-content-tags" data-es="Identidad visual • Comunicación digital • Trabajo colaborativo" data-en="Visual identity • Digital communication • Collaborative work">Identidad visual • Comunicación digital • Trabajo colaborativo</p>
+                    <p class="exp-content-desc" data-es="Desarrollo de la identidad visual y gestión de redes sociales en equipo." data-en="Development of visual identity and social media management as a team.">Desarrollo de la identidad visual y gestión de redes sociales en equipo.</p>
+
+                    <a class="ig-card" href="https://www.instagram.com/museojusticialista/" target="_blank" rel="noopener">
+                        <div class="ig-card-header">
+                            <div class="ig-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </div>
+                            <div>
+                                <div class="ig-handle">museojusticialista</div>
+                                <div class="ig-verified">Museo Virtual Justicialista</div>
+                            </div>
+                        </div>
+                        <div class="ig-feed">
+                            <div class="ig-feed-item"><img src="mvj1.jpg" alt="MVJ 1" class="ig-feed-img"></div>
+                            <div class="ig-feed-item"><img src="mvj2.jpg" alt="MVJ 2" class="ig-feed-img"></div>
+                            <div class="ig-feed-item"><img src="mvj3.jpg" alt="MVJ 3" class="ig-feed-img"></div>
+                        </div>
+                        <div class="ig-cta" data-es="Ver perfil →" data-en="View profile →">Ver perfil →</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="2">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Chill Fish" data-en="Chill Fish">Chill Fish</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Community Manager" data-en="Community Manager">Community Manager</h3>
+                    <p class="exp-content-year">2025</p>
+                    <p class="exp-content-tags" data-es="Gestión de redes • Creación de contenido • Comunicación digital" data-en="Social media management • Content creation • Digital communication">Gestión de redes • Creación de contenido • Comunicación digital</p>
+                    <p class="exp-content-desc" data-es="Desarrollo de piezas digitales y gestión de redes sociales." data-en="Development of digital pieces and social media management.">Desarrollo de piezas digitales y gestión de redes sociales.</p>
+
+                    <a class="ig-card" href="https://www.instagram.com/chillfishco_/" target="_blank" rel="noopener">
+                        <div class="ig-card-header">
+                            <div class="ig-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </div>
+                            <div>
+                                <div class="ig-handle">chillfishco_</div>
+                                <div class="ig-verified">Chill Fish</div>
+                            </div>
+                        </div>
+                        <div class="ig-feed">
+                            <div class="ig-feed-item"><img src="chillfish1.jpg" alt="Chill Fish 1" class="ig-feed-img"></div>
+                            <div class="ig-feed-item"><img src="chillfish2.jpg" alt="Chill Fish 2" class="ig-feed-img"></div>
+                            <div class="ig-feed-item"><img src="chillfish3.jpg" alt="Chill Fish 3" class="ig-feed-img"></div>
+                        </div>
+                        <div class="ig-cta" data-es="Ver perfil →" data-en="View profile →">Ver perfil →</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="3">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Bond ear plugs" data-en="Bond ear plugs">Bond ear plugs</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Contenido freelance" data-en="Freelance content">Contenido freelance</h3>
+                    <p class="exp-content-year">2024–2025</p>
+                    <p class="exp-content-tags" data-es="Diseño de piezas • Adaptación a lineamientos de marca" data-en="Design pieces • Adaptation to brand guidelines">Diseño de piezas • Adaptación a lineamientos de marca</p>
+                    <p class="exp-content-desc" data-es="Desarrollo de contenido puntual para comunicación digital y física." data-en="Development of specific content for digital and physical communication.">Desarrollo de contenido puntual para comunicación digital y física.</p>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="4">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Sotheby's" data-en="Sotheby's">Sotheby's</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Contenido freelance" data-en="Freelance content">Contenido freelance</h3>
+                    <p class="exp-content-year">2025</p>
+                    <p class="exp-content-tags" data-es="Diseño de piezas • Adaptación a lineamientos de marca" data-en="Design pieces • Adaptation to brand guidelines">Diseño de piezas • Adaptación a lineamientos de marca</p>
+                    <p class="exp-content-desc" data-es="Desarrollo de contenido puntual para comunicación digital." data-en="Development of specific content for digital communication.">Desarrollo de contenido puntual para comunicación digital.</p>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="5">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="ForHer" data-en="ForHer">ForHer</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Diseño de identidad de marca" data-en="Brand identity design">Diseño de identidad de marca</h3>
+                    <p class="exp-content-year">—</p>
+                    <p class="exp-content-tags" data-es="Branding • Dirección visual" data-en="Branding • Visual direction">Branding • Dirección visual</p>
+                    <p class="exp-content-desc" data-es="Diseño de identidad visual y definición de criterios gráficos." data-en="Visual identity design and definition of graphic criteria.">Diseño de identidad visual y definición de criterios gráficos.</p>
+
+                    <a class="ig-card" href="https://www.instagram.com/forher.jewelry_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+                        <div class="ig-card-header">
+                            <div class="ig-avatar">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </div>
+                            <div>
+                                <div class="ig-handle">forher.jewelry_</div>
+                                <div class="ig-verified">ForHer</div>
+                            </div>
+                        </div>
+                        <div class="ig-cta" data-es="Ver perfil →" data-en="View profile →">Ver perfil →</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="exp-col" data-index="6">
+                <div class="exp-strip">
+                    <span class="exp-strip-label" data-es="Babette Agency" data-en="Babette Agency">Babette Agency</span>
+                </div>
+                <div class="exp-content">
+                    <p class="exp-content-role" data-es="Rol" data-en="Role">Rol</p>
+                    <h3 class="exp-content-title" data-es="Creadora de contenido" data-en="Content creator">Creadora de contenido</h3>
+                    <p class="exp-content-year">2023–2024</p>
+                    <p class="exp-content-tags" data-es="Contenido digital • Comunicación visual • Adaptación a lineamientos de marca" data-en="Digital content • Visual communication • Adaptation to brand guidelines">Contenido digital • Comunicación visual • Adaptación a lineamientos de marca</p>
+                    <p class="exp-content-desc" data-es="Producción de contenidos por encargo para distintas marcas." data-en="Commissioned content production for various brands.">Producción de contenidos por encargo para distintas marcas.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        // SMOOTH PAGE TRANSITION
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+
+        // LIGHTBOX
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.book-cover-img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                lightbox.classList.add('open');
+            });
+        });
+
+        lightbox.addEventListener('click', function() {
+            lightbox.classList.remove('open');
+        });
+
+        lightboxImg.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') lightbox.classList.remove('open');
+        });
+
+        // ACCORDION
+        const cols = document.querySelectorAll('.exp-col');
+        cols.forEach(col => {
+            col.addEventListener('click', function(e) {
+                // If clicking the strip of an already-active col, close it
+                const isActive = col.classList.contains('active');
+                const clickedStrip = e.target.closest('.exp-strip');
+
+                if (isActive && !clickedStrip) return; // clicking inside content — do nothing
+
+                cols.forEach(c => c.classList.remove('active'));
+                if (!isActive) {
+                    col.classList.add('active');
+                }
+            });
+        });
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+
+            document.documentElement.lang = 'en';
+            document.getElementById('nav-back').textContent = 'Back';
+            document.getElementById('nav-title').textContent = 'EXPERIENCE';
+            document.getElementById('nav-contact').textContent = 'Contact';
+            document.getElementById('nav-contact').href = 'index.html#contact';
+            document.getElementById('page-title').textContent = 'EXPERIENCE';
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.dataset.en;
+            });
+        })();
+    </script>
+
+</body>
+</html>
