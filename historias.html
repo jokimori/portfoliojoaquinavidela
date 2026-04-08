@@ -213,6 +213,25 @@
             document.body.classList.add('fade-out');
             setTimeout(function() { window.location.href = url; }, 400);
         }
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            document.documentElement.lang = 'en';
+            var navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = 'Back';
+            navLinks[1].textContent = 'Stories';
+            navLinks[2].textContent = 'Contact';
+            navLinks[2].href = '#contact';
+            document.querySelector('.section-title').textContent = 'Stories';
+            document.querySelector('.section-desc').textContent = 'How many stories can be told and in how many ways?';
+            var titles = document.querySelectorAll('.story-title');
+            titles[0].textContent = 'Epiphany';
+            titles[1].textContent = 'Give Me a Sign';
+            var descs = document.querySelectorAll('.story-desc');
+            descs[0].textContent = 'Short comic about gender identity.';
+            descs[1].textContent = 'Frame by frame animation about unrequited love. With the song "Dame una señal" by Jimena Gonik.';
+        })();
     </script>
 
 </body>

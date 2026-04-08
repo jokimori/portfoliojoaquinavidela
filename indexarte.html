@@ -503,6 +503,22 @@
                 </div>
             </a>
 
+            <a href="cuadros.html" class="arte-category-row" onclick="smoothTransition(event, 'cuadros.html')">
+                <div class="arte-category-label">
+                    <span>Cuadros</span>
+                </div>
+                <div class="arte-category-preview" style="padding:0;">
+                    <div class="library-preview">
+                        <div class="lib-img"><img src="sermujer.png" alt="Ser mujer"></div>
+                        <div class="lib-img"><img src="seagull.png" alt="Seagull"></div>
+                        <div class="lib-img"><img src="pelea.png" alt="Pelea"></div>
+                        <div class="lib-img"><img src="miedo.jpg" alt="Miedo"></div>
+                        <div class="lib-img"><img src="colmena.png" alt="Colmena"></div>
+                        <div class="lib-img"><img src="escape.jpg" alt="Escape"></div>
+                    </div>
+                </div>
+            </a>
+
         </section>
 
         <section class="contact-section" id="contacto">
@@ -596,6 +612,7 @@
                     aboutText: 'Hablar del perfil artístico de uno es mucho más difícil que hablar de su formación en diseño. Tengo muy en claro qué es el diseño y puedo definirlo con palabras. En cambio, qué es el arte, no. Por eso, prefiero limitarme a decir que me gusta dibujar, pintar y escribir, y dejar que lo que hago hable por sí solo.',
                     caras: 'Caras',
                     historias: 'Historias',
+                    cuadros: 'Cuadros',
                     labelMail: 'Mail:',
                     labelWhatsapp: 'Whatsapp:',
                     labelInstagram: 'Instagram:',
@@ -612,6 +629,7 @@
                     aboutText: 'Talking about one\'s artistic profile is much harder than talking about one\'s training in design. I am very clear about what design is and I can define it with words. On the other hand, what art is, I cannot. That is why I prefer to simply say that I like to draw, paint, and write, and let what I do speak for itself.',
                     caras: 'Faces',
                     historias: 'Stories',
+                    cuadros: 'Paintings',
                     labelMail: 'Email:',
                     labelWhatsapp: 'Whatsapp:',
                     labelInstagram: 'Instagram:',
@@ -639,6 +657,7 @@
                 var catLabels = document.querySelectorAll('.arte-category-label span');
                 catLabels[0].textContent = t.caras;
                 catLabels[1].textContent = t.historias;
+                catLabels[2].textContent = t.cuadros;
 
                 var contactLabels = document.querySelectorAll('.c-label');
                 contactLabels[0].textContent = t.labelMail;

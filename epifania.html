@@ -288,6 +288,18 @@
             if (e.key === 'ArrowRight' && current < images.length - 1) lbNext.click();
             if (e.key === 'Escape') closeLightbox();
         });
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            document.documentElement.lang = 'en';
+            var navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = 'Back';
+            navLinks[1].textContent = 'Epiphany';
+            navLinks[2].textContent = 'Contact';
+            navLinks[2].href = '#contact';
+            document.querySelector('.section-title').textContent = 'Epiphany';
+        })();
     </script>
 
 </body>

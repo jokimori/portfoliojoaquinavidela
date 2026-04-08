@@ -248,6 +248,18 @@
                 document.getElementById('lightbox').classList.remove('open');
             }
         }
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            document.documentElement.lang = 'en';
+            var navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = 'Back';
+            navLinks[2].textContent = 'Contact';
+            navLinks[2].href = '#contact';
+            document.querySelector('.section-title').textContent = 'Faces';
+            document.querySelector('.section-desc').textContent = 'I love making portraits, drawing real people and also creating characters and imagining their personalities. In search of a personal style or nothing in particular, here is my collection of faces.';
+        })();
     </script>
 
 </body>

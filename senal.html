@@ -274,6 +274,17 @@
             var ratio = (e.clientX - rect.left) / rect.width;
             video.currentTime = ratio * video.duration;
         });
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            document.documentElement.lang = 'en';
+            var navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = 'Back';
+            navLinks[2].textContent = 'Contact';
+            navLinks[2].href = '#contact';
+            document.querySelector('.section-title').textContent = 'Give Me a Sign';
+        })();
     </script>
 
 </body>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuadros | Joaquina Videla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: #fff;
+            color: #000;
+            animation: fadeInPage 0.6s ease-out;
+        }
+
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+        body.fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+        }
+
+        nav a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        /* CONTENT */
+        .page-content {
+            padding: 0 40px 40px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+
+        .section-desc {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.55;
+            max-width: 420px;
+            margin-bottom: 32px;
+        }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0;
+            width: 100%;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #e8e8e8;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 56px 40px 40px;
+        }
+
+        .contact-row {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .c-label {
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            nav a { font-size: 1.1rem; }
+            .page-content { padding: 0 24px 32px; }
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .contact-section { padding: 40px 24px 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* LIGHTBOX */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.open {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 80vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-inner img {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-caption {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .gallery-item.clickable {
+            cursor: pointer;
+        }
+
+        @keyframes itemFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item {
+            animation: itemFadeIn 0.5s ease-out backwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.10s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.20s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.30s; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="indexarte.html" onclick="smoothTransition(event, 'indexarte.html')">Volver</a>
+        <a href="#">Cuadros</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="page-content">
+
+        <h2 class="section-title">Cuadros</h2>
+        <p class="section-desc">Algunos de los cuadros que me atreví a pintar.</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item clickable"
+                 data-src="sermujer.png"
+                 data-title-es="Ser mujer" data-title-en="Being a woman"
+                 data-medium-es="Digital" data-medium-en="Digital"
+                 data-year="2026">
+                <img src="sermujer.png" alt="Ser mujer">
+            </div>
+            <div class="gallery-item clickable"
+                 data-src="seagull.png"
+                 data-title-es="Sueño con ser una gaviota" data-title-en="I dream of being a seagull"
+                 data-medium-es="Digital" data-medium-en="Digital"
+                 data-year="2024">
+                <img src="seagull.png" alt="Sueño con ser una gaviota">
+            </div>
+            <div class="gallery-item clickable"
+                 data-src="pelea.png"
+                 data-title-es="Después de una gran pelea" data-title-en="After a big fight"
+                 data-medium-es="Digital" data-medium-en="Digital"
+                 data-year="2023">
+                <img src="pelea.png" alt="Después de una gran pelea">
+            </div>
+            <div class="gallery-item clickable"
+                 data-src="miedo.jpg"
+                 data-title-es="Vivir con el miedo" data-title-en="Living with fear"
+                 data-medium-es="Digital" data-medium-en="Digital"
+                 data-year="2026">
+                <img src="miedo.jpg" alt="Vivir con el miedo">
+            </div>
+            <div class="gallery-item clickable"
+                 data-src="colmena.png"
+                 data-title-es="No estás sola" data-title-en="You are not alone"
+                 data-medium-es="Acuarelas" data-medium-en="Watercolors"
+                 data-year="2025">
+                <img src="colmena.png" alt="No estás sola">
+            </div>
+            <div class="gallery-item clickable"
+                 data-src="escape.jpg"
+                 data-title-es="Escape" data-title-en="Escape"
+                 data-medium-es="Acrílico" data-medium-en="Acrylic"
+                 data-year="2025">
+                <img src="escape.jpg" alt="Escape">
+            </div>
+        </div>
+
+    </div>
+
+    <section class="contact-section" id="contacto">
+        <div class="contact-row"><span class="c-label">Mail:</span><a href="mailto:joaquinavidela@gmail.com">joaquinavidela@gmail.com</a></div>
+        <div class="contact-row"><span class="c-label">Whatsapp:</span><a href="https://wa.me/5491139302315" target="_blank">+54-9-11-3930-2315</a></div>
+        <div class="contact-row"><span class="c-label">Instagram:</span><a href="https://www.instagram.com/jokimori/?hl=es" target="_blank">@jokimori</a></div>
+        <div class="contact-row"><span class="c-label">Behance:</span><a href="https://www.behance.net/joaquinavidela" target="_blank">joaquinavidela</a></div>
+    </section>
+
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-inner">
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption">
+                <p id="lightbox-title" style="font-weight:500; font-size:1.2rem;"></p>
+                <p id="lightbox-medium" style="font-size:1rem;"></p>
+                <p id="lightbox-year" style="font-size:1rem;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function smoothTransition(e, url) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(function() { window.location.href = url; }, 400);
+        }
+
+        document.querySelectorAll('.gallery-item.clickable').forEach(function(item) {
+            item.addEventListener('click', function() {
+                var lang = localStorage.getItem('portfolioLang') === 'en' ? 'en' : 'es';
+                document.getElementById('lightbox-img').src = item.dataset.src;
+                document.getElementById('lightbox-title').textContent = item.dataset['title' + lang.charAt(0).toUpperCase() + lang.slice(1)];
+                document.getElementById('lightbox-medium').textContent = item.dataset['medium' + lang.charAt(0).toUpperCase() + lang.slice(1)];
+                document.getElementById('lightbox-year').textContent = item.dataset.year;
+                document.getElementById('lightbox').classList.add('open');
+            });
+        });
+
+        function closeLightbox(e) {
+            if (e.target === document.getElementById('lightbox')) {
+                document.getElementById('lightbox').classList.remove('open');
+            }
+        }
+
+        // LANGUAGE
+        (function applyLang() {
+            if (localStorage.getItem('portfolioLang') !== 'en') return;
+            document.documentElement.lang = 'en';
+            var navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = 'Back';
+            navLinks[1].textContent = 'Paintings';
+            navLinks[2].textContent = 'Contact';
+            navLinks[2].href = '#contact';
+            document.querySelector('.section-title').textContent = 'Paintings';
+            document.querySelector('.section-desc').textContent = 'Some of the paintings I dared to make.';
+        })();
+    </script>
+
+</body>
+</html>
