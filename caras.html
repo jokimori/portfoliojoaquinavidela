@@ -186,7 +186,7 @@
 <body>
 
     <nav>
-        <a href="indexarte.html" onclick="smoothTransition(event, 'indexarte.html')">Volver</a>
+        <a href="index.html#exploraciones" onclick="smoothTransition(event, 'index.html#exploraciones')">← Exploraciones</a>
         <a href="#">Caras</a>
         <a href="#contacto">Contacto</a>
     </nav>
@@ -254,7 +254,7 @@
             if (localStorage.getItem('portfolioLang') !== 'en') return;
             document.documentElement.lang = 'en';
             var navLinks = document.querySelectorAll('nav a');
-            navLinks[0].textContent = 'Back';
+            navLinks[0].textContent = '← Explorations';
             navLinks[2].textContent = 'Contact';
             navLinks[2].href = '#contact';
             document.querySelector('.section-title').textContent = 'Faces';

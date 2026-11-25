@@ -1003,3 +1003,21 @@ a.sidebar-btn { display: block; text-decoration: none; color: inherit; }
     .sticky-header { padding: 15px 20px; }
     .sticky-header .nav-title { display: none; }
 }
+
+/* Exploraciones: el arte dentro de la home */
+.section-intro { margin: 6px 0 0; color: #555; font-size: 0.95rem; max-width: 62ch; }
+.explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.explore-grid .project-tile { border-bottom: none; border-right: var(--border-thickness) solid var(--border-color); }
+.explore-grid .project-tile:last-child { border-right: none; }
+.explore-grid .tile-img { aspect-ratio: 4 / 5; }
+.explore-grid .tile-title { font-size: 1.3rem; margin-bottom: 2px; }
+.explore-grid .tile-tags { margin-bottom: 0; }
+@media (max-width: 600px) {
+    .explore-grid { grid-template-columns: 1fr; }
+    .explore-grid .project-tile {
+        display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: center;
+        border-right: none; border-bottom: var(--border-thickness) solid var(--border-color); padding: 14px 20px;
+    }
+    .explore-grid .project-tile:last-child { border-bottom: none; }
+    .explore-grid .tile-body { padding-top: 0; }
+}

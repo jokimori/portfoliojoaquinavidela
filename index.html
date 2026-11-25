@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joaquina Videla · Diseñadora UX/UI</title>
-    <meta name="description" content="Portfolio de Joaquina Videla, diseñadora UX/UI en Buenos Aires. Investigación, arquitectura de información, interfaces y prototipos que funcionan.">
+    <title>Joaquina Videla · Diseño de experiencias interactivas</title>
+    <meta name="description" content="Portfolio de Joaquina Videla, diseñadora de experiencias interactivas y UX/UI en Buenos Aires. Webs, juegos y universos visuales hechos pieza por pieza, con fotografía, ilustración, animación y código.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Joaquina Videla · Diseñadora UX/UI">
-    <meta property="og:description" content="Investigación, arquitectura de información, interfaces y prototipos que funcionan.">
+    <meta property="og:title" content="Joaquina Videla · Diseño de experiencias interactivas">
+    <meta property="og:description" content="Webs, juegos y universos visuales hechos pieza por pieza, con fotografía, ilustración, animación y código.">
     <meta property="og:url" content="https://portfoliojoaquinavidela.vercel.app/">
     <meta property="og:image" content="https://portfoliojoaquinavidela.vercel.app/img/yo.jpg">
     <link rel="stylesheet" href="style.css">
@@ -22,6 +22,7 @@
 
     <nav class="top-nav" aria-label="Principal">
         <a href="#proyectos" data-i18n="navProyectos">Proyectos</a>
+        <a href="#exploraciones" data-i18n="navExploraciones">Exploraciones</a>
         <a href="#sobre-mi" data-i18n="navSobreMi">Sobre mí</a>
         <a href="#contacto" data-i18n="navContacto">Contacto</a>
     </nav>
@@ -29,11 +30,11 @@
     <main class="layout-container">
 
         <header class="main-header hero-intro">
-            <p class="hero-eyebrow" data-i18n="heroEyebrow">Diseñadora UX/UI · Buenos Aires</p>
+            <p class="hero-eyebrow" data-i18n="heroEyebrow">Diseño de experiencias interactivas · UX/UI · Buenos Aires</p>
             <h1>Joaquina Videla</h1>
             <p class="hero-lede" data-i18n="heroLede">
-                Diseño experiencias digitales que se entienden y se disfrutan. Investigo, ordeno la información
-                y llevo las ideas hasta prototipos que funcionan, porque también los programo.
+                Me meto de lleno en cada proyecto: lo investigo hasta entenderlo y después construyo su mundo
+                pieza por pieza, con fotografía, ilustración, animación y código.
             </p>
             <div class="hero-ctas">
                 <a href="#proyectos" class="hero-btn hero-btn-solid" data-i18n="ctaProyectos">Ver proyectos</a>
@@ -53,10 +54,23 @@
                         <img src="img/arvivo-card.jpg" alt="Panel del proyecto Archivo Vivo" loading="lazy">
                     </div>
                     <div class="tile-body">
-                        <p class="tile-type" data-i18n="p1Type">Caso de estudio · UX/UI</p>
+                        <p class="tile-type" data-i18n="p1Type">Caso de estudio · Experiencia interactiva y UX</p>
                         <h3 class="tile-title">Archivo Vivo</h3>
                         <p class="tile-desc" data-i18n="p1Desc">Web interactiva y app móvil para hacer visible la gentrificación en Chacarita.</p>
                         <p class="tile-tags" data-i18n="p1Tags">Investigación · Arquitectura de información · UI · Desarrollo web</p>
+                        <span class="tile-link" data-i18n="verCaso">Ver caso de estudio →</span>
+                    </div>
+                </a>
+
+                <a href="motomami.html" class="project-tile">
+                    <div class="tile-img">
+                        <img src="img/motomami-thumb.jpg" alt="Portada del análisis Qué es Motomami" loading="lazy" style="object-position: 38% center;">
+                    </div>
+                    <div class="tile-body">
+                        <p class="tile-type" data-i18n="p3Type">Caso de estudio · Experiencia interactiva</p>
+                        <h3 class="tile-title">Qué es Motomami</h3>
+                        <p class="tile-desc" data-i18n="p3Desc">Todos pueden ser motomamis: el disco de Rosalía contado con fotos, dibujos, textos y animaciones propias.</p>
+                        <p class="tile-tags" data-i18n="p3Tags">Concepto · Fotografía · Animación cuadro a cuadro · Prototipo</p>
                         <span class="tile-link" data-i18n="verCaso">Ver caso de estudio →</span>
                     </div>
                 </a>
@@ -71,19 +85,6 @@
                         <p class="tile-desc" data-i18n="p2Desc">Videojuego arcade: una arqueóloga viaja en el tiempo para robar reliquias antes de que se descubran.</p>
                         <p class="tile-tags" data-i18n="p2Tags">Mecánicas · Niveles · Personajes · Construct 3</p>
                         <span class="tile-link" data-i18n="verProyecto">Ver proyecto →</span>
-                    </div>
-                </a>
-
-                <a href="motomami.html" class="project-tile">
-                    <div class="tile-img">
-                        <img src="img/motomami-thumb.jpg" alt="Portada del análisis Qué es Motomami" loading="lazy" style="object-position: 38% center;">
-                    </div>
-                    <div class="tile-body">
-                        <p class="tile-type" data-i18n="p3Type">Caso de estudio · Experiencia interactiva</p>
-                        <h3 class="tile-title">Qué es Motomami</h3>
-                        <p class="tile-desc" data-i18n="p3Desc">Todos pueden ser motomamis: el disco de Rosalía contado con fotos, dibujos, textos y animaciones propias.</p>
-                        <p class="tile-tags" data-i18n="p3Tags">Concepto · Fotografía · Animación cuadro a cuadro · Prototipo</p>
-                        <span class="tile-link" data-i18n="verCaso">Ver caso de estudio →</span>
                     </div>
                 </a>
 
@@ -103,17 +104,43 @@
             </div>
         </section>
 
+        <section class="projects-section explore-section" id="exploraciones" aria-labelledby="exploraciones-title">
+            <div class="section-header-left">
+                <h2 id="exploraciones-title" data-i18n="sectionExploraciones">Exploraciones</h2>
+                <p class="section-intro" data-i18n="exploraIntro">Dibujo, pintura y escritura: lo que hago por fuera de los proyectos y que alimenta todo lo demás.</p>
+            </div>
+            <div class="explore-grid">
+                <a href="caras.html" class="project-tile">
+                    <div class="tile-img"><img src="img/exp-caras.jpg" alt="Retrato pintado de la serie Caras" loading="lazy"></div>
+                    <div class="tile-body">
+                        <h3 class="tile-title">Caras</h3>
+                        <p class="tile-tags" data-i18n="e1Tags">Retratos</p>
+                    </div>
+                </a>
+                <a href="historias.html" class="project-tile">
+                    <div class="tile-img"><img src="img/exp-historias.jpg" alt="Página de la historieta Epifanía" loading="lazy"></div>
+                    <div class="tile-body">
+                        <h3 class="tile-title">Historias</h3>
+                        <p class="tile-tags" data-i18n="e2Tags">Historieta y video</p>
+                    </div>
+                </a>
+                <a href="cuadros.html" class="project-tile">
+                    <div class="tile-img"><img src="img/exp-cuadros.jpg" alt="Pintura Ser mujer" loading="lazy"></div>
+                    <div class="tile-body">
+                        <h3 class="tile-title">Cuadros</h3>
+                        <p class="tile-tags" data-i18n="e3Tags">Pintura</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
         <section class="about-grid" id="sobre-mi" aria-labelledby="sobre-mi-title">
 
             <div class="about-col-photo">
                 <div class="photo-wrapper">
                     <img src="img/yo.jpg" alt="Retrato de Joaquina Videla" loading="lazy">
                 </div>
-                <div class="mode-switch-container">
-                    <span class="switch-btn design active-design" aria-current="page" data-i18n="modoDiseno">Modo diseño</span>
-                    <a href="indexarte.html" class="switch-btn art" style="text-decoration:none;color:inherit;" onclick="smoothTransition(event, 'indexarte.html')" data-i18n="modoArte">Modo arte</a>
-                </div>
-                <div class="mode-switch-container lang-switch-container" role="group" aria-label="Idioma">
+                <div class="mode-switch-container" role="group" aria-label="Idioma">
                     <button type="button" class="switch-btn lang-btn active" data-lang="es" aria-pressed="true">Español</button>
                     <button type="button" class="switch-btn lang-btn" data-lang="en" aria-pressed="false">English</button>
                 </div>
@@ -123,16 +150,16 @@
                 <h2 id="sobre-mi-title" data-i18n="aboutTitle">Sobre mí</h2>
                 <div class="text-content">
                     <p data-i18n="aboutP1">
-                        Soy diseñadora y estudié la Licenciatura en Diseño en la Universidad Torcuato Di Tella. Me especializo en UX/UI:
-                        me interesa entender a las personas, ordenar información compleja y convertirla en interfaces claras.
+                        Soy diseñadora y estudié la Licenciatura en Diseño en la Universidad Torcuato Di Tella. Diseño experiencias
+                        interactivas: webs, juegos y universos visuales que cuentan algo.
                     </p>
                     <p data-i18n="aboutP2">
-                        Vengo también del diseño gráfico y del diseño de juegos, y eso se nota en cómo trabajo: cuido lo visual y pienso cada
-                        interacción como parte de una experiencia. Además programo (HTML, CSS y JavaScript), así que puedo prototipar mis ideas
-                        y hablar el mismo idioma que el equipo de desarrollo.
+                        Cuando trabajo en un proyecto me meto de lleno. Primero lo investigo hasta entenderlo, ya sea un barrio, un disco
+                        o un mundo de juego. Después construyo cada pieza: saco las fotos, dibujo, escribo, animo y programo
+                        (HTML, CSS y JavaScript). La formación en UX me da la base para que todo eso, además de impactar, se entienda.
                     </p>
                     <p data-i18n="aboutP3">
-                        Busco sumarme a un equipo de producto o a un estudio como diseñadora UX/UI.
+                        Me interesa trabajar con estudios creativos, proyectos culturales y artistas que necesiten construir su universo.
                     </p>
                 </div>
             </div>
@@ -271,14 +298,15 @@
         (function () {
             var en = {
                 navProyectos: 'Projects',
+                navExploraciones: 'Explorations',
                 navSobreMi: 'About',
                 navContacto: 'Contact',
-                heroEyebrow: 'UX/UI Designer · Buenos Aires',
-                heroLede: 'I design digital experiences that make sense and feel good to use. I research, structure information and take ideas all the way to working prototypes, because I code them too.',
+                heroEyebrow: 'Interactive experience design · UX/UI · Buenos Aires',
+                heroLede: 'I dive deep into every project: I research it until I understand it, then build its world piece by piece, with photography, illustration, animation and code.',
                 ctaProyectos: 'See projects',
                 ctaContacto: 'Get in touch',
                 sectionProyectos: 'Projects',
-                p1Type: 'Case study · UX/UI',
+                p1Type: 'Case study · Interactive experience and UX',
                 p1Desc: 'Interactive website and mobile app that make gentrification in Chacarita, Buenos Aires, visible.',
                 p1Tags: 'Research · Information architecture · UI · Web development',
                 p2Type: 'Game design',
@@ -292,12 +320,15 @@
                 p4Tags: 'Editorial · Photography · Image manipulation',
                 verCaso: 'Read the case study →',
                 verProyecto: 'See project →',
-                modoDiseno: 'Design mode',
-                modoArte: 'Art mode',
+                sectionExploraciones: 'Explorations',
+                exploraIntro: 'Drawing, painting and writing: what I make outside of projects, and what feeds everything else.',
+                e1Tags: 'Portraits',
+                e2Tags: 'Comics and video',
+                e3Tags: 'Painting',
                 aboutTitle: 'About me',
-                aboutP1: 'I’m a designer with a Bachelor’s in Design from Universidad Torcuato Di Tella. I specialize in UX/UI: I like understanding people, organizing complex information and turning it into clear interfaces.',
-                aboutP2: 'I also come from graphic and game design, and it shows in how I work: I care about the visuals and think of every interaction as part of an experience. I also code (HTML, CSS and JavaScript), so I can prototype my own ideas and speak the same language as developers.',
-                aboutP3: 'I’m looking to join a product team or studio as a UX/UI designer.',
+                aboutP1: 'I’m a designer with a Bachelor’s in Design from Universidad Torcuato Di Tella. I design interactive experiences: websites, games and visual universes that tell something.',
+                aboutP2: 'When I work on a project I dive in completely. First I research it until I understand it, whether it’s a neighborhood, an album or a game world. Then I build every piece: I take the photos, draw, write, animate and code (HTML, CSS and JavaScript). My UX background makes sure all of that is not only striking, but also clear.',
+                aboutP3: 'I’d love to work with creative studios, cultural projects and artists who need to build their universe.',
                 btnEstudios: 'Education',
                 btnAptitudes: 'Skills',
                 btnConocimientos: 'Tools',
