@@ -71,16 +71,45 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
             z-index: 2600;
+            /* Ancho explícito: al estar anclada al centro, si no, solo usa la mitad de la pantalla */
+            width: min(65vw, 620px);
         }
         #sticker-overlay.visible {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
         }
         #sticker-overlay img {
-            max-width: min(65vw, 620px);
+            display: block;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 18px 35px rgba(0,0,0,0.35));
+        }
+        /* La ficha queda abierta hasta tocar la X o afuera */
+        #sticker-backdrop {
+            position: fixed; inset: 0;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(3px);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2550;
+            cursor: pointer;
+        }
+        #sticker-backdrop.visible { opacity: 1; pointer-events: auto; }
+        /* Zona clickeable sobre la X dibujada en la ficha */
+        #sticker-close {
+            position: absolute;
+            /* centrada sobre la X dibujada, con al menos 44px para el dedo */
+            left: 94.6%; top: 89.7%;
+            width: max(8%, 44px); height: max(12%, 44px);
+            transform: translate(-50%, -50%);
+            background: transparent; border: 0; padding: 0;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        #sticker-close:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+        @media (max-width: 760px), (orientation: portrait) {
+            #sticker-overlay { width: 94vw; }
         }
 
         #frame-overlay {
@@ -149,8 +178,10 @@
 
     </div>
 
-    <div id="sticker-overlay">
-        <img id="sticker-overlay-img" src="" alt="Sticker" />
+    <div id="sticker-backdrop"></div>
+    <div id="sticker-overlay" role="dialog" aria-modal="true" aria-label="Ficha de la foto">
+        <img id="sticker-overlay-img" src="" alt="Ficha de la foto con su descripción" />
+        <button type="button" id="sticker-close" aria-label="Cerrar"></button>
     </div>
 
     <script type="module">
@@ -390,11 +421,22 @@
             const file = stickerFiles[Math.floor(Math.random() * stickerFiles.length)];
             stickerOverlayImg.src = 'assets/images/' + file;
             stickerOverlay.classList.add('visible');
-            if (stickerOverlayTimeout) clearTimeout(stickerOverlayTimeout);
-            stickerOverlayTimeout = setTimeout(() => {
-                stickerOverlay.classList.remove('visible');
-            }, 1800);
+            stickerBackdrop.classList.add('visible');
+            // Ya no se cierra sola: se cierra con la X, tocando afuera o con Escape
         }
+
+        const stickerBackdrop = document.getElementById('sticker-backdrop');
+        function hideStickerOverlay(event) {
+            if (event) event.stopPropagation(); // que el clic de cierre no reorganice las fotos
+            stickerOverlay.classList.remove('visible');
+            stickerBackdrop.classList.remove('visible');
+        }
+        stickerBackdrop.addEventListener('click', hideStickerOverlay);
+        document.getElementById('sticker-close').addEventListener('click', hideStickerOverlay);
+        stickerOverlay.addEventListener('click', (e) => e.stopPropagation());
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && stickerOverlay.classList.contains('visible')) hideStickerOverlay();
+        });
 
         // --- 4. FUNCIÓN RANDOMIZAR ---
         function randomizeImages() {
@@ -418,7 +460,7 @@
         const mouse = new THREE.Vector2();
 
         function onMouseClick(event) {
-            if(document.getElementById('modal').classList.contains('active')) return;
+            if (stickerOverlay.classList.contains('visible')) return;
 
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -446,10 +488,6 @@
                 // Si tiene src, es una foto
                 if (object.userData.src) {
                     showStickerOverlay();
-                    const modal = document.getElementById('modal');
-                    const modalImg = document.getElementById('modal-img');
-                    modalImg.src = object.userData.src;
-                    modal.classList.add('active');
                     return;
                 }
             }
