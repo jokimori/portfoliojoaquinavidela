@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MALAMANTE | Joaquina Videla</title>
+    <meta name="description" content="Mala Amante: fanzine basado en El mal querer de Rosalía. Diseño editorial y fotografía. Portfolio de Joaquina Videla.">
     <link rel="stylesheet" href="style.css">
     <style>
         /* Ajuste para que el borde suba hasta arriba */
@@ -249,9 +250,9 @@
 <body>
 
     <nav class="sticky-header">
-        <a href="index.html" class="nav-link">Volver</a>
+        <a href="index.html#proyectos" class="nav-link">← Proyectos</a>
         <span class="nav-title">MALA AMANTE</span>
-        <a href="#" class="nav-link">Contacto</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
     </nav>
 
     <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
@@ -283,12 +284,12 @@
             
             <div class="carousel-wrapper">
                 <div class="carousel-track" id="track">
-                    <img src="TAPAFANZINE.png" alt="Pagina 1" class="fanzine-slide">
-                    <img src="1-2PAGSFANZINE.png" alt="Pagina 2" class="fanzine-slide">
-                    <img src="3-4PAGSFANZINE.png" alt="Pagina 3" class="fanzine-slide">
-                    <img src="5-6PAGSFANZINE.png" alt="Pagina 4" class="fanzine-slide">
-                    <img src="CONTRATAPAFANZINE.png" alt="Pagina 5" class="fanzine-slide">
-                    <img src="POSTER.png" alt="Pagina 6" class="fanzine-slide">
+                    <img src="img/opt/TAPAFANZINE.png" alt="Pagina 1" class="fanzine-slide">
+                    <img src="img/opt/1-2PAGSFANZINE.png" alt="Pagina 2" class="fanzine-slide">
+                    <img src="img/opt/3-4PAGSFANZINE.png" alt="Pagina 3" class="fanzine-slide">
+                    <img src="img/opt/5-6PAGSFANZINE.png" alt="Pagina 4" class="fanzine-slide">
+                    <img src="img/opt/CONTRATAPAFANZINE.png" alt="Pagina 5" class="fanzine-slide">
+                    <img src="img/opt/POSTER.jpg" alt="Pagina 6" class="fanzine-slide">
                 </div>
             </div>
 
@@ -324,7 +325,7 @@
                 <div class="res-col border-right padding-box">
                     <p class="italic-title">Edición e intervención fotográfica</p>
                     <div class="img-placeholder-box">
-                        <img src="FOTOEDIT.png" alt="Edición">
+                        <img src="img/opt/FOTOEDIT.jpg" alt="Edición">
                     </div>
                 </div>
 
@@ -479,7 +480,7 @@
         (function applyLang() {
             if (localStorage.getItem('portfolioLang') !== 'en') return;
             var nav = document.querySelectorAll('.sticky-header .nav-link');
-            nav[0].textContent = 'Back';
+            nav[0].textContent = '← Projects';
             nav[1].textContent = 'Contact';
             document.querySelector('.col-text h3').textContent = 'ABOUT THE PROJECT';
             document.querySelector('.col-text p').innerHTML = 'MALAMANTE is a project for my third year of university. The assignment was to build a narrative for a fanzine about a selected artist. To do so, I based it on the story told in Rosalía\'s album <i>El Mal Querer</i>, which tells of a toxic, possessive, and harmful love.';

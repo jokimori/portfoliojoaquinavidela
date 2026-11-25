@@ -3,551 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARCHIVO VIVO | Joaquina Videla</title>
+    <title>Archivo Vivo · Caso de estudio UX/UI | Joaquina Videla</title>
+    <meta name="description" content="Caso de estudio UX/UI: plataforma web interactiva y app móvil para hacer visible la gentrificación en Chacarita. Investigación, arquitectura de información, interacción y UI.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Archivo Vivo · Caso de estudio UX/UI">
+    <meta property="og:description" content="Plataforma web interactiva y app móvil para hacer visible la gentrificación en Chacarita.">
+    <meta property="og:image" content="https://portfoliojoaquinavidela.vercel.app/POPUPPANEL-thumb.jpg">
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            padding-top: 0;
-            transition: background 0.5s ease-in-out;
-        }
-
-        /* --- Artifact layer --- */
-        .artifact-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: visible;
-            perspective: 1000px;
-            z-index: 1500;
-            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2));
-        }
-
-        .artifact {
-            position: absolute;
-            transform-style: preserve-3d;
-            border-radius: 22px;
-            opacity: 0;
-            background-repeat: no-repeat;
-            background-size: cover;
-            mix-blend-mode: screen;
-            animation: artifactFloat var(--artifact-duration, 6s) ease-in-out forwards,
-                       artifactSpin calc(var(--artifact-duration, 6s) * 0.9) linear infinite;
-            transform-origin: center;
-            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.15);
-            background-image: radial-gradient(circle at center, transparent 35%, rgba(255, 255, 255, 0.25) 36%, transparent 45%),
-                              var(--artifact-stroke, linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.65)));
-            background-size: 40px 40px, 100% 100%;
-            border: 1px solid rgba(255, 255, 255, 0.45);
-        }
-
-        @keyframes artifactFloat {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) translate3d(0, 0, 0) rotateX(var(--artifact-rotateX, 0deg)) rotateY(var(--artifact-rotateY, 0deg)) rotateZ(var(--artifact-rotateZ, 0deg)) scale(0.2);
-            }
-            15% {
-                opacity: 0.95;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) translate3d(var(--artifact-driftX, 0px), var(--artifact-driftY, 0px), var(--artifact-depth, 80px)) rotateX(calc(var(--artifact-rotateX, 0deg) * -1)) rotateY(calc(var(--artifact-rotateY, 0deg) * -1)) rotateZ(calc(var(--artifact-rotateZ, 0deg) * -1)) scale(1.05);
-            }
-        }
-
-        @keyframes artifactSpin {
-            from { filter: hue-rotate(0deg); }
-            to { filter: hue-rotate(60deg); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .artifact {
-                animation: none;
-                display: none;
-            }
-        }
-
-        /* --- PIEZAS: 3 cards --- */
-        .piezas-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        .pieza-card {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            cursor: pointer;
-        }
-
-        .pieza-btn {
-            width: 100%;
-            border: var(--border-thickness) solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pieza-img-box {
-            width: 100%;
-            aspect-ratio: 7 / 3;
-            background-color: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .pieza-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .pieza-label {
-            font-size: 1.1rem;
-            font-style: italic;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 1px;
-            padding: 15px 10px;
-            border-top: var(--border-thickness) solid var(--border-color);
-        }
-
-        /* --- PROYECTO: large clickable area --- */
-        .proyecto-link-area {
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-            aspect-ratio: 3 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #f5e6a0, #f0d060, #f0a0d0, #e060c0, #f0a0d0, #f0d060, #f5e6a0);
-            background-size: 300% 300%;
-            animation: gradientShift 8s ease-in-out infinite;
-        }
-
-        .proyecto-link-area img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .btn-ir {
-            position: relative;
-            z-index: 2;
-            padding: 10px 30px;
-            border: 1px solid black;
-            background: white;
-            font-family: 'Satoshi', Helvetica, Arial, sans-serif;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: black;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-ir:hover {
-            background: black;
-            color: white;
-        }
-
-        /* --- About section left-aligned text --- */
-        .about-project-section {
-            padding: 30px 40px;
-        }
-
-        .about-project-section h3 {
-            margin-bottom: 10px;
-        }
-
-        .about-project-section p {
-            max-width: 520px;
-        }
-
-        /* --- Piezas section header --- */
-        .piezas-header {
-            padding: 30px 40px 10px 40px;
-        }
-
-        .piezas-header h3 {
-            margin-bottom: 5px;
-        }
-
-        .piezas-header p {
-            font-style: italic;
-            margin: 0;
-            text-align: left;
-            max-width: 520px;
-        }
-
-        /* --- Proyecto section header --- */
-        .proyecto-header {
-            padding: 30px 40px 10px 40px;
-        }
-
-        .proyecto-header h3 {
-            margin-bottom: 5px;
-        }
-
-        .proyecto-header p {
-            margin: 0;
-            text-align: left;
-            max-width: 520px;
-        }
-
-        .proyecto-area-wrapper {
-            padding: 20px;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .piezas-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pieza-card {
-                border-bottom: var(--border-thickness) solid var(--border-color);
-            }
-
-            .pieza-card:last-child {
-                border-bottom: none;
-            }
-
-            .about-project-section,
-            .piezas-header,
-            .proyecto-header {
-                padding: 20px 25px;
-            }
-
-            .proyecto-area-wrapper {
-                padding: 15px;
-            }
-
-            .proyecto-link-area {
-                aspect-ratio: 4 / 3;
-            }
-        }
-
-        /* --- Panel popup overlay --- */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 5%;
-            cursor: pointer;
-        }
-
-        .popup-overlay img {
-            max-width: 90%;
-            max-height: 85%;
-            object-fit: contain;
-            cursor: default;
-        }
-
-        /* --- Animations --- */
-        .sticky-header {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .project-hero h1 {
-            animation: fadeInUp 0.7s ease-out 0.1s backwards;
-        }
-
-        .about-project-section {
-            animation: fadeIn 0.8s ease-out 0.3s backwards;
-        }
-
-        .piezas-header {
-            animation: slideInLeft 0.6s ease-out 0.5s backwards;
-        }
-
-        .pieza-card:nth-child(1) {
-            animation: fadeInUp 0.6s ease-out 0.6s backwards;
-        }
-
-        .pieza-card:nth-child(2) {
-            animation: fadeInUp 0.6s ease-out 0.75s backwards;
-        }
-
-        .pieza-card:nth-child(3) {
-            animation: fadeInUp 0.6s ease-out 0.9s backwards;
-        }
-
-        .proyecto-header {
-            animation: slideInLeft 0.6s ease-out 1s backwards;
-        }
-
-        .proyecto-area-wrapper {
-            animation: fadeInUp 0.7s ease-out 1.1s backwards;
-        }
-
-        .footer-action {
-            animation: fadeIn 0.8s ease-out 1.3s backwards;
-        }
-
-        .pieza-btn {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .pieza-card:hover .pieza-btn {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .popup-overlay img {
-            animation: fadeInUp 0.3s ease-out;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes bgDrift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body.bg-animated {
-            background-size: 300% 300% !important;
-            animation: bgDrift 14s ease-in-out infinite !important;
-            transition: background 0.8s ease;
-        }
-
-        @media (max-width: 480px) {
-            .pieza-label {
-                font-size: 0.95rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="case.css">
 </head>
 <body>
 
-    <nav class="sticky-header">
-        <a href="index.html" class="nav-link">Volver</a>
-        <span class="nav-title">ARCHIVO VIVO</span>
-        <a href="#" class="nav-link">Contacto</a>
+    <nav class="sticky-header" aria-label="Navegación del proyecto">
+        <a href="index.html#proyectos" class="nav-link">← Proyectos</a>
+        <span class="nav-title">Archivo Vivo</span>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
     </nav>
 
-    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+    <main class="layout-container">
 
-        <header class="project-hero">
-            <h1>ARCHIVO VIVO</h1>
+        <header class="case-hero">
+            <p class="case-eyebrow">Caso de estudio · UX/UI · Diseño especulativo</p>
+            <h1>Archivo Vivo</h1>
+            <p class="case-lede">
+                Una plataforma web interactiva y una app móvil para que la gentrificación de Chacarita
+                se vea, se entienda y se discuta, antes de que el barrio pierda su identidad.
+            </p>
         </header>
 
-        <section class="about-project-section border-bottom">
-            <h3>SOBRE EL PROYECTO</h3>
-            <p>
-                <i>ARCHIVO VIVO</i> es mi tesis para la facultad, hecha con mi
-                compañero Nicolás Herrero. Para la misma, se nos dio una
-                zona de Buenos Aires, y se nos pidió que identifiquemos
-                una problemática dentro de la misma y en consecuencia
-                propusiésemos una solución.
-            </p>
+        <dl class="case-meta">
+            <div><dt>Rol</dt><dd>Investigación, arquitectura de información, UX/UI y desarrollo</dd></div>
+            <div><dt>Equipo</dt><dd>Dupla con Nicolás Herrero</dd></div>
+            <div><dt>Contexto</dt><dd>Tesis de grado, Licenciatura en Diseño (UTDT)</dd></div>
+            <div><dt>Herramientas</dt><dd>HTML · CSS · JavaScript · Construct 3</dd></div>
+        </dl>
 
-            <p>
-                Es así como, tras una extensa investigación, tomamos como problemática
-                la gentrificación en el barrio de Chacarita. Como propuesta, desarrollamos un proyecto de diseño especulativo, que busca generar conciencia sobre este fenómeno y sus consecuencias, a la vez que ofrece una experiencia inmersiva para que los usuarios puedan entenderlo mejor.
-            </p>
+        <section class="case-summary" aria-label="Resumen">
+            <div>
+                <h2>Desafío</h2>
+                <p>Nos asignaron una zona de Buenos Aires: teníamos que detectar una problemática real y proponer una respuesta desde el diseño.</p>
+            </div>
+            <div>
+                <h2>Solución</h2>
+                <p>Una plataforma con tres ejes: <strong>actuar</strong> (simular escenarios futuros), <strong>visualizar</strong> (un archivo colectivo de fotos) y <strong>contar</strong> (relatos y datos del fenómeno).</p>
+            </div>
+            <div>
+                <h2>Resultado</h2>
+                <p>Un prototipo funcional en la web: una simulación con parámetros e indicadores, un archivo 3D en vivo, un barrio construido entre todos y una app con verificación por ubicación.</p>
+            </div>
         </section>
 
-        <section class="border-bottom">
-            <div class="piezas-header">
-                <h3>PIEZAS</h3>
-                <p>Partes del proyecto para entenderlo mejor.</p>
+        <!-- 01 INVESTIGACIÓN -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">01</span>
+                <h2>Investigación</h2>
             </div>
+            <div class="case-section-body">
+                <p>
+                    Nos concentramos en la parte más residencial de Chacarita, donde la transformación urbana se ve con más claridad.
+                    Combinamos <strong>visitas al barrio y registro fotográfico</strong>, fuentes secundarias (historia barrial,
+                    notas con especialistas en paisaje y urbanismo) y un <strong>caso comparable</strong>: Palermo Soho, que pasó de barrio
+                    popular a enclave de consumo y se convirtió en un "modelo" que después se replicó en otros barrios.
+                </p>
+                <p>
+                    Para ordenar lo que encontrábamos armamos un <strong>mapa de actores</strong>: vecinos, colectivos culturales,
+                    políticas públicas y desarrollo inmobiliario, y cómo se tensionan entre sí.
+                </p>
+                <div class="case-quote">
+                    <span>Hallazgo</span>
+                    Chacarita tiene una identidad barrial fuerte, pero lo que observábamos en la calle parecía contradecirla.
+                    Había dos fuerzas peleando por ver cuál dominaba el barrio.
+                </div>
+                <div class="case-figures">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/registro.jpg" aria-label="Ampliar: registro visual del barrio">
+                            <img src="img/arvivo/registro.jpg" alt="Collage de fotografías tomadas en Chacarita: fachadas, rejas, grafitis y carteles" loading="lazy">
+                        </button>
+                        <figcaption>Registro visual en el barrio.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/mapa-actores.jpg" aria-label="Ampliar: mapa de actores">
+                            <img src="img/arvivo/mapa-actores.jpg" alt="Mapa de actores que conecta vecinos, polo cultural, nuevas políticas y gentrificación" loading="lazy">
+                        </button>
+                        <figcaption>Mapa de actores: fuerzas, intereses y relaciones.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/zona.jpg" aria-label="Ampliar: zona de estudio">
+                            <img src="img/arvivo/zona.jpg" alt="Mapa de manzanas de la zona de estudio en Chacarita" loading="lazy">
+                        </button>
+                        <figcaption>Recorte de la zona de estudio.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
 
-            <div class="piezas-grid">
-                <div class="pieza-card border-right" onclick="document.getElementById('panel-popup').style.display='flex'">
-                    <div class="pieza-btn">
-                        <div class="pieza-img-box">
-                            <img src="PANELBOTON.png" alt="Panel">
-                        </div>
-                        <span class="pieza-label">Panel</span>
+        <!-- 02 REENCUADRE -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">02</span>
+                <h2>Reencuadre del problema</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    Al principio entramos en un par de callejones sin salida: los problemas que detectábamos eran demasiado amplios
+                    o genéricos. El punto de quiebre fue <strong>cambiar la pregunta</strong>. En vez de buscar <em>qué</em> atentaba
+                    contra la identidad del barrio, nos preguntamos <em>por qué</em> la estaba perdiendo.
+                </p>
+                <p>
+                    Esa pregunta conectó hallazgos que parecían sueltos (nuevos comercios, alquileres más caros, vecinos que se iban)
+                    y mostró un patrón: la gentrificación.
+                </p>
+                <div class="case-quote">
+                    <span>Problema</span>
+                    Por la gentrificación, Chacarita enfrenta una homogeneización urbana: se reemplazan los comercios históricos y se
+                    opacan las prácticas culturales tradicionales, y el barrio se convierte en una escenografía.
+                </div>
+                <div class="case-figures two">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/cambio-enfoque.jpg" aria-label="Ampliar: cambio de enfoque">
+                            <img src="img/arvivo/cambio-enfoque.jpg" alt="Lámina de la bitácora sobre el cambio de enfoque de la investigación" loading="lazy">
+                        </button>
+                        <figcaption>El cambio de pregunta que ordenó la investigación.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/aristas.jpg" aria-label="Ampliar: aristas del proyecto">
+                            <img src="img/arvivo/aristas.jpg" alt="Diagrama con las preguntas clave: para quiénes, con qué piezas, qué tono" loading="lazy">
+                        </button>
+                        <figcaption>Preguntas abiertas antes de diseñar: para quiénes, dónde, con qué tono.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 ESTRATEGIA -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">03</span>
+                <h2>Estrategia</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    Un problema tan complejo no se resuelve con una sola pieza. Elegimos el <strong>diseño especulativo</strong>
+                    (simulaciones, proyecciones y escenarios ficticios que cuestionan el presente) y definimos tres objetivos:
+                </p>
+                <div class="decision-grid">
+                    <div class="decision">
+                        <h4>Alzar la voz</h4>
+                        <p>Mensajes claros que llamen la atención y abran la conversación con distintos públicos.</p>
+                    </div>
+                    <div class="decision">
+                        <h4>Visibilizar</h4>
+                        <p>Un sistema de piezas coherente que vuelva tangible algo que pasa de a poco y casi sin que se note.</p>
+                    </div>
+                    <div class="decision">
+                        <h4>Generar comunidad</h4>
+                        <p>Que el proyecto sea por y para la gente: los vecinos participan y no solo miran.</p>
                     </div>
                 </div>
-                <a href="bitacora_pagweb.pdf" target="_blank" class="pieza-card border-right" style="text-decoration:none;color:inherit;">
-                    <div class="pieza-btn">
-                        <div class="pieza-img-box">
-                            <img src="BITACORABOTON.png" alt="Bitácora">
-                        </div>
-                        <span class="pieza-label">Bitácora</span>
-                    </div>
-                </a>
-                <a href="manifiestoarchivovivo.pdf" target="_blank" class="pieza-card" style="text-decoration:none;color:inherit;">
-                    <div class="pieza-btn">
-                        <div class="pieza-img-box">
-                            <img src="MANIFIESTOBOTON.png" alt="Manifiesto">
-                        </div>
-                        <span class="pieza-label">Manifiesto</span>
-                    </div>
-                </a>
             </div>
         </section>
 
-        <section class="border-bottom">
-            <div class="proyecto-header">
-                <h3>PROYECTO</h3>
-                <p>El proyecto se abrirá en una pestaña nueva.</p>
-                <p>Nota: si estás en celular, no vas a poder ver la página web correctamente. Ver <a href="https://drive.google.com/drive/folders/1rq-ZIGUDgQJzomnhb9piHOKeZIaUlRwW?usp=sharing" target="_blank" style="color:#4A90D9;text-decoration:underline;">videos</a> en su lugar.</p>
+        <!-- 04 ARQUITECTURA -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">04</span>
+                <h2>Arquitectura de información</h2>
             </div>
-
-            <div class="proyecto-area-wrapper">
-                <a href="web_vol2_4/index.html" target="_blank" class="proyecto-link-area">
-                    <!-- PROYECTO.png — replace gradient with image when ready -->
-                    <span class="btn-ir">ABRIR PROYECTO</span>
-                </a>
+            <div class="case-section-body">
+                <p>
+                    Organizamos la plataforma en tres ejes, y cada sección de la web responde a uno de ellos:
+                </p>
+                <ul>
+                    <li><strong>Actuar → Simulación y Barrio.</strong> La persona cambia parámetros o construye, y ve las consecuencias.</li>
+                    <li><strong>Visualizar → Ar.Vivo.</strong> Un archivo de fotos que los usuarios suben desde la app y que se actualiza en tiempo real.</li>
+                    <li><strong>Contar → Fenómeno e Historias.</strong> Relatos, objetos del barrio y datos que explican el proceso paso a paso.</li>
+                </ul>
+                <p>
+                    En la home, cada sección es un botón en movimiento constante: el espacio cambia todo el tiempo, igual que el barrio.
+                    Al pasar el cursor se despliegan tarjetas que explican el porqué del proyecto.
+                </p>
+                <div class="case-figures two">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/arquitectura.jpg" aria-label="Ampliar: partes del proyecto">
+                            <img src="img/arvivo/arquitectura.jpg" alt="Diagrama de la arquitectura: home, fenómeno, simulación, Ar.Vivo con app, barrio e historias" loading="lazy">
+                        </button>
+                        <figcaption>Estructura de la web y la app.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/home.jpg" aria-label="Ampliar: diseño de la home">
+                            <img src="img/arvivo/home.jpg" alt="Variantes de la home con el logo 3D y los botones de sección en movimiento" loading="lazy">
+                        </button>
+                        <figcaption>Home: logo modelado rotable y gradiente que cambia.</figcaption>
+                    </figure>
+                </div>
             </div>
         </section>
 
-        <div class="footer-action padding-box flex-center">
-            <a href="index.html" class="btn-volver">VOLVER</a>
-        </div>
+        <!-- 05 DECISIONES DE INTERACCIÓN -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">05</span>
+                <h2>Decisiones de interacción</h2>
+            </div>
+            <div class="case-section-body">
 
-    </div>
+                <h3>Simulación: hacer visible lo que no se ve</h3>
+                <p>
+                    Tres parámetros que la persona puede mover: <strong>densidad edilicia</strong>, <strong>negocios locales o franquicias</strong>
+                    y <strong>perfil gastronómico</strong> (de bodegón a gourmet). Elegimos este último porque, aunque no lo parezca, es uno de los
+                    principales detonantes de la gentrificación. Cada cambio impacta en ocho indicadores (precio del alquiler, unión vecinal,
+                    contaminación, edificios históricos, diversidad sociocultural y otros) que se leen en un gráfico radial. Pasando el cursor por
+                    cada arista se ve qué indicador representa.
+                </p>
+                <div class="case-figures two">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/simulacion.jpg" aria-label="Ampliar: estados de la simulación">
+                            <img src="img/arvivo/simulacion.jpg" alt="Tres estados de la simulación: el barrio pasa de casas de colores a torres grises" loading="lazy">
+                        </button>
+                        <figcaption>El barrio pierde color a medida que avanzan los parámetros.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/indicadores.jpg" aria-label="Ampliar: indicadores">
+                            <img src="img/arvivo/indicadores.jpg" alt="Definición de los ocho indicadores y su gráfico radial" loading="lazy">
+                        </button>
+                        <figcaption>Ocho indicadores en un gráfico radial.</figcaption>
+                    </figure>
+                </div>
 
-    <!-- Artifact layer for click effects -->
-    <div class="artifact-layer" id="artifactLayer"></div>
+                <h3>Ar.Vivo: una app que garantiza que el archivo sea auténtico</h3>
+                <p>
+                    Para que el archivo refleje cómo ven el barrio quienes lo viven, la app pide acceso a la ubicación y solo permite
+                    subir fotos tomadas <strong>dentro de Chacarita</strong>. El flujo es corto: tocar "+", sacar la foto, sumar título y
+                    descripción (opcionales) y verla en el mapa. Si la persona está fuera del barrio, un mensaje de error le explica
+                    por qué no puede subirla. En la web, las fotos flotan en una escena 3D en movimiento: el archivo está "vivo".
+                </p>
+                <div class="case-figures">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/app.jpg" aria-label="Ampliar: pantallas de la app">
+                            <img src="img/arvivo/app.jpg" alt="Pantallas de la app: mapa, publicaciones y perfil" loading="lazy">
+                        </button>
+                        <figcaption>App: mapa, publicaciones y perfil.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/flujo-app.jpg" aria-label="Ampliar: flujo para sumar una foto">
+                            <img src="img/arvivo/flujo-app.jpg" alt="Secuencia de pantallas para sumar una foto al archivo, con estado de error" loading="lazy">
+                        </button>
+                        <figcaption>Flujo "Sumar al archivo", con su estado de error.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/web.jpg" aria-label="Ampliar: el archivo en la web">
+                            <img src="img/arvivo/web.jpg" alt="Escena 3D de fotos flotantes y detalle de una publicación" loading="lazy">
+                        </button>
+                        <figcaption>La web como display del archivo completo.</figcaption>
+                    </figure>
+                </div>
 
-    <!-- Panel popup -->
-    <div id="panel-popup" class="popup-overlay" onclick="this.style.display='none'">
-        <img src="POPUPPANEL.png" alt="Panel" onclick="event.stopPropagation()">
+                <h3>Barrio: una economía justa como regla de diseño</h3>
+                <p>
+                    ¿Y si construyéramos entre todos un barrio sin especulación inmobiliaria? Cada persona recibe <strong>2 créditos cada 6 horas</strong>,
+                    aunque no tenga la página abierta. La recarga depende del tiempo porque el tiempo nos corre igual a todos: así la "economía" queda
+                    lo más democrática posible. Al comprar un elemento se activa un <strong>modo construcción</strong> que muestra solo los espacios
+                    válidos para ese objeto, y cada construcción indica quién la hizo y cuándo.
+                </p>
+                <div class="case-figures two">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/barrio-pasos.jpg" aria-label="Ampliar: paso a paso para construir">
+                            <img src="img/arvivo/barrio-pasos.jpg" alt="Paso a paso para construir en el barrio: tienda, selección y colocación" loading="lazy">
+                        </button>
+                        <figcaption>Paso a paso para construir.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/creditos.jpg" aria-label="Ampliar: sistema de créditos">
+                            <img src="img/arvivo/creditos.jpg" alt="Sistema de créditos y valores por categoría" loading="lazy">
+                        </button>
+                        <figcaption>Créditos y valores por categoría.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 SISTEMA VISUAL -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">06</span>
+                <h2>Sistema visual y UI</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    La UI es deliberadamente llamativa y rompe con los estándares del diseño digital. La gentrificación aparece cuando un
+                    modelo "funciona" y se repite en todos lados, y con el diseño de interfaces pasa algo parecido. Nuestra propuesta fue
+                    ser la excepción: mostrar que una interfaz puede salirse del molde y funcionar igual.
+                </p>
+                <ul>
+                    <li><strong>Del color al gris:</strong> las casas tienen colores distintos (lo heterogéneo, lo humano) y se vuelven grises e iguales cuando el barrio se homogeneiza.</li>
+                    <li><strong>Degradados</strong> para representar la transición: un camino de un punto a otro.</li>
+                    <li><strong>Thermal Variable</strong> como tipografía: mezcla lo editorial con lo digital y su amplitud de formas acompaña la idea de infinitos escenarios posibles.</li>
+                </ul>
+                <div class="case-figures two">
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/ui.jpg" aria-label="Ampliar: recursos UX/UI">
+                            <img src="img/arvivo/ui.jpg" alt="Componentes de interfaz: botones de sección, navegación y tarjetas informativas" loading="lazy">
+                        </button>
+                        <figcaption>Componentes de interfaz.</figcaption>
+                    </figure>
+                    <figure class="case-figure">
+                        <button type="button" data-full="img/arvivo/problematica.jpg" aria-label="Ampliar: problemática">
+                            <img src="img/arvivo/problematica.jpg" alt="Lámina con la definición de la problemática" loading="lazy">
+                        </button>
+                        <figcaption>La problemática, en una frase.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 PRÓXIMOS PASOS -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">07</span>
+                <h2>Próximos pasos</h2>
+            </div>
+            <div class="case-section-body">
+                <ul>
+                    <li><strong>Testear con vecinos.</strong> Validar si la simulación se entiende sin explicación y si los indicadores comunican lo que buscamos.</li>
+                    <li><strong>Equilibrar ruptura y usabilidad.</strong> Medir dónde la UI disruptiva suma impacto y dónde le cuesta a quien navega, sobre todo en accesibilidad y en celular.</li>
+                    <li><strong>Llevar la app a producción.</strong> Resolver la moderación de las fotos y la privacidad de la ubicación.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PIEZAS + PROYECTO -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">→</span>
+                <h2>Ver el proyecto</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    La web funciona en computadora. Si estás en el celular, podés ver los
+                    <a href="https://drive.google.com/drive/folders/1rq-ZIGUDgQJzomnhb9piHOKeZIaUlRwW?usp=sharing" target="_blank" rel="noopener">videos del recorrido</a>.
+                </p>
+                <div class="case-cta">
+                    <a href="web_vol2_4/index.html" target="_blank" rel="noopener" class="btn-solid">Abrir la web ↗</a>
+                    <a href="bitacora_pagweb.pdf" target="_blank" rel="noopener" class="btn-line">Bitácora completa (PDF, 60 MB)</a>
+                    <a href="manifiestoarchivovivo.pdf" target="_blank" rel="noopener" class="btn-line">Manifiesto (PDF)</a>
+                    <button type="button" class="btn-line" data-full="img/arvivo/panel.jpg" style="font:inherit;font-size:0.9rem;cursor:pointer;">Ver panel</button>
+                </div>
+            </div>
+        </section>
+
+        <a href="timeloot.html" class="case-next">
+            <span>Siguiente proyecto</span>
+            <strong>Timeloot →</strong>
+        </a>
+
+    </main>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+        <button type="button" class="lightbox-close" id="lightboxClose">Cerrar ✕</button>
+        <img alt="" id="lightboxImg">
     </div>
 
     <script>
-        // --- HOVER: cambiar fondo del body al pasar sobre pieza cards ---
-        (function setupHoverBackgrounds() {
-            var cards = document.querySelectorAll('.pieza-card');
-            var gradients = [
-                // Panel: yellow to pink (matching proyecto-link-area tones)
-                'linear-gradient(135deg, #f5e6a0 0%, #f0d060 35%, #f0a0d0 65%, #e060c0 100%)',
-                // Bitácora: multicolor with white between each color
-                'linear-gradient(90deg, #d0d0d0 0%, #e8e8e8 4%, #ffffff 7%, #c8d4f0 10%, #dde6f8 13%, #ffffff 16%, #a8f0c8 20%, #d0f8e0 23%, #ffffff 27%, #f5f0a0 31%, #faf8d0 34%, #ffffff 38%, #f0b8d8 42%, #f8d8e8 45%, #ffffff 49%, #f8c8e0 53%, #fce0ee 56%, #ffffff 60%, #f0a8a8 64%, #f8d0d0 67%, #ffffff 71%, #e08080 75%, #f0b0b0 78%, #ffffff 82%, #d0d0d0 88%, #e8e8e8 94%, #ffffff 100%)',
-                // Manifiesto: mostly white with a hint of grey
-                'linear-gradient(135deg, #e8e8e8 0%, #f2f2f2 25%, #ffffff 50%, #f5f5f5 75%, #ffffff 100%)'
-            ];
+        (function () {
+            var box = document.getElementById('lightbox');
+            var img = document.getElementById('lightboxImg');
+            var closeBtn = document.getElementById('lightboxClose');
+            var lastTrigger = null;
 
-            cards.forEach(function(card, i) {
-                card.addEventListener('mouseenter', function() {
-                    document.body.style.background = gradients[i] || gradients[0];
-                    document.body.classList.add('bg-animated');
-                });
-                card.addEventListener('mouseleave', function() {
-                    document.body.classList.remove('bg-animated');
-                    document.body.style.background = 'white';
-                });
+            function open(trigger) {
+                lastTrigger = trigger;
+                var inner = trigger.querySelector('img');
+                img.src = trigger.getAttribute('data-full');
+                img.alt = inner ? inner.alt : trigger.textContent.trim();
+                box.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+            }
+            function close() {
+                box.classList.remove('open');
+                document.body.style.overflow = '';
+                img.removeAttribute('src');
+                if (lastTrigger) lastTrigger.focus();
+            }
+
+            document.querySelectorAll('[data-full]').forEach(function (el) {
+                el.addEventListener('click', function () { open(el); });
             });
-        })();
-
-        // --- ARTIFACTS: click + random spawning ---
-        (function setupArtifacts() {
-            var layer = document.getElementById('artifactLayer');
-            if (!layer) return;
-
-            var strokePool = [
-                'linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 139, 208, 0.8))',
-                'linear-gradient(140deg, rgba(161, 224, 255, 0.35), rgba(255, 255, 255, 0.85))',
-                'conic-gradient(from 40deg, rgba(255, 255, 255, 0.05), rgba(255, 248, 138, 0.9), rgba(255, 255, 255, 0.2))',
-                'linear-gradient(95deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.08))',
-                'linear-gradient(160deg, rgba(240, 160, 208, 0.6), rgba(245, 230, 160, 0.8))',
-                'linear-gradient(200deg, rgba(224, 96, 192, 0.5), rgba(255, 255, 255, 0.7))'
-            ];
-
-            // Click to create artifact where you click
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('a, button, .popup-overlay, .btn-ir, .btn-volver, .nav-link')) return;
-                createArtifact(e.clientX, e.clientY);
+            closeBtn.addEventListener('click', close);
+            box.addEventListener('click', function (e) { if (e.target === box) close(); });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && box.classList.contains('open')) close();
             });
-
-            // Random artifacts spawning every few seconds
-            function spawnRandom() {
-                var x = Math.random() * window.innerWidth;
-                var y = Math.random() * window.innerHeight;
-                createArtifact(x, y);
-                var next = randomInRange(2000, 5000);
-                setTimeout(spawnRandom, next);
-            }
-            setTimeout(spawnRandom, 3000);
-
-            function createArtifact(x, y) {
-                var artifact = document.createElement('span');
-                artifact.className = 'artifact';
-
-                var width = randomInRange(80, 200);
-                var height = width * randomInRange(0.4, 0.95);
-                artifact.style.width = width + 'px';
-                artifact.style.height = height + 'px';
-                artifact.style.left = x + 'px';
-                artifact.style.top = y + 'px';
-
-                var duration = randomInRange(4.5, 7.5);
-                artifact.style.setProperty('--artifact-duration', duration + 's');
-                artifact.style.setProperty('--artifact-rotateX', randomInRange(-35, 35) + 'deg');
-                artifact.style.setProperty('--artifact-rotateY', randomInRange(-55, 55) + 'deg');
-                artifact.style.setProperty('--artifact-rotateZ', randomInRange(-25, 25) + 'deg');
-                artifact.style.setProperty('--artifact-driftX', randomInRange(-120, 120) + 'px');
-                artifact.style.setProperty('--artifact-driftY', randomInRange(-90, 90) + 'px');
-                artifact.style.setProperty('--artifact-depth', randomInRange(60, 160) + 'px');
-
-                var stroke = strokePool[Math.floor(Math.random() * strokePool.length)];
-                artifact.style.setProperty('--artifact-stroke', stroke);
-
-                layer.appendChild(artifact);
-
-                while (layer.children.length > 18) {
-                    layer.removeChild(layer.firstElementChild);
-                }
-
-                setTimeout(function() { artifact.remove(); }, duration * 1000 + 250);
-            }
-
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-        })();
-
-        // LANGUAGE
-        (function applyLang() {
-            if (localStorage.getItem('portfolioLang') !== 'en') return;
-            var nav = document.querySelectorAll('.sticky-header .nav-link');
-            nav[0].textContent = 'Back';
-            nav[1].textContent = 'Contact';
-            document.querySelector('.about-project-section h3').textContent = 'ABOUT THE PROJECT';
-            var aboutPs = document.querySelectorAll('.about-project-section p');
-            aboutPs[0].innerHTML = '<i>ARCHIVO VIVO</i> is my thesis project for university, made with my classmate Nicolás Herrero. For it, we were given a neighborhood in Buenos Aires, and we were asked to identify a problem within it and consequently propose a solution.';
-            aboutPs[1].textContent = 'That is how, after extensive research, we took gentrification in the Chacarita neighborhood as our problem. As a proposal, we developed a speculative design project that seeks to raise awareness about this phenomenon and its consequences, while offering an immersive experience so that users can better understand it.';
-            document.querySelector('.piezas-header h3').textContent = 'PIECES';
-            document.querySelector('.piezas-header p').textContent = 'Parts of the project to understand it better.';
-            var labels = document.querySelectorAll('.pieza-label');
-            labels[1].textContent = 'Logbook';
-            labels[2].textContent = 'Manifesto';
-            document.querySelector('.proyecto-header h3').textContent = 'PROJECT';
-            var proyPs = document.querySelectorAll('.proyecto-header p');
-            proyPs[0].textContent = 'The project will open in a new tab.';
-            proyPs[1].innerHTML = 'Note: if you\'re on mobile, you won\'t be able to view the website correctly. See <a href="https://drive.google.com/drive/folders/1rq-ZIGUDgQJzomnhb9piHOKeZIaUlRwW?usp=sharing" target="_blank" style="color:#4A90D9;text-decoration:underline;">videos</a> instead.';
-            document.querySelector('.btn-ir').textContent = 'OPEN PROJECT';
-            document.querySelector('.btn-volver').textContent = 'BACK';
         })();
     </script>
-
 </body>
 </html>

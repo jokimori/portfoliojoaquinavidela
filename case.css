@@ -1,0 +1,285 @@
+/* =========================================
+   CASO DE ESTUDIO — plantilla reutilizable
+   Usa los tokens y la grilla de style.css
+   ========================================= */
+
+.case-hero {
+    padding: 40px 40px 30px;
+    border-bottom: var(--border-thickness) solid var(--border-color);
+}
+.case-eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 14px;
+    color: #555;
+}
+.case-hero h1 {
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+}
+.case-lede {
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
+    line-height: 1.4;
+    max-width: 760px;
+    margin: 22px 0 0;
+    text-align: left;
+}
+
+/* Ficha: rol, equipo, contexto, herramientas */
+.case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: var(--border-thickness) solid var(--border-color);
+}
+.case-meta > div {
+    padding: 20px 24px;
+    border-right: var(--border-thickness) solid var(--border-color);
+}
+.case-meta > div:last-child { border-right: none; }
+.case-meta dt {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #555;
+    margin-bottom: 6px;
+}
+.case-meta dd { margin: 0; font-size: 0.95rem; line-height: 1.4; }
+
+/* Resumen en 3 columnas */
+.case-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: var(--border-thickness) solid var(--border-color);
+}
+.case-summary > div {
+    padding: 26px 28px;
+    border-right: var(--border-thickness) solid var(--border-color);
+}
+.case-summary > div:last-child { border-right: none; }
+.case-summary h2 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 0 0 10px;
+}
+.case-summary p { margin: 0; text-align: left; line-height: 1.5; }
+
+/* Secciones numeradas */
+.case-section {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 3fr;
+    border-bottom: var(--border-thickness) solid var(--border-color);
+}
+.case-section-label {
+    padding: 30px 24px 30px 40px;
+    border-right: var(--border-thickness) solid var(--border-color);
+}
+.case-section-label .num {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 1.2px;
+    color: #555;
+    margin-bottom: 6px;
+}
+.case-section-label h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+    position: sticky;
+    top: 80px;
+}
+.case-section-body { padding: 30px 40px 36px; min-width: 0; }
+.case-section-body > p,
+.case-section-body li {
+    max-width: 680px;
+    line-height: 1.6;
+    text-align: left;
+}
+.case-section-body h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 30px 0 8px;
+}
+.case-section-body h3:first-child { margin-top: 0; }
+.case-section-body ul { padding-left: 1.1em; margin: 0 0 16px; }
+.case-section-body li { margin-bottom: 8px; }
+
+.case-quote {
+    margin: 24px 0;
+    padding: 18px 22px;
+    border: var(--border-thickness) dashed var(--border-color);
+    font-size: 1.15rem;
+    line-height: 1.5;
+    max-width: 680px;
+}
+.case-quote span {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Tarjetas de decisión: problema -> decisión */
+.decision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 20px 0 8px;
+}
+.decision {
+    border: var(--border-thickness) solid var(--border-color);
+    padding: 18px;
+}
+.decision h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+    margin: 0 0 8px;
+    color: #555;
+}
+.decision p { margin: 0; text-align: left; line-height: 1.5; font-size: 0.95rem; }
+
+/* Galería de láminas */
+.case-figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+.case-figures.two { grid-template-columns: repeat(2, 1fr); }
+.case-figure { margin: 0; }
+.case-figure button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: var(--border-thickness) solid var(--border-color);
+    background: #fafafa;
+    cursor: zoom-in;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+}
+.case-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.case-figure button:hover img { transform: scale(1.03); }
+.case-figure figcaption {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 24px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: #fff;
+}
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: #fff;
+    border: 1px solid #000;
+    font: inherit;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+/* CTA final: ver el proyecto */
+.case-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+.btn-solid, .btn-line {
+    display: inline-block;
+    padding: 12px 22px;
+    border: 1px solid #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+.btn-solid { background: #000; color: #fff; }
+.btn-solid:hover { background: #fff; color: #000; }
+.btn-line { background: #fff; color: #000; }
+.btn-line:hover { background: #000; color: #fff; }
+
+/* Navegación al siguiente proyecto */
+.case-next {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 26px 40px;
+    text-decoration: none;
+    color: inherit;
+}
+.case-next span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.2px; color: #555; }
+.case-next strong { font-weight: 400; font-style: italic; font-size: 1.6rem; text-transform: uppercase; }
+.case-next:hover strong { text-decoration: underline; }
+
+/* Foco visible para teclado */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .case-meta > div:nth-child(2) { border-right: none; }
+    .case-meta > div:nth-child(-n+2) { border-bottom: var(--border-thickness) solid var(--border-color); }
+    .case-summary { grid-template-columns: 1fr; }
+    .case-summary > div { border-right: none; border-bottom: var(--border-thickness) solid var(--border-color); }
+    .case-summary > div:last-child { border-bottom: none; }
+    .case-section { grid-template-columns: 1fr; }
+    .case-section-label {
+        border-right: none;
+        border-bottom: var(--border-thickness) solid var(--border-color);
+        padding: 20px 20px 14px;
+    }
+    .case-section-label h2 { position: static; }
+    .case-section-body { padding: 22px 20px 28px; }
+    .case-hero { padding: 28px 20px 24px; }
+    .case-next { padding: 22px 20px; }
+}
+@media (max-width: 560px) {
+    .case-meta > div { padding: 16px 20px; }
+    .case-figures.two { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-figure img { transition: none; }
+}

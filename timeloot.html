@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIMELOOT | Joaquina Videla</title>
+    <meta name="description" content="Timeloot: videojuego arcade diseñado y programado en equipo. Mecánicas, niveles, personajes y música. Portfolio de Joaquina Videla.">
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -52,9 +53,9 @@
 <body class="timeloot-page">
 
     <nav class="sticky-header">
-        <a href="index.html" class="nav-link">Volver</a>
+        <a href="index.html#proyectos" class="nav-link">← Proyectos</a>
         <span class="nav-title">TIMELOOT</span>
-        <a href="#" class="nav-link">Contacto</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
     </nav>
 
     <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
@@ -152,7 +153,7 @@
         (function applyLang() {
             if (localStorage.getItem('portfolioLang') !== 'en') return;
             var nav = document.querySelectorAll('.sticky-header .nav-link');
-            nav[0].textContent = 'Back';
+            nav[0].textContent = '← Projects';
             nav[1].textContent = 'Contact';
             var h3s = document.querySelectorAll('h3');
             h3s[0].textContent = 'ABOUT THE GAME';

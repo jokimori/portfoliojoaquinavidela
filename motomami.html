@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUÉ ES MOTOMAMI | Joaquina Videla</title>
+    <meta name="description" content="Qué es Motomami: análisis interactivo del disco de Rosalía, con fotos, textos y animaciones propias. Portfolio de Joaquina Videla.">
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -58,9 +59,9 @@
 <body>
 
     <nav class="sticky-header">
-        <a href="index.html" class="nav-link">Volver</a>
+        <a href="index.html#proyectos" class="nav-link">← Proyectos</a>
         <span class="nav-title">QEM</span>
-        <a href="#" class="nav-link">Contacto</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
     </nav>
 
     <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
@@ -116,7 +117,7 @@
         (function applyLang() {
             if (localStorage.getItem('portfolioLang') !== 'en') return;
             var nav = document.querySelectorAll('.sticky-header .nav-link');
-            nav[0].textContent = 'Back';
+            nav[0].textContent = '← Projects';
             nav[1].textContent = 'Contact';
             document.querySelector('.col-text h3').textContent = 'ABOUT THE PROJECT';
             document.querySelector('.col-text p').innerHTML = 'Following in line with the <i>MALA AMANTE</i> project, I decided to analyze in detail Rosalía\'s album MOTOMAMI. This is a project I put a lot of love and dedication into, taking all the photos myself and writing every single text and making all the animations frame by frame. I attach it below, because I would like the work to speak for itself.';
