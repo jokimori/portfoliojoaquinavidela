@@ -4,10 +4,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Todas las rutas de los PNGs
     const pngs = [
-        'FR1.png','FR2.png','FR3.png','FR4.png','FR5.png',
-        'FR6.png','FR7.png','FR8.png','FR9.png','FR10.png',
-        'FR11.png','FR12.png','FR13.png','FR14.png','FR15.png',
-        'FR16.png','FR17.png','FR18.png','FR19.png'
+        'FR1.webp','FR2.webp','FR3.webp','FR4.webp','FR5.webp',
+        'FR6.webp','FR7.webp','FR8.webp','FR9.webp','FR10.webp',
+        'FR11.webp','FR12.webp','FR13.webp','FR14.webp','FR15.webp',
+        'FR16.webp','FR17.webp','FR18.webp','FR19.webp'
     ];
     const basePath = 'assets/images/nuevacarpeta/';
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentScreenId = fId;
             if (hoverLayer) {
                 const idx = fId.replace('F', '');
-                hoverLayer.src = basePath + 'FH' + idx + '.png';
+                hoverLayer.src = basePath + 'FH' + idx + '.webp';
             }
         }
     }
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const img = document.createElement('img');
                 img.className = 'box-png';
                 img.src = basePath + name;
-                img.alt = name.replace('.png','');
+                img.alt = name.replace(/\.(png|webp)$/, '');
                 div.appendChild(img);
                 return div;
             });
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Relaciona FRx.png con Fx.png
     const frToF = name => {
         // FR1.png => F1
-        return name.replace('FR', 'F').replace('.png', '');
+        return name.replace('FR', 'F').replace(/\.(png|webp)$/, '');
     };
 
     // Hacer clic en PNG del carrusel activa el PNG en la pantalla

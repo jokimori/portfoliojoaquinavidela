@@ -285,11 +285,11 @@
             <div class="carousel-wrapper">
                 <div class="carousel-track" id="track">
                     <img src="img/opt/TAPAFANZINE.png" alt="Pagina 1" class="fanzine-slide">
-                    <img src="img/opt/1-2PAGSFANZINE.png" alt="Pagina 2" class="fanzine-slide">
-                    <img src="img/opt/3-4PAGSFANZINE.png" alt="Pagina 3" class="fanzine-slide">
-                    <img src="img/opt/5-6PAGSFANZINE.png" alt="Pagina 4" class="fanzine-slide">
-                    <img src="img/opt/CONTRATAPAFANZINE.png" alt="Pagina 5" class="fanzine-slide">
-                    <img src="img/opt/POSTER.jpg" alt="Pagina 6" class="fanzine-slide">
+                    <img decoding="async" src="img/opt/1-2PAGSFANZINE.png" alt="Pagina 2" class="fanzine-slide">
+                    <img decoding="async" src="img/opt/3-4PAGSFANZINE.png" alt="Pagina 3" class="fanzine-slide">
+                    <img decoding="async" src="img/opt/5-6PAGSFANZINE.png" alt="Pagina 4" class="fanzine-slide">
+                    <img decoding="async" src="img/opt/CONTRATAPAFANZINE.png" alt="Pagina 5" class="fanzine-slide">
+                    <img decoding="async" src="img/opt/POSTER.jpg" alt="Pagina 6" class="fanzine-slide">
                 </div>
             </div>
 
@@ -325,14 +325,14 @@
                 <div class="res-col border-right padding-box">
                     <p class="italic-title">Edición e intervención fotográfica</p>
                     <div class="img-placeholder-box">
-                        <img src="img/opt/FOTOEDIT.jpg" alt="Edición">
+                        <img loading="lazy" decoding="async" src="img/opt/FOTOEDIT.jpg" alt="Edición">
                     </div>
                 </div>
 
                 <div class="res-col padding-box">
                     <p class="italic-title">Fotografía</p>
                     <div class="img-placeholder-box">
-                        <img src="GIFMAKI.gif" alt="Gif Fotografía">
+                        <video src="img/opt/GIFMAKI.mp4" autoplay loop muted playsinline aria-label="Animación fotográfica"></video>
                     </div>
                 </div>
 
@@ -503,5 +503,6 @@
             updateCarousel();
         })();
     </script>
+    <script>document.querySelectorAll("video[autoplay]").forEach(function (v) { var p = v.play(); if (p) p.catch(function () {}); });</script>
 </body>
 </html>

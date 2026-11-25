@@ -7,8 +7,10 @@ html {
 }
 @font-face {
     font-family: 'Satoshi';
-    src: url('Satoshi-Regular.ttf') format('truetype');
+    src: url('fonts/Satoshi-Regular.woff2') format('woff2'),
+         url('Satoshi-Regular.ttf') format('truetype');
     font-weight: normal;
+    font-display: swap;
 }
 
 :root {
@@ -382,7 +384,7 @@ a.switch-btn.design { background-color: #d9d9d9; }
 
 /* 2. Aptitudes */
 .modal-text-justified {
-    text-align: left; /* O justify si prefieres */
+    text-align: left;
     line-height: 1.6;
 }
 
@@ -649,7 +651,7 @@ p { font-size: 1rem; line-height: 1.5; text-align: left; }
 }
 .color-label { text-transform: uppercase; font-size: 0.9rem; }
 
-.img-placeholder-box img {
+.img-placeholder-box img, .img-placeholder-box video {
     width: 100%; height: auto;
     display: block;
     object-fit: cover;
