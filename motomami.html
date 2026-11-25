@@ -3,132 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUÉ ES MOTOMAMI | Joaquina Videla</title>
-    <meta name="description" content="Qué es Motomami: análisis interactivo del disco de Rosalía, con fotos, textos y animaciones propias. Portfolio de Joaquina Videla.">
+    <title>Qué es Motomami · Caso de estudio | Joaquina Videla</title>
+    <meta name="description" content="Caso de estudio: una experiencia interactiva sobre el disco MOTOMAMI de Rosalía, con fotografía, ilustración, animación cuadro a cuadro y textos propios. Portfolio de Joaquina Videla.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Qué es Motomami · Caso de estudio">
+    <meta property="og:description" content="Todos pueden ser motomamis: una experiencia interactiva sobre el disco de Rosalía, hecha pieza por pieza.">
+    <meta property="og:image" content="https://portfoliojoaquinavidela.vercel.app/img/motomami/moto.jpg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="case.css">
     <style>
-        body {
-            padding-top: 0;
+        .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+        .duo-col h4 {
+            font-size: 1.6rem; font-style: italic; font-weight: 400;
+            text-transform: uppercase; margin: 0 0 4px;
         }
-
-        .col-text {
-            padding: 30px 40px;
+        .duo-col > p { margin: 0 0 12px; color: #555; font-size: 0.9rem; }
+        .duo-col .case-figures { margin-top: 0; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .photo button { aspect-ratio: 4 / 5; }
+        .photo img { object-position: center; }
+        .photo-row { grid-template-columns: repeat(4, 1fr); }
+        .embed-wrap { margin-top: 20px; }
+        .embed-wrap iframe.figma {
+            width: 100%; height: 520px;
+            border: var(--border-thickness) solid var(--border-color);
+            display: block;
         }
-
-        .col-text p {
-            max-width: 520px;
+        .embed-wrap iframe.spotify { width: 100%; height: 152px; border: 0; border-radius: 12px; margin-top: 20px; }
+        @media (max-width: 900px) {
+            .photo-row { grid-template-columns: 1fr 1fr; }
+            .embed-wrap iframe.figma { height: 380px; }
         }
-
-        .prototype-section {
-            padding: 30px 40px;
-        }
-
-        .prototype-section p {
-            max-width: 520px;
-        }
-
-        .prototype-wrapper {
-            padding: 20px 40px 40px 40px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .prototype-wrapper iframe {
-            max-width: 800px;
-            width: 100%;
-            height: 450px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .col-text,
-            .prototype-section {
-                padding: 20px 25px;
-            }
-
-            .prototype-wrapper {
-                padding: 15px 25px 25px 25px;
-            }
-
-            .prototype-wrapper iframe {
-                height: 300px;
-            }
+        @media (max-width: 560px) {
+            .duo { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="sticky-header">
+    <nav class="sticky-header" aria-label="Navegación del proyecto">
         <a href="index.html#proyectos" class="nav-link">← Proyectos</a>
-        <span class="nav-title">QEM</span>
+        <span class="nav-title">Qué es Motomami</span>
         <a href="index.html#contacto" class="nav-link">Contacto</a>
     </nav>
 
-    <div class="layout-container" style="margin-top: 0; padding-top: 60px; border-top: none; min-height: 100vh;">
+    <main class="layout-container">
 
-        <header class="project-hero">
-            <h1>QUÉ ES MOTOMAMI</h1>
+        <header class="case-hero">
+            <p class="case-eyebrow">Caso de estudio · Experiencia interactiva · Dirección de arte</p>
+            <h1>Qué es Motomami</h1>
+            <p class="case-lede">
+                Una experiencia interactiva que explica el disco de Rosalía a partir de su idea central:
+                todos podemos ser motomamis. Cada foto, dibujo, texto y animación lo hice yo.
+            </p>
         </header>
 
-        <section class="grid-2-cols border-bottom">
-            <div class="col-text padding-box border-right">
-                <h3>SOBRE EL PROYECTO</h3>
-                <p>
-                    Siguiendo en línea con el proyecto <i>MALA AMANTE</i>, decidí
-                    analizar en detalle el disco MOTOMAMI de Rosalía.
-                    Este es un trabajo al que le puse muchísimo cariño y
-                    dedicación, sacando todas las fotos yo misma y escribiendo
-                    cada uno de los textos y haciendo todas las animaciones frame x frame. Lo adjunto abajo, porque me
-                    gustaría que el trabajo hable por sí mismo.
-                </p>
-            </div>
-            <div class="col-media padding-box flex-center">
-               <iframe style="border-radius:12px; margin-top: 20px;" src="https://open.spotify.com/embed/album/6jbtHi5R0jMXoliU2OS0lo?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <p class="caption-text">escuchá el disco :)</p>
-            </div>
-        </section>
+        <dl class="case-meta">
+            <div><dt>Rol</dt><dd>Concepto, fotografía, ilustración, animación cuadro a cuadro, textos y prototipo</dd></div>
+            <div><dt>Equipo</dt><dd>Individual</dd></div>
+            <div><dt>Contexto</dt><dd>Laboratorio de Diseño V, Licenciatura en Diseño (UTDT)</dd></div>
+            <div><dt>Duración</dt><dd>Entre 6 y 8 semanas</dd></div>
+        </dl>
 
-        <section class="border-bottom">
-            <div class="prototype-section">
-                <h3>QUÉ ES MOTOMAMI</h3>
-                <p>
-                    Nota: si estás en celu es probable que no puedas verlo correctamente.
-                    Ver <a href="https://drive.google.com/drive/folders/1Sl_9oAI93yvHNxpHbySR8tEPcvWRvX9i?usp=sharing" target="_blank">videos</a> en su lugar.
-                </p>
-
-                <p>
-                    Nota 2: algunos elementos tardan un poquito en cargar, por favor paciencia.
-                </p>
+        <section class="case-summary" aria-label="Resumen">
+            <div>
+                <h2>Desafío</h2>
+                <p>Analizar en profundidad un disco y contarlo en una pieza propia, después de trabajar El mal querer en el fanzine Mala Amante.</p>
             </div>
-
-            <div class="prototype-wrapper">
-                <iframe src="https://embed.figma.com/proto/H0Nk23UbKY3tw8R7cCh4kc/Videla-Joaquina-TP-Parcial?page-id=0%3A1&node-id=2-2&viewport=261%2C367%2C0.04&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=2%3A2&embed-host=share" allowfullscreen></iframe>
+            <div>
+                <h2>Enfoque</h2>
+                <p>Entender qué dice MOTOMAMI y qué representa antes de diseñar nada, y convertir esa idea en la regla de todas las decisiones.</p>
+            </div>
+            <div>
+                <h2>Resultado</h2>
+                <p>Un prototipo interactivo en Figma, con recursos 100 % propios: sesión de fotos, ilustraciones, textos y animaciones cuadro a cuadro.</p>
             </div>
         </section>
 
-        <div class="footer-action padding-box flex-center">
-            <a href="index.html" class="btn-volver">VOLVER</a>
-        </div>
+        <!-- 01 ENTENDER -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">01</span>
+                <h2>Entender el disco</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    MOTOMAMI es un disco experimental y versátil. No pertenece a un género musical concreto, se reinventa canción a
+                    canción y plantea una forma disruptiva de componer. Todo eso porque sí: porque Rosalía quería probar, divertirse
+                    y expresarse, sin deberle explicaciones a nadie.
+                </p>
+                <p>
+                    Detrás de esa libertad hay un mensaje. Vivimos en un mundo donde lo femenino no es la norma, y durante mucho tiempo
+                    una mujer tuvo que hacer las cosas como los hombres para que la tomaran en serio.
+                </p>
+                <div class="case-quote">
+                    <span>Lo que encontré</span>
+                    Rosalía vino a seguir innovando, borrando los límites de qué "puede" y qué "no puede" hacer una mujer.
+                </div>
+                <div class="embed-wrap">
+                    <iframe class="spotify" title="MOTOMAMI en Spotify" src="https://open.spotify.com/embed/album/6jbtHi5R0jMXoliU2OS0lo?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
 
+        <!-- 02 CONCEPTO -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">02</span>
+                <h2>El concepto</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    El nombre del disco ya trae la clave: dos fuerzas que conviven en una misma persona. Tomé esa dualidad como la
+                    regla de todo el proyecto, y la llevé un paso más allá.
+                </p>
+                <div class="decision-grid">
+                    <div class="decision">
+                        <h4>Moto</h4>
+                        <p>Fuerza, velocidad, actitud. Animarse a probar algo nuevo sin pedir permiso.</p>
+                    </div>
+                    <div class="decision">
+                        <h4>Mami</h4>
+                        <p>Cuidado, ternura, vulnerabilidad. Lo afectivo como parte de la fuerza, no como su opuesto.</p>
+                    </div>
+                    <div class="decision">
+                        <h4>Todos</h4>
+                        <p>Cualquiera puede ser motomami. Los roles se mezclan: chicos en poses de cuidado, chicas en poses de fuerza.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 CONSTRUIR -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">03</span>
+                <h2>Construir el mundo</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    Para bajar a tierra el universo de una estrella pop, hice una sesión de fotos con mis amigos, en nuestras casas,
+                    con flash y sin producción. La consigna era que todos podían ser motomamis. Las poses de manejar una moto que no
+                    existe representan el lado moto, y los gestos de cuidado (maquillar, trenzar, sostener una cara) representan el lado mami.
+                </p>
+                <p>
+                    Con ese material armé el resto de las piezas: ilustraciones, animaciones cuadro a cuadro y todos los textos.
+                    Después lo integré todo en un prototipo navegable en Figma.
+                </p>
+
+                <div class="duo">
+                    <div class="duo-col">
+                        <h4>Moto</h4>
+                        <p>Fuerza, velocidad, actitud.</p>
+                        <div class="case-figures">
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/moto.jpg" aria-label="Ampliar foto"><img src="img/motomami/moto.jpg" alt="Chica con campera de moto estira los brazos como si agarrara un manubrio" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/moto-dos.jpg" aria-label="Ampliar foto"><img src="img/motomami/moto-dos.jpg" alt="Un chico maneja una moto imaginaria y una chica de rojo se agarra detrás de él" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/fuerza.jpg" aria-label="Ampliar foto"><img src="img/motomami/fuerza.jpg" alt="Una chica de rojo empuja el hombro de un chico con actitud desafiante" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/banda.jpg" aria-label="Ampliar foto"><img src="img/motomami/banda.jpg" alt="Tres amigos posan agachados con actitud, uno con pelo azul y anteojos de sol" loading="lazy"></button></figure>
+                        </div>
+                    </div>
+                    <div class="duo-col">
+                        <h4>Mami</h4>
+                        <p>Cuidado, ternura, vulnerabilidad.</p>
+                        <div class="case-figures">
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/ternura.jpg" aria-label="Ampliar foto"><img src="img/motomami/ternura.jpg" alt="Dos amigas frente a frente, una le sostiene la cara a la otra" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/maquillaje.jpg" aria-label="Ampliar foto"><img src="img/motomami/maquillaje.jpg" alt="Una chica maquilla a su amiga con un pincel" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/trenza.jpg" aria-label="Ampliar foto"><img src="img/motomami/trenza.jpg" alt="Una chica le hace una trenza a su amiga" loading="lazy"></button></figure>
+                            <figure class="case-figure photo"><button type="button" data-full="img/motomami/mirada.jpg" aria-label="Ampliar foto"><img src="img/motomami/mirada.jpg" alt="Una chica juega con un mechón de pelo mirando hacia arriba" loading="lazy"></button></figure>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:32px">Todos pueden ser motomamis</h3>
+                <div class="case-figures photo-row">
+                    <figure class="case-figure photo"><button type="button" data-full="img/motomami/pose.jpg" aria-label="Ampliar foto"><img src="img/motomami/pose.jpg" alt="Un chico con camiseta de fútbol posa de forma coqueta contra la pared" loading="lazy"></button></figure>
+                    <figure class="case-figure photo"><button type="button" data-full="img/motomami/suelo.jpg" aria-label="Ampliar foto"><img src="img/motomami/suelo.jpg" alt="Tres amigos acostados en el piso, fotografiados desde arriba" loading="lazy"></button></figure>
+                    <figure class="case-figure photo"><button type="button" data-full="img/motomami/actitud.jpg" aria-label="Ampliar foto"><img src="img/motomami/actitud.jpg" alt="Dos amigas en primer plano, una sonríe y otra tira un beso, y detrás una tercera mira seria con los brazos cruzados" loading="lazy"></button></figure>
+                    <figure class="case-figure photo"><button type="button" data-full="img/motomami/orejas.jpg" aria-label="Ampliar foto"><img src="img/motomami/orejas.jpg" alt="Una chica con chaleco de moto hace orejas con las manos sobre la cabeza" loading="lazy"></button></figure>
+                </div>
+                <p style="margin-top:12px; font-size:0.85rem; color:#555;">Fotos en crudo de la sesión.</p>
+            </div>
+        </section>
+
+        <!-- 04 LA PIEZA -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">04</span>
+                <h2>La pieza</h2>
+            </div>
+            <div class="case-section-body">
+                <p>
+                    El resultado es un recorrido interactivo por el disco. Funciona mejor en computadora y algunos elementos tardan
+                    un poco en cargar. Si estás en el celular, podés ver los
+                    <a href="https://drive.google.com/drive/folders/1Sl_9oAI93yvHNxpHbySR8tEPcvWRvX9i?usp=sharing" target="_blank" rel="noopener">videos del recorrido</a>.
+                </p>
+                <div class="embed-wrap">
+                    <iframe class="figma" title="Prototipo interactivo Qué es Motomami" src="https://embed.figma.com/proto/H0Nk23UbKY3tw8R7cCh4kc/Videla-Joaquina-TP-Parcial?page-id=0%3A1&node-id=2-2&viewport=261%2C367%2C0.04&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=2%3A2&embed-host=share" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="case-cta">
+                    <a href="https://www.figma.com/proto/H0Nk23UbKY3tw8R7cCh4kc/Videla-Joaquina-TP-Parcial?page-id=0%3A1&node-id=2-2&starting-point-node-id=2%3A2" target="_blank" rel="noopener" class="btn-solid">Abrir en pantalla completa ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 CIERRE -->
+        <section class="case-section">
+            <div class="case-section-label">
+                <span class="num">05</span>
+                <h2>El mensaje</h2>
+            </div>
+            <div class="case-section-body">
+                <div class="case-quote">
+                    <span>Reflexión final de la pieza</span>
+                    Con MOTOMAMI, Rosalía nos alienta a pegar el salto e intentar innovar nosotros también.
+                </div>
+                <p>
+                    En una sociedad que parece volverse cada vez más plana y monótona, alguien que se anima a plantear algo distinto
+                    es un oasis. Que sea una mujer le suma algo especial, porque inspira a otras a ser motomamis en sus propias vidas.
+                    Por eso el proyecto no se queda en Rosalía: lo vuelve propio, con gente real.
+                </p>
+            </div>
+        </section>
+
+        <a href="timeloot.html" class="case-next">
+            <span>Siguiente proyecto</span>
+            <strong>Timeloot →</strong>
+        </a>
+
+    </main>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+        <button type="button" class="lightbox-close" id="lightboxClose">Cerrar ✕</button>
+        <img alt="" id="lightboxImg">
     </div>
 
     <script>
-        // LANGUAGE
-        (function applyLang() {
-            if (localStorage.getItem('portfolioLang') !== 'en') return;
-            var nav = document.querySelectorAll('.sticky-header .nav-link');
-            nav[0].textContent = '← Projects';
-            nav[1].textContent = 'Contact';
-            document.querySelector('.col-text h3').textContent = 'ABOUT THE PROJECT';
-            document.querySelector('.col-text p').innerHTML = 'Following in line with the <i>MALA AMANTE</i> project, I decided to analyze in detail Rosalía\'s album MOTOMAMI. This is a project I put a lot of love and dedication into, taking all the photos myself and writing every single text and making all the animations frame by frame. I attach it below, because I would like the work to speak for itself.';
-            document.querySelector('.caption-text').textContent = 'listen to the album :)';
-            document.querySelector('.prototype-section h3').textContent = 'WHAT IS MOTOMAMI';
-            var protoPs = document.querySelectorAll('.prototype-section p');
-            protoPs[0].innerHTML = 'Note: if you\'re on mobile you probably won\'t be able to view it correctly. See <a href="https://drive.google.com/drive/folders/1Sl_9oAI93yvHNxpHbySR8tEPcvWRvX9i?usp=sharing" target="_blank">videos</a> instead.';
-            protoPs[1].textContent = 'Note 2: some elements take a little while to load, please be patient.';
-            document.querySelector('.btn-volver').textContent = 'BACK';
+        (function () {
+            var box = document.getElementById('lightbox');
+            var img = document.getElementById('lightboxImg');
+            var closeBtn = document.getElementById('lightboxClose');
+            var lastTrigger = null;
+            function open(trigger) {
+                lastTrigger = trigger;
+                var inner = trigger.querySelector('img');
+                img.src = trigger.getAttribute('data-full');
+                img.alt = inner ? inner.alt : '';
+                box.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+            }
+            function close() {
+                box.classList.remove('open');
+                document.body.style.overflow = '';
+                img.removeAttribute('src');
+                if (lastTrigger) lastTrigger.focus();
+            }
+            document.querySelectorAll('[data-full]').forEach(function (el) {
+                el.addEventListener('click', function () { open(el); });
+            });
+            closeBtn.addEventListener('click', close);
+            box.addEventListener('click', function (e) { if (e.target === box) close(); });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && box.classList.contains('open')) close();
+            });
         })();
     </script>
-
 </body>
 </html>
