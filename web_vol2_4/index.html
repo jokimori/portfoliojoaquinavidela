@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/fonts/newsreader.css">
     <title>HOME PAGE - AV</title>
     
     <link rel="stylesheet" href="home.css">
@@ -162,6 +163,25 @@
                     imgContainerSito.classList.remove('visible');
                     blurBackdrop.classList.remove('visible');
                 });
+            }
+
+            // Pantallas táctiles: un toque abre la solapa y otro toque (en cualquier lado) la cierra
+            const isTouch = window.matchMedia('(hover: none)').matches;
+            if (isTouch && blurBackdrop) {
+                const closeAll = () => {
+                    [imgContainerPr, imgContainerSito].forEach(c => c && c.classList.remove('visible'));
+                    blurBackdrop.classList.remove('visible');
+                };
+                [[btnPr, imgContainerPr], [btnSito, imgContainerSito]].forEach(([btn, box]) => {
+                    if (!btn || !box) return;
+                    btn.addEventListener('click', () => {
+                        const wasOpen = box.classList.contains('visible');
+                        closeAll();
+                        if (!wasOpen) { box.classList.add('visible'); blurBackdrop.classList.add('visible'); }
+                    });
+                });
+                blurBackdrop.addEventListener('click', closeAll);
+                [imgContainerPr, imgContainerSito].forEach(c => c && c.addEventListener('click', closeAll));
             }
         })();
 

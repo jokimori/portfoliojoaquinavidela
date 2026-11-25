@@ -1,0 +1,249 @@
+/* =====================================================================
+   FENÓMENO — RESPONSIVE
+   · Desde 820px: el lienzo de 1440px se escala en proporción a la pantalla
+     (el script fenomeno-responsive.js calcula la escala), así se ve igual
+     que en desktop en cualquier ancho.
+   · Menos de 820px: el contenido se reacomoda en una columna, con la misma
+     estética (tipografía, degradados, resaltados).
+   ===================================================================== */
+
+/* Líneas decorativas: antes eran imágenes de un servidor local de Figma que no existe en la web */
+.header-line, .vertical-line-1, .vertical-line-2, .decorative-line-top,
+.decorative-line-bottom, .section-divider-1, .section-divider-2 {
+    background: rgba(0, 0, 0, 0.28);
+    min-height: 1px;
+    min-width: 1px;
+}
+
+/* Ficha emergente de "Otros casos": entra en cualquier pantalla */
+.folder-card {
+    width: min(900px, 92vw) !important;
+    min-height: 0 !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: clamp(20px, 4vw, 40px) clamp(18px, 4vw, 50px) !important;
+    box-shadow: clamp(6px, 1.2vw, 15px) clamp(6px, 1.2vw, 15px) 0 rgba(0, 0, 0, 0.25) !important;
+}
+.folder-title { font-size: clamp(36px, 6vw, 72px) !important; }
+.folder-subtitle { font-size: clamp(22px, 4vw, 48px) !important; }
+.folder-map-img { width: clamp(48px, 7vw, 80px) !important; height: clamp(48px, 7vw, 80px) !important; }
+.folder-body { font-size: clamp(16px, 2.4vw, 32px) !important; }
+.folder-img { height: clamp(110px, 16vw, 180px) !important; }
+
+/* Gráficos para celular (se generan con el script) — ocultos en desktop */
+.m-chart { display: none; }
+
+/* ---------- Desktop / tablet acostada: lienzo escalado y centrado ---------- */
+@media (min-width: 820px) and (orientation: landscape) and (min-height: 501px), (min-width: 1101px) and (min-height: 501px) {
+    .container {
+        left: 50%;
+        margin-left: -720px !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* ---------- Celular y tablet parada ---------- */
+@media (max-width: 819px), (orientation: portrait) and (max-width: 1100px), (max-height: 500px) {
+    body { padding-top: 56px !important; }
+
+    /* Barra superior */
+    .fixed-header-container { height: 56px !important; }
+    .header-inner { padding: 0 !important; }
+    .logo { left: 16px !important; font-size: 19px !important; }
+    .header-title { font-size: 19px !important; }
+    .volver-top { right: 16px !important; font-size: 14px !important; }
+
+    /* El lienzo pasa a ser una columna */
+    .container {
+        position: relative !important;
+        width: auto !important;
+        transform: none !important;
+        margin: 0 !important;
+        left: auto !important;
+        padding: 8px 20px 72px;
+        display: flex;
+        flex-direction: column;
+        min-height: 0 !important;
+    }
+    /* (las piezas del gráfico 1 quedan fuera: el script lee sus medidas originales) */
+    .container > *:not([class^="chart-1-"]),
+    .hero-section > *,
+    .que-es-section > *,
+    .revalorizacion-section > * {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
+        white-space: normal !important;
+    }
+    .container > *, .hero-section > *, .que-es-section > *, .revalorizacion-section > * {
+        margin: 0;
+        line-height: 1.15;
+    }
+
+    /* Decoración que en una columna no aporta */
+    .header-line, .bg-letters-container, .letter-v, .decorative-line-v,
+    .gray-gradient-section, .decorative-line-top, .decorative-line-bottom,
+    .vertical-line-1, .vertical-line-2, .vertical-line-3, .vertical-line-4,
+    .gentrificacion-title-overlay, .section-divider-1, .section-divider-2,
+    .gray-bg-section, .decorative-line-1, .decorative-line-2, .decorative-line-3,
+    .rectangle-1, .rectangle-2, .renovacion-section, .renovacion-bg,
+    .renovacion-gradient-1, .renovacion-gradient-2, .renovacion-icon,
+    .renovacion-divider, .transformacion-divider-1, .transformacion-divider-2,
+    .transformacion-divider-3, .container > [class^="chart-1-"],
+    .chart-section-1, .chart-section-2, .chart-2-container, .chart-label-1,
+    .chart-label-2, .examples-section, .disputa-divider-1, .disputa-divider-2,
+    .disputa-divider-3, .disputa-vertical, .disputa-horizontal, .tension-bg,
+    .tension-decorative-1, .tension-vertical-1, .tension-horizontal-1,
+    .tension-gradient-overlay, .tension-divider, .highlight-registro,
+    .gradient-sidebar-right, .gradient-sidebar-left,
+    .hero-section .dashed-box, .hero-section .red-gradient-box,
+    .que-es-section .gray-box, .que-es-section .decorative-element-1,
+    .que-es-section .decorative-element-2, .revalorizacion-image-box {
+        display: none !important;
+    }
+
+    /* Orden de lectura */
+    .hero-section { order: 1; }
+    .text-nuevo-interes { order: 2; }
+    .text-block-main { order: 3; }
+    .gentrificacion-title { order: 4; }
+    .text-fenomeno-urbano { order: 5; }
+    .que-es-section { order: 6; }
+    .text-otros-casos { order: 7; }
+    .image-card-1 { order: 8; }
+    .image-card-2 { order: 9; }
+    .image-card-3 { order: 10; }
+    .revalorizacion-section { order: 11; }
+    .text-transformacion { order: 12; }
+    .text-lo-visible { order: 13; }
+    .text-otra-cara { order: 14; }
+    .text-otra-cara-desc { order: 15; }
+    .m-chart-1 { order: 16; }
+    .m-chart-2 { order: 17; }
+    .disputa-simbolica { order: 18; }
+    .text-gentrificacion-chacarita { order: 19; }
+    .text-tension { order: 20; }
+    .text-tension-desc { order: 21; }
+    .text-hoy-chacarita { order: 22; }
+    .final-text { order: 23; }
+
+    /* 1 · Titular */
+    .hero-section { display: block; padding: 40px 0 28px; }
+    .hero-section .text-un,
+    .hero-section .text-fenomeno { display: inline-block; font-size: clamp(44px, 14vw, 88px) !important; line-height: 1.1; }
+    .hero-section .text-fenomeno {
+        background: linear-gradient(to right, rgb(255, 129, 129), rgb(227, 59, 59));
+        padding: 0 10px 4px;
+        margin-left: 6px;
+    }
+    .hero-section .text-mundial { display: block; font-size: clamp(18px, 5vw, 28px) !important; margin-top: 10px; padding-left: 4px; }
+
+    /* 2 · Este nuevo interés */
+    .text-nuevo-interes {
+        font-size: clamp(34px, 10.5vw, 64px) !important;
+        line-height: 0.95 !important;
+        text-align: right;
+        margin: 28px 0 24px;
+        padding-left: 12%;
+    }
+
+    /* Textos corridos */
+    .text-block-main, .text-fenomeno-urbano, .text-zonas, .text-explicacion,
+    .text-otra-cara-desc, .text-gentrificacion-chacarita, .text-tension-desc, .final-text {
+        font-size: clamp(17px, 4.6vw, 22px) !important;
+        line-height: 1.55 !important;
+        font-weight: 300 !important;
+    }
+
+    /* 3 · GENTRIFICACIÓN */
+    .container .gentrificacion-title {
+        font-size: clamp(28px, 9.4vw, 76px) !important;
+        line-height: 0.95 !important;
+        margin: 40px 0 10px;
+        letter-spacing: -0.01em;
+        white-space: nowrap !important;
+    }
+    .text-fenomeno-urbano { text-align: right; margin-bottom: 8px; }
+
+    /* 4 · ¿Qué es? */
+    .que-es-section { display: flex; flex-direction: column; margin-top: 40px; background: transparent !important; }
+    .que-es-section .text-que-es {
+        order: -1;
+        align-self: flex-start;
+        font-size: clamp(36px, 11vw, 64px) !important;
+        padding: 6px 16px 8px 12px;
+        background: linear-gradient(to right, rgb(217, 217, 217), rgb(115, 115, 115));
+    }
+    .que-es-section .white-text-box { background: #fff; padding: 16px 0 0; }
+    .que-es-section .text-explicacion { position: static !important; }
+
+    /* 5 · Otros casos */
+    .text-otros-casos { font-size: 22px !important; margin: 44px 0 14px; }
+    .image-card-1, .image-card-2, .image-card-3 { margin-bottom: 16px; }
+    .image-card-1 img, .image-card-2 img, .image-card-3 img { width: 100%; height: auto; display: block; }
+
+    /* 6 · Revalorización inmobiliaria */
+    .revalorizacion-section { margin-top: 32px; padding: 22px 20px 24px; background: rgb(234, 234, 234) !important; }
+    .revalorizacion-section .text-revalorizacion { font-size: clamp(26px, 8vw, 44px) !important; margin-bottom: 12px; }
+    .revalorizacion-section .revalorizacion-gradient { width: 60% !important; height: 14px !important; margin-top: 16px; }
+
+    /* 7 · Una transformación entre lo visible y lo silencioso */
+    .text-transformacion { font-size: clamp(30px, 9vw, 60px) !important; margin-top: 52px; }
+    .text-lo-visible { font-size: clamp(32px, 9.6vw, 64px) !important; text-align: right; margin-top: 6px; }
+
+    /* 8 · La otra cara de la renovación */
+    .text-otra-cara {
+        font-size: clamp(26px, 7.6vw, 40px) !important;
+        margin-top: 48px;
+        padding: 22px 20px 10px;
+        background: linear-gradient(rgb(137, 137, 137), rgb(160, 160, 160));
+    }
+    .text-otra-cara-desc { padding: 6px 20px 24px; background: linear-gradient(rgb(160, 160, 160), rgb(183, 183, 183)); }
+
+    /* 9 · Gráficos */
+    .m-chart { display: block; margin-top: 48px; }
+    .m-chart-title { font-size: clamp(20px, 6vw, 30px); font-weight: 200; color: rgb(82, 79, 79); line-height: 1.2; margin-bottom: 18px; }
+    .m-bars {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        gap: 8px;
+        align-items: end;
+        height: 220px;
+        border-left: 1px solid #000;
+        border-bottom: 1px solid #000;
+        padding: 0 6px;
+    }
+    .m-bar { width: 100%; }
+    .m-years { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; padding: 6px 6px 0; }
+    .m-years span { font-size: 13px; font-weight: 500; text-align: center; }
+
+    /* 10 · Disputa simbólica */
+    .disputa-simbolica { font-size: clamp(34px, 10vw, 64px) !important; margin-top: 56px; }
+    .text-gentrificacion-chacarita { font-style: italic; margin-top: 8px; }
+
+    /* 11 · TENSIÓN */
+    .text-tension {
+        font-size: clamp(56px, 19vw, 170px) !important;
+        line-height: 1 !important;
+        margin-top: 48px;
+        padding: 6px 14px 14px;
+        background: linear-gradient(to left, rgb(238, 72, 72), rgb(0, 0, 0));
+        color: #fff !important;
+        overflow: hidden;
+    }
+    .text-tension-desc { font-style: italic; text-align: right; margin-top: 12px; padding-left: 20%; }
+
+    /* 12 · Cierre */
+    .text-hoy-chacarita { font-size: clamp(26px, 7.4vw, 44px) !important; line-height: 1.25 !important; margin-top: 56px; }
+    .text-hoy-chacarita .bold-italic { background: linear-gradient(rgb(238, 72, 72), rgb(217, 83, 126)); padding: 0 4px; }
+    .final-text { margin-top: 28px; }
+
+    /* Las animaciones de entrada siguen funcionando, pero sin desplazamientos laterales grandes */
+    [data-animate-left] { transform: none; }
+}

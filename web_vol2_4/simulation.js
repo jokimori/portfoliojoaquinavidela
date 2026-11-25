@@ -1662,3 +1662,18 @@ function animate() {
 animate();
 
 update();
+// --- RESPONSIVE: la cámara y el canvas se adaptan a cualquier pantalla ---
+// En pantallas apaisadas (como en desktop) el encuadre queda igual; en pantallas
+// angostas o verticales se aleja lo justo para que entre todo el barrio.
+function fitCameraToContainer() {
+    const w = container.clientWidth, h = container.clientHeight;
+    if (!w || !h) return;
+    const a = w / h;
+    const vs = Math.max(viewSize, 18 / a);
+    camera.left = -vs * a; camera.right = vs * a; camera.top = vs; camera.bottom = -vs;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+}
+fitCameraToContainer();
+let simResizeTimer;
+window.addEventListener('resize', () => { clearTimeout(simResizeTimer); simResizeTimer = setTimeout(fitCameraToContainer, 100); });
