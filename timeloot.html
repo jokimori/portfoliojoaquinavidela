@@ -114,6 +114,7 @@
             <div class="game-section-header col-text padding-box">
                 <h3>EL JUEGO</h3>
                 <p>Si estás en compu podés probar nuestro juego. En celu lamentablemente no se puede jugar :(</p>
+                <p>La primera vez tarda un poco en cargar: si ves la pantalla en negro, esperá unos segundos.</p>
             </div>
 
             <div class="game-wrapper" id="gameArea">
@@ -166,6 +167,7 @@
             ps2[0].textContent = 'The game was conceived and developed by my classmates Nina Storchi, Martina Rodríguez Justo, and myself. The three of us took care of every part of the game: mechanics creation, level design, characters, music, and programming. It was originally designed for an arcade machine, but it can also be played on a computer.';
             h3s[2].textContent = 'THE GAME';
             document.querySelector('.game-section-header p').textContent = 'If you\'re on a computer you can try our game. Unfortunately it can\'t be played on mobile :(';
+            var gameNotes = document.querySelectorAll('.game-section-header p'); if (gameNotes[1]) gameNotes[1].textContent = 'The first load takes a little while: if you see a black screen, wait a few seconds.';
             document.querySelector('.btn-jugar-big').textContent = 'PLAY';
             document.querySelector('.btn-volver').textContent = 'BACK';
         })();
